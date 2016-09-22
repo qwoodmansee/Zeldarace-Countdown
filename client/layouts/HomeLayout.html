@@ -1,6 +1,7 @@
 <template name="HomeLayout">
-    {{> Sidebar}}
-
+    <div class="home-layout-sidebar">
+        {{> Template.dynamic template=sidebar}}
+    </div>
     <div class="content home-layout-content">
         {{> Template.dynamic template=main}}
     </div>
