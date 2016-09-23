@@ -1,3 +1,5 @@
-Template.TimerLayout.ownerUsername = function() {
-    return FlowRouter.getParam('username');
-};
+Template.TimerLayout.helpers({
+    ownerUsername() {
+        return FlowRouter.getParam('username');
+    }
+});

@@ -11,11 +11,14 @@ Template.TimerLayout.onCreated(function(){
     })
 });
 
-Template.HomeLayout.loggedInUsername = function() {
-    if (Meteor.user() != null) {
-        return Meteor.user().profile.name;
+Template.HomeLayout.helpers({
+    loggedInUsername() {
+        if (Meteor.user() != null) {
+            return Meteor.user().profile.name;
+        }
     }
-};
+})
+
 
 //allow custom template for nav bar button
 Template.myAtNavButton.replaces("atNavButton");

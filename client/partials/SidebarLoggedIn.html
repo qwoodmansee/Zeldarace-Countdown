@@ -1,6 +1,7 @@
 <template name="SidebarLoggedIn">
     <ul id="slide-out" class="side-nav fixed grey darken-3 white-text">
-        <li class="white-text" style="margin-top: 35vh"><a href="/user/logout" class="white-text">Sign Out</a></li>
+        <li class="white-text" style="margin-top: 35vh"><a href="/{{loggedInUsername}}" class="white-text">My Timer</a></li>
+        <li class="white-text" style="margin-top: 5vh"><a href="/user/logout" class="white-text">Sign Out</a></li>
     </ul>
     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
 
