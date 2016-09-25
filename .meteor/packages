@@ -25,7 +25,7 @@ useraccounts:materialize
 useraccounts:flow-routing
 materialize:materialize@=0.97.0
 aldeed:collection2
-aldeed:autoform
+gildaspk:autoform-materialize
 meteortoys:allthings
 dburles:collection-helpers
 fourseven:scss

@@ -1,0 +1,79 @@
+nav {
+    height: 5vh;
+    line-height: 5vh;
+}
+
+nav i, nav [class^="mdi-"], nav [class*="mdi-"], nav i.material-icons {
+    height: 5vh;
+    line-height: 5vh;
+}
+
+nav .button-collapse i {
+    height: 5vh;
+    line-height: 5vh;
+}
+
+nav .brand-logo {
+    font-size: 1.6rem;
+}
+
+@media only screen and (min-width: 601px){
+    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+        height: 5vh;
+        line-height: 5vh;
+    }
+}
+
+.no-margin {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+@font-face {
+    font-family: "triforce";
+    src: url(Triforce.ttf);
+}
+
+.triforce {
+    font-family: 'triforce';
+}
+
+/* label color */
+.input-field label {
+    color: #ec407a;
+}
+/* label focus color */
+.input-field input[type=number]:focus + label {
+    color: #ec407a;
+}
+/* label underline focus color */
+.input-field input[type=number]:focus {
+    border-bottom: 1px solid #ec407a;
+    box-shadow: 0 1px 0 0 #000;
+}
+/* label underline non focus color */
+.input-field input[type=number] {
+    border-bottom: 1px solid white;
+    box-shadow: 0 1px 0 0 #000;
+}
+/* valid color */
+.input-field input[type=number].valid {
+    border-bottom: 1px solid white;
+    box-shadow: 0 1px 0 0 #000;
+}
+/* invalid color */
+.input-field input[type=number].invalid {
+    border-bottom: 1px solid #d50000 ;
+    box-shadow: 0 1px 0 0 #000;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+    color: #ec407a;
+}
+
+ul.dropdown-content.select-dropdown li span {
+    color: #3f51b5;
+}
+

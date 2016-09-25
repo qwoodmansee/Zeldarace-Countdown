@@ -1,3 +1,0 @@
-server/accounts
-node_modules
-.idea

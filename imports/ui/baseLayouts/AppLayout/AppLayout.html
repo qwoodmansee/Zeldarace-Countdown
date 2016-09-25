@@ -1,0 +1,10 @@
+<template name="AppLayout">
+    <div class="app-background-container grey-darken-1">
+        <div class="app-layout-sidebar">
+            {{> Template.dynamic template=sidebar}}
+        </div>
+        <div class="content app-layout-content">
+            {{> Template.dynamic template=main}}
+        </div>
+    </div>
+</template>

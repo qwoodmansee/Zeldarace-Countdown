@@ -1,0 +1,43 @@
+<template name="GenerateTimerModal">
+    <div id="generateModal" class="modal grey darken-3">
+        <form class="generate-form">
+            <div class="modal-content white-text">
+                <h4 class="center white-text">Generate New Timer</h4>
+                <p class="center white-text">All fields random if left blank</p>
+                <br/>
+                <div class="row">
+                    <div class="input-field col s5">
+                        <input placeholder="Use Whole Numbers Only" id="length_input" name="length" type="number" min="0" class="validate" >
+                        <label class="active" for="length_input">Length in Minutes</label>
+                    </div>
+                    <div class="input-field col s5 offset-s2">
+                        <select class="white-text" name="weights" id="weights-select">
+                            <option value="" class="red-text" disabled selected>Choose your option</option>
+                            <option value="1" class="indigo-text">No Weights</option>
+                            <option value="2" class="indigo-text">Random</option>
+                            <option value="3" class="indigo-text">Balanced Random</option>
+                        </select>
+                        <label>Weights</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input value="5" id="first_name2" type="number" class="validate" name="totalGoals" min="0">
+                        <label class="active" for="first_name2">Number of Available Goals</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input value="2" id="first_name2" type="number" class="validate" name="requiredGoals" min="0">
+                        <label class="active" for="first_name2">Total Required Goals Count</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input value="1" id="first_name2" type="number" class="validate" name="preChosen" min="0">
+                        <label class="active" for="first_name2">Required Pre-Chosen Goals Count</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer grey darken-3">
+                <button class=" modal-action modal-close waves-effect waves-pink btn pink lighten-1" type="submit">Generate</button>
+            </div>
+        </form>
+    </div>
+</template>
