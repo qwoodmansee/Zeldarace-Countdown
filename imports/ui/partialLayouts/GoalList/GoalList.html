@@ -1,0 +1,17 @@
+<template name="GoalList">
+    <div class="row">
+        {{#each goals}}
+            <div class="col s2">
+                {{#if required}}
+                    <div class="card-panel goal-card pink lighten-1 white-text">
+                        {{name}}
+                    </div>
+                {{else}}
+                    <div class="card-panel goal-card goal-card-required indigo white-text">
+                        {{name}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+</template>

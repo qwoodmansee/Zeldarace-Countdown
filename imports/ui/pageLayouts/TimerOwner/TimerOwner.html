@@ -1,0 +1,31 @@
+<!--Modals-->
+
+<template name="TimerOwner">
+    {{> GenerateTimerModal}}
+
+    <div class="grey-darken-1">
+        <div class="row">
+            <h1 class="white-text triforce" style="font-size: 2em; margin-top:1%">
+                Your timer
+            </h1>
+        </div>
+    {{#if Template.subscriptionsReady}}
+    {{/if}}
+        <div class="row">
+            <h1 class="center">{{RemainingTimeFormatted.hours}}:{{RemainingTimeFormatted.minutes}}:{{RemainingTimeFormatted.seconds}}</h1>
+        </div>
+        <div class="row">
+            <div class="center">
+                <button class="waves-effect waves-light btn-large indigo" id="timer-start-button">Start Timer</button>
+                <button class="waves-effect waves-light btn-large pink lighten-1 modal-trigger" href="#generateModal">Generate New</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {{>GoalList}}
+    </div>
+
+    <div class="row">{{>ItemMenu}}</div>
+
+
+</template>

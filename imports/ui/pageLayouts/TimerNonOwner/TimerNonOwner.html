@@ -1,0 +1,29 @@
+<template name="TimerNonOwner">
+    <div class="grey-darken-1">
+        <div class="row">
+            <h1 class="triforce" style="font-size: 2em; margin-top:1%">
+                {{OwnerUsername}}'s timer
+            </h1>
+        </div>
+        {{#if Template.subscriptionsReady}}
+            {{#if TimerExists}}
+            <div class="row">
+                <h1 class="center">{{RemainingTimeFormatted.hours}}:{{RemainingTimeFormatted.minutes}}:{{RemainingTimeFormatted.seconds}}</h1>
+            </div>
+            <div class="row">
+                {{>GoalList}}
+            </div>
+            {{else}}
+                <div class="row">
+                    <h4 class="center"> Looks like {{OwnerUsername}} doesn't have a timer yet. Tell them to log in!</h4>
+                    <p class="center"><a href="http://www.twitch.tv/{{OwnerUsername}}">Here's a link to their Twitch (assuming it exists!)</a></p>
+                </div>
+            {{/if}}
+        {{/if}}
+
+        <br/>
+        <br/>
+        <br/>
+    </div>
+
+</template>
