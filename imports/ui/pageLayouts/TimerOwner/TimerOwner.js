@@ -8,6 +8,7 @@ import {Timers} from '../../../api/timers/Timers.js';
 
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/GoalList/GoalList.js';
+import '../../partialLayouts/ItemMenu/ItemMenu.js';
 import './TimerOwner.html';
 import './TimerOwner.css';
 
@@ -48,6 +49,7 @@ Template.TimerOwner.onRendered(function() {
     $('.modal-trigger').leanModal();
     $('select').material_select();
     $("#generateModal").appendTo("body");
+    $('.carousel-slider').slider({full_width: true})
 
 
 });

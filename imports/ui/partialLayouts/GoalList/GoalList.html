@@ -1,32 +1,17 @@
 <template name="GoalList">
-    <!--
-    <div class="carousel carousel-slider center" data-indicators="true">
-        <div class="carousel-item grey darken-3 white-text" href="#one!">
-            <div class="row">
-                {{#each goals}}
-                    <div class="col s2">
-                        {{#if required}}
-                            <div class="card-panel goal-card pink lighten-1 white-text">
-                                {{name}}
-                            </div>
-                        {{else}}
-                            <div class="card-panel goal-card goal-card-required indigo white-text">
-                                {{name}}
-                            </div>
-                        {{/if}}
+    <div class="row">
+        {{#each goals}}
+            <div class="col s2">
+                {{#if required}}
+                    <div class="card-panel goal-card pink lighten-1 white-text">
+                        {{name}}
                     </div>
-                {{/each}}
+                {{else}}
+                    <div class="card-panel goal-card goal-card-required indigo white-text">
+                        {{name}}
+                    </div>
+                {{/if}}
             </div>
-        </div>
-        <div class="carousel-item grey darken-3 white-text" href="#two!">
-            Eventually Items here
-        </div>
-    </div>!-->
-    <div class="carousel carousel-slider">
-        <a class="carousel-item" href="#one!"><img src="http://lorempixel.com/800/400/food/1"></a>
-        <a class="carousel-item" href="#two!"><img src="http://lorempixel.com/800/400/food/2"></a>
-        <a class="carousel-item" href="#three!"><img src="http://lorempixel.com/800/400/food/3"></a>
-        <a class="carousel-item" href="#four!"><img src="http://lorempixel.com/800/400/food/4"></a>
+        {{/each}}
     </div>
-
 </template>

@@ -16,7 +16,7 @@ Template.GoalList.onCreated(function() {
 });
 
 Template.GoalList.onRendered(function(){
-    $('.carousel-slider').slider({full_width: true})
+
 });
 
 Template.GoalList.helpers({
