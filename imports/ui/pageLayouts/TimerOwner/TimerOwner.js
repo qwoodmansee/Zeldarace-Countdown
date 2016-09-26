@@ -8,7 +8,7 @@ import {Timers} from '../../../api/timers/Timers.js';
 
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/GoalList/GoalList.js';
-import '../../partialLayouts/ItemMenu/ItemMenu.js';
+import '../../partialLayouts/Scorecard/Scorecard.js';
 import './TimerOwner.html';
 import './TimerOwner.css';
 
@@ -41,6 +41,7 @@ Template.TimerOwner.onCreated(function(){
         self.subscribe('singleTimer', FlowRouter.getParam('username'));
         self.currentTimer = new ReactiveVar(Timers.find({owner: FlowRouter.getParam('username')}).fetch());
     });
+
 });
 
 
@@ -49,9 +50,9 @@ Template.TimerOwner.onRendered(function() {
     $('.modal-trigger').leanModal();
     $('select').material_select();
     $("#generateModal").appendTo("body");
-    $('.carousel-slider').slider({full_width: true})
-
-
+    $('.collapsible').collapsible({
+        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
 });
 
 Template.TimerOwner.helpers({
@@ -84,3 +85,4 @@ Template.TimerOwner.events({
        Template.instance().countdown.start();
    }
 });
+

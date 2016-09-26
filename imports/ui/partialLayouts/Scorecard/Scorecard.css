@@ -1,0 +1,7 @@
+.score-card-container .scorecard-item {
+    opacity: 0.25;
+}
+
+.score-card-container .collected {
+    opacity: 1;
+}

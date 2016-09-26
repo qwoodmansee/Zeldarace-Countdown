@@ -1,0 +1,43 @@
+<template name="Scorecard">
+    <div class="row score-card-container">
+        <div class="col s3">
+            {{#each itemMenuGridRows}}
+                <div class="row">
+                    {{#each items}}
+                        <div class="col s2 scorecard-item"> <img src="/icons/{{name}}.png"></div>
+                    {{/each}}
+                </div>
+            {{/each}}
+        </div>
+        <div class="col s3">
+            {{#each EquipMenuGridRows}}
+                <div class="row">
+                    {{#each items}}
+                        <div class="col s3 scorecard-item collected"> <img src="/icons/{{name}}.png"></div>
+                    {{/each}}
+                </div>
+            {{/each}}
+        </div>
+        <div class="col s3">
+                {{#each SongGridRows}}
+                    <div class="row">
+                        {{#each items}}
+                            <div class="col s2 scorecard-item"> <img src="/icons/{{name}}.png"></div>
+                        {{/each}}
+                    </div>
+                {{/each}}
+                {{#each MedallionAndExtraGridRows}}
+                    <div class="row">
+                        {{#each items}}
+                            <div class="col s2 scorecard-item"> <img src="/icons/{{name}}.png"></div>
+                        {{/each}}
+                    </div>
+                {{/each}}
+        </div>
+        <div class="col s3">
+            <div class="center-block">
+                <h3>Score: {{currentScore}}</h3>
+            </div>
+        </div>
+    </div>
+</template>
