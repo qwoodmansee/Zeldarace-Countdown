@@ -4,7 +4,10 @@
             {{#each itemMenuGridRows}}
                 <div class="row">
                     {{#each items}}
-                        <div class="col s2 scorecard-item"> <img src="/icons/{{name}}.png"></div>
+                        <div class="col s2 scorecard-item" data-weight="{{weight}}">
+                            <img class="scorecard-icon" src="/icons/{{name}}.png">
+                            <span class="weight-label">{{weight}}</span>
+                        </div>
                     {{/each}}
                 </div>
             {{/each}}
@@ -13,7 +16,10 @@
             {{#each EquipMenuGridRows}}
                 <div class="row">
                     {{#each items}}
-                        <div class="col s3 scorecard-item collected"> <img src="/icons/{{name}}.png"></div>
+                        <div class="col s2 scorecard-item" data-weight="{{weight}}">
+                            <img class="scorecard-icon" src="/icons/{{name}}.png">
+                            <span class="weight-label">{{weight}}</span>
+                        </div>
                     {{/each}}
                 </div>
             {{/each}}
@@ -22,21 +28,29 @@
                 {{#each SongGridRows}}
                     <div class="row">
                         {{#each items}}
-                            <div class="col s2 scorecard-item"> <img src="/icons/{{name}}.png"></div>
+                            <div class="col s2 scorecard-item" data-weight="{{weight}}">
+                                <img class="scorecard-icon" src="/icons/{{name}}.png">
+                                <span class="weight-label">{{weight}}</span>
+                            </div>
                         {{/each}}
                     </div>
                 {{/each}}
                 {{#each MedallionAndExtraGridRows}}
                     <div class="row">
                         {{#each items}}
-                            <div class="col s2 scorecard-item"> <img src="/icons/{{name}}.png"></div>
+                            <div class="col s2 scorecard-item" data-weight="{{weight}}">
+                                <img class="scorecard-icon" src="/icons/{{name}}.png">
+                                <span class="weight-label">{{weight}}</span>
+                            </div>
                         {{/each}}
                     </div>
                 {{/each}}
         </div>
         <div class="col s3">
             <div class="center-block">
-                <h3>Score: {{currentScore}}</h3>
+                <h3>Score: </h3><h3><span id="score-counter">0</span></h3>
+                <br>
+                <button id="score-reset-button" class="waves-effect waves-light btn white black-text">Reset To Blank</button>
             </div>
         </div>
     </div>

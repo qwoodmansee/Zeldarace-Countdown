@@ -46,6 +46,10 @@ TimerSchema = new SimpleSchema({
         label: "Timer Goals",
         blackbox: true
     },
+    goalsRequired: {
+        type: Number,
+        label: 'Number of goals required'
+    },
     weights: {
         type: Object,
         label: "Obtainable Item Weights",

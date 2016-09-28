@@ -1,7 +1,18 @@
 .score-card-container .scorecard-item {
+    position: relative;
     opacity: 0.25;
 }
 
 .score-card-container .collected {
     opacity: 1;
+}
+
+
+.weight-label {
+    position: absolute;
+    font-size: 1em;
+    top: .9em;
+    left: 2.2em;
+    opacity: 1;
+
 }

@@ -5,14 +5,18 @@
                 {{OwnerUsername}}'s timer
             </h1>
         </div>
+        <div class="row">
+            <h1 class="center" id="countdown" hidden>
+                <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span>
+            </h1>
         {{#if Template.subscriptionsReady}}
             {{#if TimerExists}}
-            <div class="row">
-                <h1 class="center">{{RemainingTimeFormatted.hours}}:{{RemainingTimeFormatted.minutes}}:{{RemainingTimeFormatted.seconds}}</h1>
-            </div>
-            <div class="row">
-                {{>GoalList}}
-            </div>
+                {{#if Template.subscriptionsReady}}
+
+                        {{#if TimerNotRunning}}
+                            <h1 class="center">{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</h1>
+                        {{/if}}
+                {{/if}}
             {{else}}
                 <div class="row">
                     <h4 class="center"> Looks like {{OwnerUsername}} doesn't have a timer yet. Tell them to log in!</h4>
@@ -20,10 +24,19 @@
                 </div>
             {{/if}}
         {{/if}}
+        </div>
+        <ul class="collapsible grey darken-3 center goal-and-scorecard" data-collapsible="accordion" hidden>
+            <li>
+                <div class="collapsible-header thin-header grey darken-3">Goals</div>
+                <div class="collapsible-body">{{>GoalList}}</div>
+            </li>
+            <li>
+                <div class="collapsible-header thin-header grey darken-3">Scorecard</div>
+                <div class="collapsible-body">{{>Scorecard}}</div>
+            </li>
+        </ul>
 
-        <br/>
-        <br/>
-        <br/>
+
     </div>
 
 </template>

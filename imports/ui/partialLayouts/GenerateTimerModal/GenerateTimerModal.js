@@ -8,7 +8,7 @@ import './GenerateTimerModal.css';
 import './GenerateTimerModal.html';
 
 import {GoalGenerator} from '../../../helpers/GoalGenerator.js';
-
+import {WeightGenerator} from '../../../helpers/WeightGenerator.js';
 
 Template.GenerateTimerModal.onRendered(function() {
 
@@ -24,7 +24,7 @@ Template.body.events({
 
         //get values
         var lengthInMinutes = target.length.value;
-        var weightsChoice = $('weights-select').val();
+        var weightsChoice = $('#weights-select').val();
         var numGoals = target.totalGoals.value;
         var numRequiredGoals = target.requiredGoals.value;
         var numPrechosenGoals = target.preChosen.value;
@@ -69,11 +69,18 @@ Template.body.events({
         const goalGenerator = new GoalGenerator();
         var goals = goalGenerator.generateGoals(numGoals, numPrechosenGoals);
 
-        //TODO(quinton): Generate a weight set based on choice
+        //TODO(quinton): allow choice for smart weights once implemented
+        var weights = {};
+        const weightGenerator = new WeightGenerator();
+        if (!weightsChoice || weightsChoice == 1) {
+            weights = weightGenerator.generateEqualWeights();
+        } else if (weightsChoice == 2 || weightsChoice == 3) {
+            weights = weightGenerator.generateRandomWeights();
+        }
 
         //update the timer currently associated
         var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
-        Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': {}, 'goals': goals, 'running': false}});
+        Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': weights, 'goals': goals, 'goalsRequired': numRequiredGoals, 'running': false}});
 
     }
 });
