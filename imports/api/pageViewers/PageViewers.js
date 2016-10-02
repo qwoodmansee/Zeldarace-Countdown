@@ -9,8 +9,6 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 export const PageViewers = new Mongo.Collection('PageViewers');
 
-SimpleSchema.debug = true;
-
 PageViewers.allow({
     insert: function(userId, doc) {
         return !!userId;

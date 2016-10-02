@@ -108,15 +108,15 @@ Template.body.events({
 
         var lengthInMS = lengthInMinutes * 60 * 1000;
 
-        //allow 0 goals, but limit to 6 for now
+        //allow 0 goals, but limit to 12 for now
         if (numGoals < 0) {
             numGoals = 0;
-        } else if (numGoals > 6) {
-            numGoals = 6;
+        } else if (numGoals > 12) {
+            numGoals = 12;
         }
 
         //if num required is more than total goals, just set them equal
-        if (numRequiredGoals > numGoals) {
+        if (parseInt(numRequiredGoals) > numGoals) {
             numRequiredGoals = numGoals;
         } else if (numRequiredGoals < 0) {
             numGoals = 0;

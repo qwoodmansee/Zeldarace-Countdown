@@ -22,7 +22,6 @@ import '../../ui/partialLayouts/SidebarLoggedOut/SidebarLoggedOut.js';
 FlowRouter.route('/:username', {
     name: 'timer',
     action(params) {
-        console.log("username route called");
         Tracker.autorun(function() {
             if (Meteor.user() != null && Meteor.user().profile.name === params.username) {
                 BlazeLayout.render('AppLayout', {main: 'TimerOwner', navbar: 'SidebarLoggedIn'});
@@ -38,7 +37,6 @@ FlowRouter.route('/:username', {
 FlowRouter.route('/', {
     name: 'index',
     action: function(params) {
-        console.log("index route called");
         Tracker.autorun(function() {
             if (!Meteor.userId()) {
                 console.log("username check failed");

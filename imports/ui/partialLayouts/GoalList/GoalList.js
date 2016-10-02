@@ -128,15 +128,16 @@ Template.GoalList.onCreated(function() {
         var selectedIndexes = self.goalsSelected.get();
 
         // get all the goal card objects
-        var goalCards = $('.goal-card');
+        $('.goal-card').each(function(index) {
+            if (selectedIndexes.indexOf(index) === -1 ) {
+                //if goal is not selected make sure it doesnt have required class
+                $(this).removeClass('required');
+            } else {
+                //if goal is selected give it the required (and locked since it's prechosen) class
+                $(this).addClass('required');
 
-        //loop through the goals selected
-        for (var i = 0; i < goalCards.length; i++) {
-
-            if (selectedIndexes.indexOf(i) === -1 ) {
-                //if goal is not selected
             }
-        }
+        });
 
 
     });
@@ -185,7 +186,7 @@ Template.GoalList.events({
                if (Template.instance().goalsSelected.get().length < Template.instance().numGoalsRequired.get()) {
                    if (!this.required) {
                        this.required = true;
-                       obj.addClass('required-goal').removeClass('indigo').addClass('locked');
+                       obj.addClass('required');
                        for (var i=0; i<timer.goals.length; i++) {
                            if (this.name === timer.goals[i].name) {
                                var currentGoalsSelected = Template.instance().goalsSelected.get();
@@ -198,7 +199,7 @@ Template.GoalList.events({
                            }
                        }
                    }
-               } else if (obj.hasClass('required-goal')) {
+               } else if (obj.hasClass('required')) {
                    //selecting goal after a timer is start means completing or uncompleting it
                    if (obj.hasClass('complete')) {
                        obj.removeClass('complete').addClass('locked').removeClass('green');
@@ -218,7 +219,7 @@ Template.GoalList.events({
                                }
                            }
                            Template.instance().goalsSelected.set(currentGoalsSelected);
-                           obj.removeClass('required-goal').removeClass('pink').removeClass('lighten-1').addClass('indigo');
+                           obj.removeClass('required');
                            if (pageViewer) {
                                PageViewers.update(pageViewer._id, {$set: {'goalsSelected': currentGoalsSelected}});
                            }
@@ -226,7 +227,7 @@ Template.GoalList.events({
                    }
                } else if (Template.instance().goalsSelected.get().length < Template.instance().numGoalsRequired.get()) {
                    this.required = true;
-                   obj.addClass('required-goal').addClass('pink').addClass('lighten-1').removeClass('indigo');
+                   obj.addClass('required');
                    for (var i=0; i<timer.goals.length; i++) {
                        if (this.name === timer.goals[i].name) {
                            var currentGoalsSelected = Template.instance().goalsSelected.get();
@@ -245,7 +246,7 @@ Template.GoalList.events({
    },
 
    'click #stream-card-open': function() {
-       var requiredGoalObjects = $('.required-goal');
+       var requiredGoalObjects = $('.required');
 
 
         if (!$('#stream-card-open').hasClass('disabled')) {
