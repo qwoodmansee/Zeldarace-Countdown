@@ -3,7 +3,17 @@
         <form class="generate-form">
             <div class="modal-content white-text">
                 <h4 class="center white-text">Generate New Timer</h4>
-                <p class="center white-text">All fields random if left blank</p>
+                <div class="row">
+                    <select class="white-text center" name="presets" id="preset-select">
+                        <option value="" class="red-text" disabled selected>Presets</option>
+                        <option value="1" class="indigo-text">Short</option>
+                        <option value="2" class="indigo-text">Medium</option>
+                        <option value="3" class="indigo-text">Long</option>
+                        <option value="4" class="indigo-text">Collectathon</option>
+                        <option value="5" class="indigo-text">Goal Master</option>
+                    </select>
+                    <label>Quick Templates</label>
+                </div>
                 <br/>
                 <div class="row">
                     <div class="input-field col s5">
@@ -12,31 +22,31 @@
                     </div>
                     <div class="input-field col s5 offset-s2">
                         <select class="white-text" name="weights" id="weights-select">
-                            <option value="" class="red-text" disabled selected>Choose your option</option>
-                            <option value="1" class="indigo-text">No Weights</option>
+                            <option value="1" class="indigo-text" selected>None</option>
                             <option value="2" class="indigo-text">Random</option>
-                            <option value="3" class="indigo-text">Balanced Random</option>
+                            <option value="3" class="indigo-text">Random (Allow Negatives)</option>
                         </select>
-                        <label>Weights</label>
+                        <label class="pink-text">Weights</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s4">
-                        <input value="5" id="first_name2" type="number" class="validate" name="totalGoals" min="0">
-                        <label class="active" for="first_name2">Number of Available Goals</label>
+                        <input value="5" id="total_goals" type="number" class="validate" name="totalGoals" min="0">
+                        <label class="active" for="first_name2">Number of Available Goals (6 Max)</label>
                     </div>
                     <div class="input-field col s4">
-                        <input value="2" id="first_name2" type="number" class="validate" name="requiredGoals" min="0">
+                        <input value="2" id="required_goals" type="number" class="validate" name="requiredGoals" min="0">
                         <label class="active" for="first_name2">Total Required Goals Count</label>
                     </div>
                     <div class="input-field col s4">
-                        <input value="1" id="first_name2" type="number" class="validate" name="preChosen" min="0">
+                        <input value="1" id="pre_chosen_goals" type="number" class="validate" name="preChosen" min="0">
                         <label class="active" for="first_name2">Required Pre-Chosen Goals Count</label>
                     </div>
                 </div>
             </div>
             <div class="modal-footer grey darken-3">
-                <button class=" modal-action modal-close waves-effect waves-pink btn pink lighten-1" type="submit">Generate</button>
+                <p class="white-text left">All fields random if left blank</p>
+                <button class=" modal-action modal-close waves-effect waves-pink btn pink lighten-1 right" type="submit">Generate</button>
             </div>
         </form>
     </div>

@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import {Timers} from '../../../api/timers/Timers.js';
+import {PageViewers} from '../../../api/pageViewers/PageViewers.js';
 
 import './Scorecard.html'
 import './Scorecard.css'
@@ -63,13 +64,14 @@ const itemMenuItems = [
 Template.Scorecard.onCreated(function() {
     var self = this;
     self.subscribe('singleTimer',  FlowRouter.getParam('username'));
-    self.currentScore = new ReactiveVar(0);
+    self.subscribe('pageViewers');
+    Session.set('score', 0);
 });
 
 Template.Scorecard.helpers({
 
-    currentScore() {
-        return Template.instance().currentScore.get();
+    CurrentScore() {
+        return Session.get('score');
     },
 
     itemMenuGridRows(){
@@ -193,21 +195,40 @@ Template.Scorecard.helpers({
 
 Template.Scorecard.onRendered(function() {
    $('.scorecard-item').click(function() {
-       var object = $(this);
-       var counter =  $('#score-counter');
+       var object = $(this).children('img');
         if (object.hasClass('collected')) {
             object.removeClass('collected');
-            counter.text(parseInt(counter.text()) - parseInt(object[0].dataset.weight));
+            Session.set('score', Session.get('score') - parseInt($(this)[0].dataset.weight))
         } else {
             object.addClass('collected');
-            counter.text(parseInt(counter.text()) + parseInt(object[0].dataset.weight));
+            Session.set('score', Session.get('score') + parseInt($(this)[0].dataset.weight))
         }
+       //get page viewer for this user
+       var pageViewer;
+       if (Meteor.user()) {
+           pageViewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+           PageViewers.update(pageViewer._id,{
+               $set: {'score': Session.get('score')}
+           });
+       }
     });
 });
 
 Template.Scorecard.events({
    'click #score-reset-button' : function() {
-       $('.scorecard-item').removeClass('collected');
-       $('#score-counter').text('0');
+       $('.scorecard-item').children('img').removeClass('collected');
+       Session.set('score', 0);
+
+       //get page viewer for this user
+       var pageViewer;
+       if (Meteor.user()) {
+           pageViewer = PageViewers.findOne({
+               viewer: Meteor.user().profile.name,
+               owner: FlowRouter.getParam('username')
+           });
+           PageViewers.update(pageViewer._id, {
+               $set: {'score': Session.get('score')}
+           });
+       }
    }
 });

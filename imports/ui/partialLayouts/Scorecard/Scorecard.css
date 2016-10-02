@@ -1,10 +1,14 @@
 .score-card-container .scorecard-item {
     position: relative;
-    opacity: 0.25;
+    cursor: pointer;
 }
 
-.score-card-container .collected {
+.score-card-container .scorecard-item .collected {
     opacity: 1;
+}
+
+.score-card-container .scorecard-icon {
+    opacity: .25;
 }
 
 
@@ -16,3 +20,4 @@
     opacity: 1;
 
 }
+

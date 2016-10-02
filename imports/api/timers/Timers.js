@@ -5,7 +5,6 @@
 
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import {GoalSchema} from '../goals/Goals.js';
 
 export const Timers = new Mongo.Collection('Timers');
 
