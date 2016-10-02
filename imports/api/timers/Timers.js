@@ -8,8 +8,6 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
 export const Timers = new Mongo.Collection('Timers');
 
-SimpleSchema.debug = true;
-
 Timers.allow({
    insert: function(userId, doc) {
        return !!userId;
