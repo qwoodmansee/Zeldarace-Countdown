@@ -13,6 +13,8 @@ import '../../ui/baseLayouts/MainLayout/MainLayout.js';
 import '../../ui/pageLayouts/TimerNonOwner/TimerNonOwner.js';
 import '../../ui/pageLayouts/TimerOwner/TimerOwner.js';
 import '../../ui/pageLayouts/Welcome/Welcome.js';
+
+
 //partial layouts
 import '../../ui/partialLayouts/SidebarLoggedIn/SidebarLoggedIn.js';
 import '../../ui/partialLayouts/SidebarLoggedOut/SidebarLoggedOut.js';
@@ -23,11 +25,11 @@ FlowRouter.route('/:username', {
         console.log("username route called");
         Tracker.autorun(function() {
             if (Meteor.user() != null && Meteor.user().profile.name === params.username) {
-                BlazeLayout.render('AppLayout', {main: 'TimerOwner', sidebar: 'SidebarLoggedIn'});
+                BlazeLayout.render('AppLayout', {main: 'TimerOwner', navbar: 'SidebarLoggedIn'});
             } else if (Meteor.userId()) {
-                BlazeLayout.render('AppLayout', {main: 'TimerNonOwner', sidebar: 'SidebarLoggedIn'});
+                BlazeLayout.render('AppLayout', {main: 'TimerNonOwner', navbar: 'SidebarLoggedIn'});
             } else {
-                BlazeLayout.render('AppLayout', {main: 'TimerNonOwner', sidebar: 'SidebarLoggedOut'});
+                BlazeLayout.render('AppLayout', {main: 'TimerNonOwner', navbar: 'SidebarLoggedOut'});
             }
         });
     }
@@ -50,8 +52,8 @@ FlowRouter.route('/', {
 
 FlowRouter.route('/user/logout', {
     name: 'logout',
-    action: function(params) {
+    action: function(params, queryParams) {
         Meteor.logout();
-        FlowRouter.go('/');
+        FlowRouter.go('/' + queryParams['redir']);
     }
 });

@@ -10,4 +10,4 @@ import './Security.js';
 import './Register-Api.js';
 
 // Set up twitch authentication
-import './Accounts.js';
+import './accounts.js';

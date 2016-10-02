@@ -17,6 +17,6 @@ Meteor.publish('timers', function(){
 });
 
 Meteor.publish('timerGoals', function(username) {
-   check(username, string);
+   check(username, String);
     return Timers.find({owner: username}, {fields: 'goals'});
 });

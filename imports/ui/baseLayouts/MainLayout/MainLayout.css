@@ -1,6 +1,6 @@
 #main-background-container {
     background: url(BackgroundBlur.jpg) no-repeat fixed;
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     position: fixed;
     top: 0;

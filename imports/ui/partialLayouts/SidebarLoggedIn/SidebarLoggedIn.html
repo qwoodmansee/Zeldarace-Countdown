@@ -1,8 +1,22 @@
 <template name="SidebarLoggedIn">
-    <ul id="slide-out" class="side-nav fixed grey darken-3 white-text">
-        <li class="white-text" style="margin-top: 35vh"><a href="/{{loggedInUsername}}" class="white-text">My Timer</a></li>
-        <li class="white-text" style="margin-top: 5vh"><a href="/user/logout" class="white-text">Sign Out</a></li>
-    </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-
+    <nav>
+        <div class="nav-wrapper grey darken-3 white-text">
+            <ul class="left grey darken-3 white-text hide-on-small-and-down left-nav-links">
+                {{#if currentTimerOwner}}
+                    <li class="white-text">
+                        Countdown | Your Timer
+                    </li>
+                {{else}}
+                    <li class="white-text">
+                        Countdown | {{OwnerUsername}}'s timer
+                    </li>
+                {{/if}}
+            </ul>
+            <ul id="nav-mobile" class="right grey darken-3 white-text hide-on-small-and-down right-nav-links">
+                <li><a class="white-text modal-trigger" href="#faq-modal">FAQ</a></li>
+                <li class="white-text" id="to-my-timer"><a href="/{{loggedInUsername}}" class="white-text">My Timer</a></li>
+                <li class="white-text"><a onclick="Meteor.logout()" class="white-text pointer">Sign Out</a></li>
+            </ul>
+        </div>
+    </nav>
 </template>

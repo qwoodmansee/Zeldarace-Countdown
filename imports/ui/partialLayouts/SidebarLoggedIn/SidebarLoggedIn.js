@@ -10,5 +10,15 @@ Template.SidebarLoggedIn.helpers({
         if (Meteor.user() != null) {
             return Meteor.user().profile.name;
         }
+    },
+
+    OwnerUsername() {
+        return FlowRouter.getParam('username');
+    },
+
+    currentTimerOwner() {
+        if (Meteor.user() != null) {
+            return Meteor.user().profile.name == FlowRouter.getParam('username');
+        }
     }
 });

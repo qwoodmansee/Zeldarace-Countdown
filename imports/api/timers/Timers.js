@@ -5,7 +5,6 @@
 
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
-import {GoalSchema} from '../goals/Goals.js';
 
 export const Timers = new Mongo.Collection('Timers');
 
@@ -45,6 +44,10 @@ TimerSchema = new SimpleSchema({
         type: [Object],
         label: "Timer Goals",
         blackbox: true
+    },
+    goalsRequired: {
+        type: Number,
+        label: 'Number of goals required'
     },
     weights: {
         type: Object,

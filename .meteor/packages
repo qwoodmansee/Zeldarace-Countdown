@@ -34,4 +34,6 @@ service-configuration
 alexbeauchemin:accounts-twitch
 session
 aldeed:template-extension
+gwendall:body-events
 check
+jchristman:popout

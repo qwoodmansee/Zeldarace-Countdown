@@ -1,0 +1,57 @@
+<template name="Scorecard">
+    <div class="row score-card-container">
+        <div class="col s3">
+            {{#each itemMenuGridRows}}
+                <div class="row">
+                    {{#each items}}
+                        <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
+                            <img class="scorecard-icon unselectable" src="/icons/{{name}}.png">
+                            <span class="weight-label unselectable">{{weight}}</span>
+                        </div>
+                    {{/each}}
+                </div>
+            {{/each}}
+        </div>
+        <div class="col s3">
+            {{#each EquipMenuGridRows}}
+                <div class="row">
+                    {{#each items}}
+                        <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
+                            <img class="scorecard-icon unselectable" src="/icons/{{name}}.png">
+                            <span class="weight-label unselectable">{{weight}}</span>
+                        </div>
+                    {{/each}}
+                </div>
+            {{/each}}
+        </div>
+        <div class="col s3">
+                {{#each SongGridRows}}
+                    <div class="row">
+                        {{#each items}}
+                            <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
+                                <img class="scorecard-icon unselectable" src="/icons/{{name}}.png">
+                                <span class="weight-label unselectable">{{weight}}</span>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{/each}}
+                {{#each MedallionAndExtraGridRows}}
+                    <div class="row">
+                        {{#each items}}
+                            <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
+                                <img class="scorecard-icon unselectable" src="/icons/{{name}}.png">
+                                <span class="weight-label unselectable">{{weight}}</span>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{/each}}
+        </div>
+        <div class="col s3">
+            <div class="center-block">
+                <h3>Score: {{CurrentScore}}</h3>
+                <br>
+                <button id="score-reset-button" class="waves-effect waves-light btn white black-text">Clear</button>
+            </div>
+        </div>
+    </div>
+</template>

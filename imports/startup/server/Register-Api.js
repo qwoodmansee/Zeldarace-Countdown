@@ -5,3 +5,7 @@
 
 import '../../api/timers/TimerMethods.js';
 import '../../api/timers/server/TimerPublications.js';
+
+import '../../api/pageViewers/PageViewers';
+import '../../api/pageViewers/server/PageViewersPublications';
+

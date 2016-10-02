@@ -1,9 +1,15 @@
 <template name="SidebarLoggedOut">
-    <ul id="slide-out" class="side-nav fixed grey darken-3 white-text valign-wrapper">
-        <div class="valign" style="margin-left:20px">
-            {{>twitchLoginButton}}
+    <nav>
+        <div class="nav-wrapper grey darken-3 white-text">
+            <ul class="left grey darken-3 white-text hide-on-small-and-down left-nav-links">
+                    <li class="white-text">
+                        Countdown | {{OwnerUsername}}'s timer
+                    </li>
+            </ul>
+            <ul id="nav-mobile" class="right grey darken-3 white-text hide-on-small-and-down right-nav-links">
+                <li><a class="white-text modal-trigger" href="#faq-modal">FAQ</a></li>
+                <li id="twitch-login-link" class="pointer">Login with Twitch</li>
+            </ul>
         </div>
-    </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
-
+    </nav>
 </template>

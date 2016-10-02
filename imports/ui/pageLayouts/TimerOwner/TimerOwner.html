@@ -5,27 +5,33 @@
 
     <div class="grey-darken-1">
         <div class="row">
-            <h1 class="white-text triforce" style="font-size: 2em; margin-top:1%">
-                Your timer
+            <h1 class="center" id="countdown" hidden>
+                <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span>
             </h1>
+            {{#if Template.subscriptionsReady}}
+                {{#if TimerNotRunning}}
+                    <h1 class="center">{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</h1>
+                {{/if}}
+            {{/if}}
         </div>
-    {{#if Template.subscriptionsReady}}
-    {{/if}}
-        <div class="row">
-            <h1 class="center">{{RemainingTimeFormatted.hours}}:{{RemainingTimeFormatted.minutes}}:{{RemainingTimeFormatted.seconds}}</h1>
-        </div>
+        <!--must be outside of div so that can call jQuery on rendered and there will be no race condition-->
         <div class="row">
             <div class="center">
                 <button class="waves-effect waves-light btn-large indigo" id="timer-start-button">Start Timer</button>
-                <button class="waves-effect waves-light btn-large pink lighten-1 modal-trigger" href="#generateModal">Generate New</button>
+                <a class="waves-effect waves-light btn-large pink lighten-1 modal-trigger" href="#generateModal">Generate New</a>
             </div>
         </div>
-    </div>
-    <div class="row">
-        {{>GoalList}}
-    </div>
 
-    <div class="row">{{>ItemMenu}}</div>
-
+        <ul class="collapsible grey darken-3 center" data-collapsible="expandable">
+            <li>
+                <div class="collapsible-header thin-header grey darken-3">Goals</div>
+                <div class="collapsible-body">{{>GoalList}}</div>
+            </li>
+            <li>
+                <div class="collapsible-header thin-header grey darken-3">Scorecard</div>
+                <div class="collapsible-body">{{>Scorecard}}</div>
+            </li>
+        </ul>
+    </div>
 
 </template>
