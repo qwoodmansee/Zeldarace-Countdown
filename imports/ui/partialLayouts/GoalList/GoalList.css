@@ -2,10 +2,11 @@
     height: 20vh;
     font-size: .9em;
     cursor: pointer;
+    background-color: #3f51b5;
 }
 
-.required-goal {
-
+.required {
+    background-color: #ec407a;
 }
 
 .locked {
