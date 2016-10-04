@@ -73,6 +73,11 @@ nav .brand-logo {
     color: #ec407a;
 }
 
+.checkbox-pink[type="checkbox"].filled-in:checked + label:after{
+    border: 2px solid white;
+    background-color: #ec407a;
+}
+
 ul.dropdown-content.select-dropdown li span {
     color: #3f51b5;
 }
