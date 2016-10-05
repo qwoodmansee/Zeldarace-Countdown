@@ -51,6 +51,11 @@ TimerSchema = new SimpleSchema({
         type: Object,
         label: "Obtainable Item Weights",
         blackbox: true
+    },
+    randomItems: {
+        type: Object,
+        label: "Selections for the random objects on the menu",
+        blackbox: true
     }
 });
 

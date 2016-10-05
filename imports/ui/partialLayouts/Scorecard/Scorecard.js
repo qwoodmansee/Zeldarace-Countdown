@@ -69,70 +69,51 @@ Template.Scorecard.helpers({
             weights = timer.weights;
         }
 
-        var row1 = [];
-        row1.push({name: "DekuStick", weight: weights["DekuStick"]});
-        row1.push({name: "DekuNut", weight: weights["DekuNut"]});
-        row1.push({name: "Bomb", weight: weights["Bomb"]});
-        row1.push({name: "FairyBow", weight: weights["FairyBow"]});
-        row1.push({name: "FireArrow", weight: weights["FireArrow"]});
-        row1.push({name: "DinsFire", weight: weights["DinsFire"]});
+        if (timer) {
+            var row1 = [];
+            row1.push({name: "DekuStick", weight: weights["DekuStick"]});
+            row1.push({name: "DekuNut", weight: weights["DekuNut"]});
+            row1.push({name: "Bomb", weight: weights["Bomb"]});
+            row1.push({name: "FairyBow", weight: weights["FairyBow"]});
+            row1.push({name: "FireArrow", weight: weights["FireArrow"]});
+            row1.push({name: "DinsFire", weight: weights["DinsFire"]});
 
-        var row2 = [];
-        row2.push({name: "FairySlingshot", weight: weights["FairySlingshot"]});
-        if (Math.random()*2 > 1) {
-            row2.push({name: "OcarinaOfTime", weight: weights["OcarinaOfTime"]});
-        } else {
-            row2.push({name: "FairyOcarina", weight: weights["FairyOcarina"]});
+            var row2 = [];
+            row2.push({name: "FairySlingshot", weight: weights["FairySlingshot"]});
+            row2.push({name: timer.randomItems['ocarina'].name, weight: weights[timer.randomItems['ocarina'].name]});
+            row2.push({name: "Bombchu", weight: weights["Bombchu"]});
+            row2.push({name: timer.randomItems['hookshotOption'].name, weight: weights[timer.randomItems['hookshotOption'].name]});
+            row2.push({name: "IceArrow", weight: weights["IceArrow"]});
+            row2.push({name: "FaroresWind", weight: weights["FaroresWind"]});
+
+            var row3 = [];
+            row3.push({name: "Boomerang", weight: weights["Boomerang"]});
+            row3.push({name: "LensOfTruth", weight: weights["LensOfTruth"]});
+            row3.push({name: "MagicBeans", weight: weights["MagicBeans"]});
+            row3.push({name: "MegatonHammer", weight: weights["MegatonHammer"]});
+            row3.push({name: "LightArrow", weight: weights["LightArrow"]});
+            row3.push({name: "NayrusLove", weight: weights["NayrusLove"]});
+
+            var row4 = [];
+            //pick items for the 4 bottles
+            for (var i=0; i < 4; i++) {
+                row4.push({name: timer.randomItems.bottles[i].name, weight: weights[timer.randomItems.bottles[i].name]});
+            }
+
+            //pick which adult quest item will be chosen
+            row4.push({name: timer.randomItems['adultTrade'].name, weight: weights[timer.randomItems['adultTrade'].name]});
+
+            //pick which child quest item will be chosen
+            row4.push({name: timer.randomItems['childTrade'].name, weight: weights[timer.randomItems['childTrade'].name]});
+
+            return [
+                {items: row1},
+                {items: row2},
+                {items: row3},
+                {items: row4}
+            ];
         }
-        row2.push({name: "Bombchu", weight: weights["Bombchu"]});
-        if (Math.random()*2 > 1) {
-            row2.push({name: "Hookshot", weight: weights["Hookshot"]});
-        } else {
-            row2.push({name: "Longshot", weight: weights["Longshot"]});
-        }
-        row2.push({name: "IceArrow", weight: weights["IceArrow"]});
-        row2.push({name: "FaroresWind", weight: weights["FaroresWind"]});
 
-        var row3 = [];
-        row3.push({name: "Boomerang", weight: weights["Boomerang"]});
-        row3.push({name: "LensOfTruth", weight: weights["LensOfTruth"]});
-        row3.push({name: "MagicBeans", weight: weights["MagicBeans"]});
-        row3.push({name: "MegatonHammer", weight: weights["MegatonHammer"]});
-        row3.push({name: "LightArrow", weight: weights["LightArrow"]});
-        row3.push({name: "NayrusLove", weight: weights["NayrusLove"]});
-
-        var idx;
-        var row4 = [];
-        //determine what will be in the bottles
-        var bottleOptions = ["EmptyBottle", "RedPotion", "BottledFairy", "Bug", "BigPoe", "BlueFire", "BluePotion",
-            "Fish", "GreenPotion", "Milk", "MilkHalf", "Poe", "RutosLetter"];
-        //pick items for the 4 bottles
-        for (var i=0; i < 4; i++) {
-            //get the index of which item we are using
-            idx = Template.instance().generateRandomNumber(0, bottleOptions.length, false);
-            row4.push({name: bottleOptions[idx], weight: weights[bottleOptions[idx]]});
-            bottleOptions.splice(idx, 1);
-        }
-
-        //pick which adult quest item will be chosen
-        var adultQuestOptions = ["Cojiro", "OddMushroom", "OddPotion", "PoachersSaw", "Prescription", "GoronsSwordBroken",
-            "ClaimCheck", "WeirdEgg"];
-        idx = Template.instance().generateRandomNumber(0, adultQuestOptions.length, false);
-        row4.push({name: adultQuestOptions[idx], weight: weights[adultQuestOptions[idx]]});
-
-        //pick which child quest item will be chosen
-        var childQuestOptions = ["KeatonMask", "SkullMask", "SpookyMask", "BunnyHood", "ZoraMask", "GoronMask", "GerudoMask",
-            "MaskOfTruth", "ZeldasLetter", "SOLDOUT", "WeirdEgg", "Cucco"];
-        idx = Template.instance().generateRandomNumber(0, childQuestOptions.length, false);
-        row4.push({name: childQuestOptions[idx], weight: weights[childQuestOptions[idx]]});
-
-
-        return [
-            {items: row1},
-            {items: row2},
-            {items: row3},
-            {items: row4}
-        ];
     },
 
     EquipMenuGridRows(){
@@ -143,49 +124,38 @@ Template.Scorecard.helpers({
             weights = timer.weights;
         }
 
-        var idx;
-        var row1 = [];
-        var quiverOptions = ["Quiver30", "Quiver40", "Quiver50"];
-        idx = Template.instance().generateRandomNumber(0, quiverOptions.length, false);
-        row1.push({name: quiverOptions[idx], weight: weights[quiverOptions[idx]]});
-        row1.push({name: "KokiriSword", weight: weights["KokiriSword"]});
-        row1.push({name: "MasterSword", weight: weights["MasterSword"]});
-        var bigSwordOptions = ["GoronsSwordBroken", "BiggoronsSword"];
-        idx = Template.instance().generateRandomNumber(0, bigSwordOptions.length, false);
-        row1.push({name: bigSwordOptions[idx], weight: weights[bigSwordOptions[idx]]});
+        if (timer) {
+            var row1 = [];
+            row1.push({name: timer.randomItems['quiver'].name, weight: weights[timer.randomItems['quiver'].name]});
+            row1.push({name: "KokiriSword", weight: weights["KokiriSword"]});
+            row1.push({name: "MasterSword", weight: weights["MasterSword"]});
+            row1.push({name: timer.randomItems['bigSword'].name, weight: weights[timer.randomItems['bigSword'].name]});
 
-        var row2 = [];
-        var bombBagOptions = ["BombBag20", "BombBag30", "BombBag40"];
-        idx = Template.instance().generateRandomNumber(0, bombBagOptions.length, false);
-        row2.push({name: bombBagOptions[idx], weight: weights[bombBagOptions[idx]]});
-        row2.push({name: "DekuShield", weight: weights["DekuShield"]});
-        row2.push({name: "HylianShield", weight: weights["HylianShield"]});
-        row2.push({name: "MirrorShield", weight: weights["MirrorShield"]});
+            var row2 = [];
+            row2.push({name: timer.randomItems['bombBag'].name, weight: weights[timer.randomItems['bombBag'].name]});
+            row2.push({name: "DekuShield", weight: weights["DekuShield"]});
+            row2.push({name: "HylianShield", weight: weights["HylianShield"]});
+            row2.push({name: "MirrorShield", weight: weights["MirrorShield"]});
 
-        var row3 = [];
-        var gauntletOptions = ["GoronBracelet", "SilverGauntlets", "GoldenGauntlets"];
-        idx = Template.instance().generateRandomNumber(0, gauntletOptions.length, false);
-        row3.push({name: gauntletOptions[idx], weight: weights[gauntletOptions[idx]]});
-        row3.push({name: "KokiriTunic", weight: weights["KokiriTunic"]});
-        row3.push({name: "GoronTunic", weight: weights["GoronTunic"]});
-        row3.push({name: "ZoraTunic", weight: weights["ZoraTunic"]});
+            var row3 = [];
+            row3.push({name: timer.randomItems['gauntlets'].name, weight: weights[timer.randomItems['gauntlets'].name]});
+            row3.push({name: "KokiriTunic", weight: weights["KokiriTunic"]});
+            row3.push({name: "GoronTunic", weight: weights["GoronTunic"]});
+            row3.push({name: "ZoraTunic", weight: weights["ZoraTunic"]});
 
-        var row4 = [];
-        var scaleOptions = ["SilverScale", "GoldScale"];
-        idx = Template.instance().generateRandomNumber(0, scaleOptions.length, false);
-        row4.push({name: scaleOptions[idx], weight: weights[scaleOptions[idx]]});
-        row4.push({name: "KokiriBoots", weight: weights["KokiriBoots"]});
-        row4.push({name: "IronBoots", weight: weights["IronBoots"]});
-        row4.push({name: "HoverBoots", weight: weights["HoverBoots"]});
+            var row4 = [];
+            row4.push({name: timer.randomItems['scale'].name, weight: weights[timer.randomItems['scale'].name]});
+            row4.push({name: "KokiriBoots", weight: weights["KokiriBoots"]});
+            row4.push({name: "IronBoots", weight: weights["IronBoots"]});
+            row4.push({name: "HoverBoots", weight: weights["HoverBoots"]});
 
-
-
-        return [
-            {items: row1},
-            {items: row2},
-            {items: row3},
-            {items: row4}
-        ];
+            return [
+                {items: row1},
+                {items: row2},
+                {items: row3},
+                {items: row4}
+            ];
+        }
     },
 
     SongGridRows() {
@@ -249,27 +219,29 @@ Template.Scorecard.helpers({
 });
 
 Template.Scorecard.onRendered(function() {
-   $('.scorecard-item').click(function() {
-       var object = $(this).children('img');
-        if (object.hasClass('collected')) {
-            object.removeClass('collected');
-            Session.set('score', Session.get('score') - parseInt($(this)[0].dataset.weight))
-        } else {
-            object.addClass('collected');
-            Session.set('score', Session.get('score') + parseInt($(this)[0].dataset.weight))
-        }
-       //get page viewer for this user
-       var pageViewer;
-       if (Meteor.user()) {
-           pageViewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
-           PageViewers.update(pageViewer._id,{
-               $set: {'score': Session.get('score')}
-           });
-       }
-    });
+
 });
 
 Template.Scorecard.events({
+    'click .scorecard-item' : function(event) {
+        var object =  $(event.currentTarget).children('img');
+        if (object.hasClass('collected')) {
+            object.removeClass('collected');
+            Session.set('score', Session.get('score') - parseInt( $(event.currentTarget)[0].dataset.weight))
+        } else {
+            object.addClass('collected');
+            Session.set('score', Session.get('score') + parseInt( $(event.currentTarget)[0].dataset.weight))
+        }
+        //get page viewer for this user
+        var pageViewer;
+        if (Meteor.user()) {
+            pageViewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+            PageViewers.update(pageViewer._id,{
+                $set: {'score': Session.get('score')}
+            });
+        }
+    },
+
    'click #score-reset-button' : function() {
        $('.scorecard-item').children('img').removeClass('collected');
        Session.set('score', 0);

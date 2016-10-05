@@ -38,5 +38,6 @@ export const WeightGenerator = function() {
             }
         }
         return num
-    }
+    };
+
 };

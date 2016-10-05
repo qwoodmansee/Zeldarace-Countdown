@@ -9,6 +9,7 @@ import './GenerateTimerModal.html';
 
 import {GoalGenerator} from '../../../helpers/GoalGenerator.js';
 import {WeightGenerator} from '../../../helpers/WeightGenerator.js';
+import {ItemList} from '../../../helpers/ItemList.js';
 
 Template.GenerateTimerModal.onRendered(function() {
 
@@ -152,10 +153,14 @@ Template.body.events({
 
         }
 
+        //decide which of the items with multiple versions will be available on this timer (bottles, hookshot, equipment, etc)
+        const itemList = new ItemList();
+        const itemChoices = itemList.generateMultiItemChoices();
+
         //update the timer currently associated
         var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
 
-        Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': weights, 'goals': goals, 'goalsRequired': numRequiredGoals, 'running': false}});
+        Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': weights, 'goals': goals, 'goalsRequired': numRequiredGoals, 'running': false, 'randomItems': itemChoices}});
 
     }
 });
