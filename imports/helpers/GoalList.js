@@ -53,6 +53,7 @@ export const GoalList = function() {
         { rank: 8, name: "Giant's Wallet", jp: '巨人のサイフ', types: { "wallet": 6 }, child: "yes" },
         { rank: 5, name: "Plant bean in Death Mountain Crater", jp: 'デスマウンテン火口の土にマメを植える', types: { "dmc": 2, "beans": -1 }, subtypes: { "child2": 3 }, child: "yes" },
         { rank: 5, name: "Both Gerudo's Fortress area Skulltulas", jp: 'ゲルドの砦の黄金のスタルチュラ2匹', types: { "fortress": 2.5 }, subtypes: { "wallet": 0.5 }, child: "no" },
+        { rank: 7, name: "Water Temple Level Set to Medium", jp: '', types: {}, subtypes: {}, child: "no" },
         { rank: 9, name: "Epona's Song", jp: 'エポナの歌', types: { "lonlon": 4 }, subtypes: { "songs": 4, "childzl": 1 }, child: "yes" },
         { rank: 7, name: "Iron Boots", jp: 'ヘビーブーツ', types: { "ice": 4, "irons": 2 }, subtypes: { "hovers": 1, "mapcompass": 2 }, child: "yes" },
         { rank: 7, name: "5 unused keys in Gerudo Training Grounds", jp: 'ゲルドの修練場の未使用のカギ5つ', types: { "fortress": 3, "gtg": 4 }, child: "yes" },
