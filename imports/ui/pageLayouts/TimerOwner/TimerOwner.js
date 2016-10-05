@@ -6,6 +6,8 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 
 import {Timers} from '../../../api/timers/Timers.js';
 import {PageViewers} from '../../../api/pageViewers/PageViewers.js';
+import {ItemList} from '../../../helpers/ItemList.js';
+
 
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/GoalList/GoalList.js';
@@ -67,16 +69,20 @@ Template.TimerOwner.onCreated(function(){
         onReady: function() {
             //if there is no timer for the user
             if (Timers.find({owner: FlowRouter.getParam('username')}).count() === 0) {
+                //get an item list for the first timer
+                var itemList = new ItemList();
+                var itemsChosen = itemList.generateMultiItemChoices();
                 //create a timer object to insert into the db
                 var newTimer = {
                     ownerId: Meteor.userId(),
                     owner: FlowRouter.getParam('username'),
                     running: false,
                     timeStarted: new Date(),
-                    length: 0,
+                    length: 60,
                     goals: [],
                     goalsRequired: 0,
-                    weights: {active:false}
+                    weights: {active:false},
+                    randomItems: itemsChosen
                 };
                 Timers.insert(newTimer);
             }
