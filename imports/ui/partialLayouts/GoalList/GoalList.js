@@ -69,7 +69,7 @@ Template.GoalList.onCreated(function() {
 
                                         if (fields.hasOwnProperty('goals')) {
                                             // new timer from existing running timer
-                                            Session.set("goals", goals);
+                                            Session.set("goals", fields['goals']);
                                             self.goals.set(fields['goals']);
                                             goalsCurrentlySelected = [];
                                             for (var i = 0; i < self.goals.get().length; i++) {
@@ -97,7 +97,7 @@ Template.GoalList.onCreated(function() {
 
                                     if (fields.hasOwnProperty('goals')) {
                                         // new timer from non started timer
-                                        Session.set("goals", goals);
+                                        Session.set("goals", fields['goals']);
                                         self.goals.set(fields['goals']);
                                         var goalsSelected = [];
                                         for (var i = 0; i < self.goals.get().length; i++) {
