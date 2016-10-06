@@ -20,7 +20,6 @@ Template.GoalList.onCreated(function() {
     //set up reactives associated with goal card
     self.goals = new ReactiveVar([]);
     self.goalsSelected = new ReactiveVar([]);
-    self.numGoalsRequired = new ReactiveVar(0);
     self.completedGoals = new ReactiveVar([]);
 
     self.autorun(function() {
@@ -43,7 +42,7 @@ Template.GoalList.onCreated(function() {
                         }
                     }
                     self.goalsSelected.set(goalsCurrentlySelected);
-                    self.numGoalsRequired.set(timer['goalsRequired']);
+                    Session.set("numGoalsRequired", timer['goalsRequired']);
 
                     //subscribe to pageViewers and make sure if you aren't added to it yet to add yourself
                     self.subscribe('pageViewers', {
@@ -80,7 +79,7 @@ Template.GoalList.onCreated(function() {
                                             }
                                             self.goalsSelected.set(goalsCurrentlySelected);
                                             if (fields.hasOwnProperty('goalsRequired')) {
-                                                self.numGoalsRequired.set(fields['goalsRequired']);
+                                                Session.set("numGoalsRequired", fields['goalsRequired']);
                                             }
 
                                             //change the viewers goal selected if applicable
@@ -108,7 +107,7 @@ Template.GoalList.onCreated(function() {
                                         }
                                         self.goalsSelected.set(goalsSelected);
                                         if (fields.hasOwnProperty('goalsRequired')) {
-                                            self.numGoalsRequired.set(fields['goalsRequired']);
+                                            Session.set("numGoalsRequired", fields['goalsRequired']);
                                         }
 
                                         //change the viewers goal selected if applicable
@@ -161,9 +160,8 @@ Template.GoalList.helpers({
     },
 
     numGoalsRequired() {
-        return Template.instance().numGoalsRequired.get();
-    },
-
+        return Session.get("numGoalsRequired");
+    }
 });
 
 Template.GoalList.events({
@@ -235,7 +233,17 @@ Template.StreamCard.helpers({
     },
     Score() {
         return Session.get('score');
+    },
+
+    numGoalsComplete() {
+        var goals = Session.get('goals');
+        return goals.filter(function(obj){return obj.complete}).length;
+    },
+
+    numGoalsRequired() {
+        return Session.get("numGoalsRequired");
     }
+
 });
 Template.StreamCard.events({
     'click .streamcard-goal': function(event) {
