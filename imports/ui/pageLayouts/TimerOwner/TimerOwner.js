@@ -40,9 +40,14 @@ Template.TimerOwner.onCreated(function(){
             minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
             secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
             if(t.total<=0){
-                clearInterval(window.timeinterval);
-                var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
-                Timers.update(originalTimer._id, {$set: {'running': false}});
+                hoursSpan.innerHTML = ('00');
+                minutesSpan.innerHTML = ('00');
+                secondsSpan.innerHTML = ('00' + "  [Complete]");
+                if (typeof timeinterval != 'undefined') {
+                    clearInterval(timeinterval);
+                }
+                //var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
+                //Timers.update(originalTimer._id, {$set: {'running': false}});
             }
         }
 
@@ -56,13 +61,15 @@ Template.TimerOwner.onCreated(function(){
         var minutes = Math.floor( (t/1000/60) % 60 );
         var hours = Math.floor( (t/(1000*60*60)) % 24 );
         var days = Math.floor( t/(1000*60*60*24) );
-        return {
+        var timeObj = {
             'total': t,
             'days': days,
             'hours': hours,
             'minutes': minutes,
             'seconds': seconds
         };
+        Session.set("currentTimerRemaining" , timeObj);
+        return timeObj;
     };
 
     self.tempSub = self.subscribe("timers", {
@@ -175,7 +182,11 @@ Template.TimerOwner.onCreated(function(){
                                 // new timer from existing running timer
                                 self.timerRunning.set(false);
                                 self.timerStartTime.set(null);
-                                self.timerLength.set(fields['length']);
+                                Session.set('goals', fields['goals']);
+                                //if this is false the timer is the same length as before
+                                if (fields.hasOwnProperty('length')) {
+                                    self.timerLength.set(fields['length']);
+                                }
                                 clearInterval(timeinterval);
                                 $('#countdown').hide();
 
@@ -190,7 +201,11 @@ Template.TimerOwner.onCreated(function(){
                         if (fields.hasOwnProperty('goals')) {
                             // new timer from non started timer
                             self.timerStartTime.set(null);
-                            self.timerLength.set(fields['length']);
+                            Session.set('goals', fields['goals']);
+                            //if this is false the timer is the same length as before
+                            if (fields.hasOwnProperty('length')) {
+                                self.timerLength.set(fields['length']);
+                            }
                         }
                     }
                 });
@@ -227,6 +242,11 @@ Template.TimerOwner.helpers({
             var seconds = Math.floor((t / 1000) % 60);
             var minutes = Math.floor((t / 1000 / 60) % 60);
             var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+            Session.set("currentTimerRemaining" ,
+                {'hours': ('0' + hours).slice(-2),
+                    'minutes': ('0' + minutes).slice(-2),
+                    'seconds': ('0' + seconds).slice(-2)});
+
             return {
                 'total': t,
                 'hours': ('0' + hours).slice(-2),

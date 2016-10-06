@@ -2,6 +2,11 @@
     <div class="row">
         {{#each goals}}
             <div class="col s2">
+            {{#if complete}}
+                <div class="card-panel goal-card green white-text">
+                    {{name}}
+                </div>
+            {{else}}
                 {{#if required}}
                     <div class="card-panel goal-card required locked white-text">
                         {{name}}
@@ -11,37 +16,49 @@
                         {{name}}
                     </div>
                 {{/if}}
+            {{/if}}
             </div>
         {{/each}}
     </div>
     <div class="row">
         <div class="col s2">
-            <span>Chosen: </span><span class="pink-text">{{numGoalsChosen}}</span>
-            <span> | </span>
             <span>Required: </span><span class="pink-text">{{numGoalsRequired}}</span>
         </div>
-        {{#if allChosen}}
-            <div class="col s2 offset-s8">
-                <button id="stream-card-open" class="btn white black-text">Stream Card</button>
-            </div>
-        {{/if}}
+
+        <div class="col s2 offset-s8">
+            <button id="stream-card-open" class="btn white black-text">Stream Card</button>
+        </div>
     </div>
 </template>
 
 <template name="StreamCard">
-    <div class="grey darken-3 streamcard-background" style="height: 100%;">
-        <div class="row streamcard-timer-container">
-
-        </div>
-
+    <div class="grey darken-3 streamcard-background" style="height: 100vh">
         <div class="row streamcard-goals-container">
-            {{#each name in goals}}
-                <div class="card-panel streamcard-goal pink white-text">{{name}}</div>
+            {{#each goals}}
+                {{#if complete}}
+                    <div class="col s6">
+                        <div class="card-panel streamcard-goal green white-text pointer">{{name}}</div>
+                    </div>
+                {{else}}
+                    {{#if required}}
+                        <div class="col s6">
+                            <div class="card-panel streamcard-goal pink white-text pointer">{{name}}</div>
+                        </div>
+                    {{else}}
+                        <div class="col s6">
+                            <div class="card-panel streamcard-goal indigo white-text pointer">{{name}}</div>
+                        </div>
+                    {{/if}}
+                {{/if}}
             {{/each}}
         </div>
 
         <div class="row streamcard-score-container">
             <h3 class="white-text center">Score: {{Score}}</h3>
+        </div>
+
+        <div class="row streamcard-timer-container white-text">
+            <h1 class="center">{{timer.hours}}:{{timer.minutes}}:{{timer.seconds}}</h1>
         </div>
     </div>
 </template>

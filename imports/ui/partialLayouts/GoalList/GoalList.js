@@ -34,6 +34,7 @@ Template.GoalList.onCreated(function() {
                 if (timer) {
                     //initialize reactives to initial timer value
                     var goals = timer['goals'];
+                    Session.set("goals", goals);
                     self.goals.set(goals);
                     for (var i = 0; i < goals.length; i++) {
                         //set required goals as chosen
@@ -68,6 +69,7 @@ Template.GoalList.onCreated(function() {
 
                                         if (fields.hasOwnProperty('goals')) {
                                             // new timer from existing running timer
+                                            Session.set("goals", fields['goals']);
                                             self.goals.set(fields['goals']);
                                             goalsCurrentlySelected = [];
                                             for (var i = 0; i < self.goals.get().length; i++) {
@@ -95,6 +97,7 @@ Template.GoalList.onCreated(function() {
 
                                     if (fields.hasOwnProperty('goals')) {
                                         // new timer from non started timer
+                                        Session.set("goals", fields['goals']);
                                         self.goals.set(fields['goals']);
                                         var goalsSelected = [];
                                         for (var i = 0; i < self.goals.get().length; i++) {
@@ -154,95 +157,32 @@ Template.GoalList.helpers({
     },
 
     goals() {
-       return Template.instance().goals.get();
-    },
-
-    numGoalsChosen() {
-        return Template.instance().goalsSelected.get().length
+       return Session.get('goals');
     },
 
     numGoalsRequired() {
         return Template.instance().numGoalsRequired.get();
-
     },
-
-    allChosen() {
-        return Template.instance().goalsSelected.get().length === Template.instance().numGoalsRequired.get();
-    }
 
 });
 
 Template.GoalList.events({
    'click .goal-card': function(event) {
-       var timer = Timers.findOne();
-       if (Meteor.userId()) {
-           var pageViewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
-       }
-       if (timer) {
-           var obj = $(event.target);
-           //assume selecting goals after time is running are the last chance you get
-           if (timer.running) {
-               //select a goal if it isnt already selected
-               if (Template.instance().goalsSelected.get().length < Template.instance().numGoalsRequired.get()) {
-                   if (!this.required) {
-                       this.required = true;
-                       obj.addClass('required');
-                       for (var i=0; i<timer.goals.length; i++) {
-                           if (this.name === timer.goals[i].name) {
-                               var currentGoalsSelected = Template.instance().goalsSelected.get();
-                               currentGoalsSelected.push(i);
-                               Template.instance().goalsSelected.set(currentGoalsSelected);
-                               if (pageViewer) {
-                                   PageViewers.update(pageViewer._id, {$set: {'goalsSelected': currentGoalsSelected}});
-
-                               }
-                           }
-                       }
-                   }
-               } else if (obj.hasClass('required')) {
-                   //selecting goal after a timer is start means completing or uncompleting it
-                   if (obj.hasClass('complete')) {
-                       obj.removeClass('complete').addClass('locked').removeClass('green');
-                   } else {
-                       obj.addClass('complete').removeClass('locked').addClass('green');
-                   }
+       //get the goals
+       var goals = Session.get('goals');
+       for (var i=0; i < goals.length; i++) {
+           if (goals[i].name === this.name) {
+               if (goals[i].complete) {
+                   goals[i].complete = false;
+               } else {
+                   goals[i].complete = true;
                }
-           } else if (!$(event.target).hasClass('locked')) {
-               if (this.required) {
-                   this.required = false;
-                   for (var i=0; i<timer.goals.length; i++) {
-                       if (this.name === timer.goals[i].name) {
-                           var currentGoalsSelected = Template.instance().goalsSelected.get();
-                           for (var j=0; j < currentGoalsSelected.length; j++) {
-                               if (currentGoalsSelected[j] === i) {
-                                   currentGoalsSelected.splice(j, 1);
-                               }
-                           }
-                           Template.instance().goalsSelected.set(currentGoalsSelected);
-                           obj.removeClass('required');
-                           if (pageViewer) {
-                               PageViewers.update(pageViewer._id, {$set: {'goalsSelected': currentGoalsSelected}});
-                           }
-                       }
-                   }
-               } else if (Template.instance().goalsSelected.get().length < Template.instance().numGoalsRequired.get()) {
-                   this.required = true;
-                   obj.addClass('required');
-                   for (var i=0; i<timer.goals.length; i++) {
-                       if (this.name === timer.goals[i].name) {
-                           var currentGoalsSelected = Template.instance().goalsSelected.get();
-                           currentGoalsSelected.push(i);
-                           Template.instance().goalsSelected.set(currentGoalsSelected);
-                           if (pageViewer) {
-                               PageViewers.update(pageViewer._id, {$set: {'goalsSelected': currentGoalsSelected}});
-                           }
-                       }
-                   }
-
-               }
+               break;
            }
        }
 
+       //set the goals once changed
+       Session.set('goals', goals);
    },
 
    'click #stream-card-open': function() {
@@ -273,26 +213,46 @@ Template.StreamCard.onCreated(function() {
 
 Template.StreamCard.helpers({
     goals() {
-        var requiredGoalObjects = Template.instance().data.goals;
-        var requiredGoalNames = [];
-        for (var i=0; i < requiredGoalObjects.length; i++) {
-            requiredGoalNames.push(requiredGoalObjects[i].innerHTML.trim());
-        }
-        return requiredGoalNames;
+        return Session.get('goals');
     },
 
+    timer() {
+        var time = Session.get('currentTimerRemaining');
+        if (time.seconds > 0) {
+            return {
+                'hours': ('0' + time.hours).slice(-2),
+                'minutes': ('0' + time.minutes).slice(-2),
+                'seconds': ('0' + time.seconds).slice(-2)
+            };
+        } else {
+            return {
+                'hours': '00',
+                'minutes': '00',
+                'seconds': '00',
+            }
+        }
+
+    },
     Score() {
         return Session.get('score');
     }
 });
 Template.StreamCard.events({
     'click .streamcard-goal': function(event) {
-
-        var obj = $(event.target);
-        if (obj.hasClass('complete')) {
-            obj.removeClass('complete').addClass('pink').removeClass('green');
-        } else {
-            obj.addClass('complete').removeClass('pink').addClass('green');
+        //get the goals
+        var goals = Session.get('goals');
+        for (var i=0; i < goals.length; i++) {
+            if (goals[i].name === this.name) {
+                if (goals[i].complete) {
+                    goals[i].complete = false;
+                } else {
+                    goals[i].complete = true;
+                }
+                break;
+            }
         }
+
+        //set the goals once changed
+        Session.set('goals', goals);
     }
 });
