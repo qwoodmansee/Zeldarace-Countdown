@@ -5,7 +5,7 @@
                 <div class="row">
                     {{#each items}}
                         <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
-                            <img class="scorecard-icon unselectable" src="/icons/{{name}}.png">
+                            {{>scorecardIconTemplate}}
                             <span class="weight-label unselectable">{{weight}}</span>
                         </div>
                     {{/each}}
@@ -16,8 +16,8 @@
             {{#each EquipMenuGridRows}}
                 <div class="row">
                     {{#each items}}
-                        <div class="col s3 scorecard-item unselectable" data-weight="{{weight}}">
-                            <img class="scorecard-icon unselectable" src="/icons/{{name}}.png">
+                        <div class="col s3 scorecard-item unselectable" data-weight="{{weight}}" >
+                            {{>scorecardIconTemplate}}
                             <span class="weight-label unselectable">{{weight}}</span>
                         </div>
                     {{/each}}
@@ -29,7 +29,7 @@
                     <div class="row">
                         {{#each items}}
                             <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
-                                <img class="scorecard-icon unselectable" src="/icons/{{name}}.png">
+                                {{>scorecardIconTemplate}}
                                 <span class="weight-label unselectable">{{weight}}</span>
                             </div>
                         {{/each}}
@@ -38,8 +38,8 @@
                 {{#each MedallionAndExtraGridRows}}
                     <div class="row">
                         {{#each items}}
-                            <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
-                                <img class="scorecard-icon unselectable" src="/icons/{{name}}.png">
+                            <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" >
+                                {{>scorecardIconTemplate}}
                                 <span class="weight-label unselectable">{{weight}}</span>
                             </div>
                         {{/each}}
@@ -106,4 +106,8 @@
             </div>
         </div>
     </div>
+</template>
+
+<template name="scorecardIconTemplate">
+    <img class="scorecard-icon unselectable tooltipped" src="/icons/{{name}}.png"  data-tooltip={{tooltip}}>
 </template>

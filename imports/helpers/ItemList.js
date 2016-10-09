@@ -136,68 +136,75 @@ export const ItemList = function() {
         var newObject = {};
 
         //decide ocarina
-        if (Math.random()*2 > 1) {
-            newObject.ocarina = {name: "OcarinaOfTime"};
+        if (Math.random()*2 > 1.3) {
+            newObject.ocarina = {name: "OcarinaOfTime", tooltip: "Ocarina of Time"};
         } else {
-            newObject.ocarina = {name: "FairyOcarina"};
+            newObject.ocarina = {name: "FairyOcarina", tooltip: "Fairy Ocarina"};
         }
 
         //hookshot/longshot
         if (Math.random()*2 > 1) {
-            newObject.hookshotOption = {name: "Hookshot"};
+            newObject.hookshotOption = {name: "Hookshot", tooltip: "Hookshot"};
         } else {
-            newObject.hookshotOption = {name: "Longshot"};
+            newObject.hookshotOption = {name: "Longshot", tooltip: "Longshot"};
         }
 
         //bottles
         var bottlesArray = [];
-        var bottleOptions = ["EmptyBottle", "RedPotion", "BottledFairy", "Bug", "BigPoe", "BlueFire", "BluePotion",
-            "Fish", "GreenPotion", "Milk", "MilkHalf", "Poe", "RutosLetter"];
+        //first option is filename, second option is tooltip
+        var bottleOptions = [["EmptyBottle", "Empty Bottle"], ["RedPotion", "Red Potion"], ["BottledFairy", "Bottled Fairy"],
+            ["Bug", "Bugs"], ["BigPoe", "Big Poe"], ["BlueFire", "Blue Fire"], ["BluePotion", "Blue Potion"], ["Fish",
+            "Fish"], ["GreenPotion", "Green Potion"], ["Milk", "Milk"], ["MilkHalf", "Half Milk"], ["Poe", "Poe"],
+            ["RutosLetter", "Ruto's Letter"]];
         //pick items for the 4 bottles
         for (var i=0; i < 4; i++) {
             //get the index of which item we are using
             idx = self.generateRandomNumber(0, bottleOptions.length, false);
-            bottlesArray.push({name: bottleOptions[idx]});
+            bottlesArray.push({name: bottleOptions[idx][0], tooltip: bottleOptions[idx][1]});
             bottleOptions.splice(idx, 1);
         }
         newObject.bottles = bottlesArray;
 
         //adult trade
-        var adultQuestOptions = ["Cojiro", "OddMushroom", "OddPotion", "PoachersSaw", "Prescription", "GoronsSwordBroken",
-            "ClaimCheck", "WeirdEgg"];
+        //first option is filename, second option is tooltip
+        var adultQuestOptions = [["Cojiro", "Cojiro"], ["OddMushroom", "Odd Mushroom"], ["OddPotion", "Odd Potion"],
+            ["PoachersSaw", "Poachers Saw"], ["Prescription", "Prescription"], ["GoronsSwordBroken", "Broken Sword"],
+            ["ClaimCheck", "Claim Check"], ["WeirdEgg", "Weird Egg"]];
         idx = self.generateRandomNumber(0, adultQuestOptions.length, false);
-        newObject.adultTrade = {name: adultQuestOptions[idx]};
+        newObject.adultTrade = {name: adultQuestOptions[idx][0], tooltip: adultQuestOptions[idx][1]};
 
         //child trade
-        var childQuestOptions = ["KeatonMask", "SkullMask", "SpookyMask", "BunnyHood", "ZoraMask", "GoronMask", "GerudoMask",
-            "MaskOfTruth", "ZeldasLetter", "SOLDOUT", "WeirdEgg", "Cucco"];
+        var childQuestOptions = [["KeatonMask", "Keaton Mask"], ["SkullMask", "Skull Mask"], ["SpookyMask", "Spooky Mask"],
+            ["BunnyHood", "Bunny Hood"], ["ZoraMask", "Zora Mask"], ["GoronMask", "Goron Mask"], ["GerudoMask", "Gerudo Mask"],
+            ["MaskOfTruth", "Mask of Truth"], ["ZeldasLetter", "Zelda's Letter"], ["SOLDOUT", "SOLDOUT"], ["WeirdEgg", "Weird Egg"],
+            ["Cucco", "Cucco"]];
         idx = self.generateRandomNumber(0, childQuestOptions.length, false);
-        newObject.childTrade = {name: childQuestOptions[idx]};
+        newObject.childTrade = {name: childQuestOptions[idx][0], tooltip: childQuestOptions[idx][1]};
 
         //decide quiver
-        var quiverOptions = ["Quiver30", "Quiver40", "Quiver50"];
+        var quiverOptions = [["Quiver30", "Quiver (30)"], ["Quiver40", "Quiver (40)"], ["Quiver50", "Quiver (50)"]];
         var idx = self.generateRandomNumber(0, quiverOptions.length, false);
-        newObject.quiver = {name: quiverOptions[idx]};
+        newObject.quiver = {name: quiverOptions[idx][0], tooltip:quiverOptions[idx][1]};
 
         //large sword
-        var bigSwordOptions = ["GoronsSwordBroken", "BiggoronsSword"];
+        var bigSwordOptions = [["GoronsSwordBroken", "Broken Sword"], ["BiggoronsSword", "Biggorons Sword"]];
         idx = self.generateRandomNumber(0, bigSwordOptions.length, false);
-        newObject.bigSword = {name: bigSwordOptions[idx]};
+        newObject.bigSword = {name: bigSwordOptions[idx][0], tooltip:bigSwordOptions[idx][1]};
 
         //bomb bag
-        var bombBagOptions = ["BombBag20", "BombBag30", "BombBag40"];
+        var bombBagOptions = [["BombBag20", "Bomb Bag (20)"], ["BombBag30", "Bomb Bag (30)"], ["BombBag40", "Bomb Bag (40)"]];
         idx = self.generateRandomNumber(0, bombBagOptions.length, false);
-        newObject.bombBag = {name: bombBagOptions[idx]};
+        newObject.bombBag = {name: bombBagOptions[idx][0], tooltip:bombBagOptions[idx][1]};
 
         //gauntlet options
-        var gauntletOptions = ["GoronBracelet", "SilverGauntlets", "GoldenGauntlets"];
+        var gauntletOptions = [["GoronBracelet", "Goron Bracelet"], ["SilverGauntlets", "Silver Gauntlets"], ["GoldenGauntlets", "Golden Gauntlets"]];
         idx = self.generateRandomNumber(0, gauntletOptions.length, false);
-        newObject.gauntlets = {name: gauntletOptions[idx]};
+        newObject.gauntlets = {name: gauntletOptions[idx][0], tooltip:gauntletOptions[idx][1]};
 
         //scale
-        var scaleOptions = ["SilverScale", "GoldScale"];
+        var scaleOptions = [["SilverScale", "Silver Scale"], ["GoldScale", "Gold Scale"]];
         idx = self.generateRandomNumber(0, scaleOptions.length, false);
-        newObject.scale = {name: scaleOptions[idx]};
+        newObject.scale = {name: scaleOptions[idx][0], tooltip:scaleOptions[idx][1]};
 
         return newObject;
     }
