@@ -71,40 +71,44 @@ Template.Scorecard.helpers({
 
         if (timer) {
             var row1 = [];
-            row1.push({name: "DekuStick", weight: weights["DekuStick"]});
-            row1.push({name: "DekuNut", weight: weights["DekuNut"]});
-            row1.push({name: "Bomb", weight: weights["Bomb"]});
-            row1.push({name: "FairyBow", weight: weights["FairyBow"]});
-            row1.push({name: "FireArrow", weight: weights["FireArrow"]});
-            row1.push({name: "DinsFire", weight: weights["DinsFire"]});
+            row1.push({name: "DekuStick", weight: weights["DekuStick"], tooltip: "Deku Stick"});
+            row1.push({name: "DekuNut", weight: weights["DekuNut"], tooltip: "Deku Nut"});
+            row1.push({name: "Bomb", weight: weights["Bomb"], tooltip: "Bombs"});
+            row1.push({name: "FairyBow", weight: weights["FairyBow"], tooltip: "Fairy Bow"});
+            row1.push({name: "FireArrow", weight: weights["FireArrow"], tooltip: "Fire Arrow"});
+            row1.push({name: "DinsFire", weight: weights["DinsFire"], tooltip: "Din's Fire"});
 
             var row2 = [];
-            row2.push({name: "FairySlingshot", weight: weights["FairySlingshot"]});
+            row2.push({name: "FairySlingshot", weight: weights["FairySlingshot"], tooltip: "Fairy Slingshot"});
             row2.push({name: timer.randomItems['ocarina'].name, weight: weights[timer.randomItems['ocarina'].name]});
-            row2.push({name: "Bombchu", weight: weights["Bombchu"]});
-            row2.push({name: timer.randomItems['hookshotOption'].name, weight: weights[timer.randomItems['hookshotOption'].name]});
-            row2.push({name: "IceArrow", weight: weights["IceArrow"]});
-            row2.push({name: "FaroresWind", weight: weights["FaroresWind"]});
+            row2.push({name: "Bombchu", weight: weights["Bombchu"], tooltip: "Bombchu"});
+            row2.push({name: timer.randomItems['hookshotOption'].name, weight: weights[timer.randomItems['hookshotOption'].name],
+                        tooltip: timer.randomItems['hookshotOption'].tooltip});
+            row2.push({name: "IceArrow", weight: weights["IceArrow"], tooltip: "Ice Arrow"});
+            row2.push({name: "FaroresWind", weight: weights["FaroresWind"], tooltip: "Farore's Wind"});
 
             var row3 = [];
-            row3.push({name: "Boomerang", weight: weights["Boomerang"]});
-            row3.push({name: "LensOfTruth", weight: weights["LensOfTruth"]});
-            row3.push({name: "MagicBeans", weight: weights["MagicBeans"]});
-            row3.push({name: "MegatonHammer", weight: weights["MegatonHammer"]});
-            row3.push({name: "LightArrow", weight: weights["LightArrow"]});
-            row3.push({name: "NayrusLove", weight: weights["NayrusLove"]});
+            row3.push({name: "Boomerang", weight: weights["Boomerang"], tooltip: "Boomerang"});
+            row3.push({name: "LensOfTruth", weight: weights["LensOfTruth"], tooltip: "Lens of Truth"});
+            row3.push({name: "MagicBeans", weight: weights["MagicBeans"], tooltip: "Magic Beans"});
+            row3.push({name: "MegatonHammer", weight: weights["MegatonHammer"], tooltip: "Megaton Hammer"});
+            row3.push({name: "LightArrow", weight: weights["LightArrow"], tooltip: "Light Arrow"});
+            row3.push({name: "NayrusLove", weight: weights["NayrusLove"], tooltip: "Nayru's Love"});
 
             var row4 = [];
             //pick items for the 4 bottles
             for (var i=0; i < 4; i++) {
-                row4.push({name: timer.randomItems.bottles[i].name, weight: weights[timer.randomItems.bottles[i].name]});
+                row4.push({name: timer.randomItems.bottles[i].name, weight: weights[timer.randomItems.bottles[i].name],
+                            tooltip: timer.randomItems.bottles[i].tooltip});
             }
 
             //pick which adult quest item will be chosen
-            row4.push({name: timer.randomItems['adultTrade'].name, weight: weights[timer.randomItems['adultTrade'].name]});
+            row4.push({name: timer.randomItems['adultTrade'].name, weight: weights[timer.randomItems['adultTrade'].name],
+                        tooltip:  timer.randomItems['adultTrade'].tooltip});
 
             //pick which child quest item will be chosen
-            row4.push({name: timer.randomItems['childTrade'].name, weight: weights[timer.randomItems['childTrade'].name]});
+            row4.push({name: timer.randomItems['childTrade'].name, weight: weights[timer.randomItems['childTrade'].name],
+                        tooltip: timer.randomItems['childTrade'].tooltip});
 
             return [
                 {items: row1},
@@ -126,28 +130,33 @@ Template.Scorecard.helpers({
 
         if (timer) {
             var row1 = [];
-            row1.push({name: timer.randomItems['quiver'].name, weight: weights[timer.randomItems['quiver'].name]});
-            row1.push({name: "KokiriSword", weight: weights["KokiriSword"]});
-            row1.push({name: "MasterSword", weight: weights["MasterSword"]});
-            row1.push({name: timer.randomItems['bigSword'].name, weight: weights[timer.randomItems['bigSword'].name]});
+            row1.push({name: timer.randomItems['quiver'].name, weight: weights[timer.randomItems['quiver'].name],
+                        tooltip: timer.randomItems['quiver'].tooltip});
+            row1.push({name: "KokiriSword", weight: weights["KokiriSword"], tooltip: "KokiriSword"});
+            row1.push({name: "MasterSword", weight: weights["MasterSword"], tooltip: "MasterSword"});
+            row1.push({name: timer.randomItems['bigSword'].name, weight: weights[timer.randomItems['bigSword'].name],
+                        tooltip: timer.randomItems['bigSword'].tooltip});
 
             var row2 = [];
-            row2.push({name: timer.randomItems['bombBag'].name, weight: weights[timer.randomItems['bombBag'].name]});
-            row2.push({name: "DekuShield", weight: weights["DekuShield"]});
-            row2.push({name: "HylianShield", weight: weights["HylianShield"]});
-            row2.push({name: "MirrorShield", weight: weights["MirrorShield"]});
+            row2.push({name: timer.randomItems['bombBag'].name, weight: weights[timer.randomItems['bombBag'].name],
+                        tooltip: timer.randomItems['bombBag'].tooltip});
+            row2.push({name: "DekuShield", weight: weights["DekuShield"], tooltip: "Deku Shield"});
+            row2.push({name: "HylianShield", weight: weights["HylianShield"], tooltip: "Hylian Shield"});
+            row2.push({name: "MirrorShield", weight: weights["MirrorShield"], tooltip: "Mirror Shield"});
 
             var row3 = [];
-            row3.push({name: timer.randomItems['gauntlets'].name, weight: weights[timer.randomItems['gauntlets'].name]});
-            row3.push({name: "KokiriTunic", weight: weights["KokiriTunic"]});
-            row3.push({name: "GoronTunic", weight: weights["GoronTunic"]});
-            row3.push({name: "ZoraTunic", weight: weights["ZoraTunic"]});
+            row3.push({name: timer.randomItems['gauntlets'].name, weight: weights[timer.randomItems['gauntlets'].name],
+                        tooltip: timer.randomItems['gauntlets'].tooltip});
+            row3.push({name: "KokiriTunic", weight: weights["KokiriTunic"], tooltip: "Kokiri Tunic"});
+            row3.push({name: "GoronTunic", weight: weights["GoronTunic"], tooltip: "Goron Tunic"});
+            row3.push({name: "ZoraTunic", weight: weights["ZoraTunic"], tooltip: "Zora Tunic"});
 
             var row4 = [];
-            row4.push({name: timer.randomItems['scale'].name, weight: weights[timer.randomItems['scale'].name]});
-            row4.push({name: "KokiriBoots", weight: weights["KokiriBoots"]});
-            row4.push({name: "IronBoots", weight: weights["IronBoots"]});
-            row4.push({name: "HoverBoots", weight: weights["HoverBoots"]});
+            row4.push({name: timer.randomItems['scale'].name, weight: weights[timer.randomItems['scale'].name],
+                        tooltip: timer.randomItems['scale'].tooltip});
+            row4.push({name: "KokiriBoots", weight: weights["KokiriBoots"], tooltip: "Kokiri Boots"});
+            row4.push({name: "IronBoots", weight: weights["IronBoots"], tooltip: "Iron Boots"});
+            row4.push({name: "HoverBoots", weight: weights["HoverBoots"], tooltip: "Hover Boots"});
 
             return [
                 {items: row1},
@@ -166,19 +175,19 @@ Template.Scorecard.helpers({
             weights = timer.weights;
         }
         return [
-            {items: [{name: "ZeldasLullaby", weight: weights["ZeldasLullaby"]},
-                    {name: "EponasSong", weight: weights["EponasSong"]},
-                    {name: "SariasSong", weight: weights["SariasSong"]},
-                    {name: "SunsSong", weight: weights["SunsSong"]},
-                    {name: "SongofTime", weight: weights["SongofTime"]},
-                    {name: "SongofStorms", weight: weights["SongofStorms"]}]
+            {items: [{name: "ZeldasLullaby", weight: weights["ZeldasLullaby"], tooltip: "Zelda's Lullaby"},
+                    {name: "EponasSong", weight: weights["EponasSong"], tooltip: "Epona's Song"},
+                    {name: "SariasSong", weight: weights["SariasSong"], tooltip: "Saria's Song"},
+                    {name: "SunsSong", weight: weights["SunsSong"], tooltip: "Suns Song"},
+                    {name: "SongofTime", weight: weights["SongofTime"], tooltip: "Song of Time"},
+                    {name: "SongofStorms", weight: weights["SongofStorms"], tooltip: "Song of Storms"}]
             }, {
-            items: [{name: "MinuetOfForest", weight: weights["MinuetOfForest"]}, //r2
-                    {name: "BoleroOfFire", weight: weights["BoleroOfFire"]},
-                    {name: "SerenadeOfWater", weight: weights["SerenadeOfWater"]},
-                    {name: "RequiemofSpirit", weight: weights["RequiemofSpirit"]},
-                    {name: "NocturneOfShadow", weight: weights["NocturneOfShadow"]},
-                    {name: "PreludeofLight", weight: weights["PreludeofLight"]}]
+            items: [{name: "MinuetOfForest", weight: weights["MinuetOfForest"], tooltip: "Minuet of Forest"}, //r2
+                    {name: "BoleroOfFire", weight: weights["BoleroOfFire"], tooltip: "Bolero of Fire"},
+                    {name: "SerenadeOfWater", weight: weights["SerenadeOfWater"], tooltip: "Serenade of Water"},
+                    {name: "RequiemofSpirit", weight: weights["RequiemofSpirit"], tooltip: "Requiem of Spirit"},
+                    {name: "NocturneOfShadow", weight: weights["NocturneOfShadow"], tooltip: "Nocturne of Shadow"},
+                    {name: "PreludeofLight", weight: weights["PreludeofLight"], tooltip: "Prelude of Light"}]
             }];
     },
 
@@ -190,18 +199,18 @@ Template.Scorecard.helpers({
             weights = timer.weights;
         }
         return [
-            {items: [{name: "LightMedallion", weight: weights["LightMedallion"]},
-                {name: "ForestMedallion", weight: weights["ForestMedallion"]},
-                {name: "FireMedallion", weight: weights["FireMedallion"]},
-                {name: "WaterMedallion", weight: weights["WaterMedallion"]},
-                {name: "SpiritMedallion", weight: weights["SpiritMedallion"]},
-                {name: "ShadowMedallion", weight: weights["ShadowMedallion"]}]
+            {items: [{name: "LightMedallion", weight: weights["LightMedallion"], tooltip: "Light Medallion"},
+                {name: "ForestMedallion", weight: weights["ForestMedallion"], tooltip: "Forest Medallion"},
+                {name: "FireMedallion", weight: weights["FireMedallion"], tooltip: "Fire Medallion"},
+                {name: "WaterMedallion", weight: weights["WaterMedallion"], tooltip: "Water Medallion"},
+                {name: "SpiritMedallion", weight: weights["SpiritMedallion"], tooltip: "Spirit Medallion"},
+                {name: "ShadowMedallion", weight: weights["ShadowMedallion"], tooltip: "Shadow Medallion"}]
             }, {
-                items: [{name: "KokiriEmerald", weight: weights["KokiriEmerald"]}, //r2
-                    {name: "GoronsRuby", weight: weights["GoronsRuby"]},
-                    {name: "ZorasSapphire", weight: weights["ZorasSapphire"]},
-                    {name: "StoneofAgony", weight: weights["StoneofAgony"]},
-                    {name: "GerudoCard", weight: weights["GerudoCard"]}]
+                items: [{name: "KokiriEmerald", weight: weights["KokiriEmerald"], tooltip: "Kokiri Emerald"}, //r2
+                    {name: "GoronsRuby", weight: weights["GoronsRuby"], tooltip: "Goron's Ruby"},
+                    {name: "ZorasSapphire", weight: weights["ZorasSapphire"], tooltip: "Zora's Sapphire"},
+                    {name: "StoneofAgony", weight: weights["StoneofAgony"], tooltip: "Stone of Agony"},
+                    {name: "GerudoCard", weight: weights["GerudoCard"], tooltip: "Gerudo Card"}]
             }];
     },
 
@@ -219,7 +228,11 @@ Template.Scorecard.helpers({
 });
 
 Template.Scorecard.onRendered(function() {
-
+    Tracker.autorun(function () {
+        Tracker.afterFlush(function () {
+            $('.tooltipped').tooltip({delay: 50});
+        });
+    });
 });
 
 Template.Scorecard.events({
@@ -311,4 +324,8 @@ Template.Scorecard.events({
             Session.set('score', temp + 1);
         }
     },
+});
+
+Template.scorecardIconTemplate.onRendered(function() {
+    $('.tooltipped').tooltip({delay: 20, position:'top'});
 });
