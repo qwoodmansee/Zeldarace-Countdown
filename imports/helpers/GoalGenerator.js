@@ -172,6 +172,17 @@ export const GoalGenerator = function() {
 
             if ((numViable / permCounter) > requiredPercentage) {
                 attempting = false;
+
+                //TODO(quinton): choose prechosen a little smarter than this
+                var requiredSet = 0;
+                while (requiredSet < parseInt(numPreChosenRequired)) {
+                    var goalNum = Math.floor((Math.random() * numGoals - 1) + 1);
+                    if (chosenGoals[goalNum].required == false) {
+                        chosenGoals[goalNum].required = true;
+                        requiredSet += 1;
+                    }
+                }
+
                 return chosenGoals;
             } else if (numAttempts > 100000) {
                 return [{name: "No Suitable Goals Found"},
