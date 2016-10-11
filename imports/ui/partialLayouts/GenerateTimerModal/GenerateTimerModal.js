@@ -100,6 +100,7 @@ Template.body.events({
         var numRequiredGoals = target.requiredGoals.value;
         var numPrechosenGoals = target.preChosen.value;
         var smartGoals = target.smartGoals.value;
+        var superSmartGoals = target.superSmartGoals.value;
 
         //validate values and set to random if incorrect
 
@@ -135,8 +136,10 @@ Template.body.events({
         //only build this list when we absolutely have to, because it will use memory
         const goalGenerator = new GoalGenerator();
         var goals;
-        if (smartGoals == "on") {
-            goals = goalGenerator.generateTimeConsciousGoals(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes);
+        if (superSmartGoals == "on") {
+            goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes);
+        } else if (smartGoals == "on") {
+            goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes);
         } else {
             goals = goalGenerator.generateGoals(numGoals, numPrechosenGoals);
         }
