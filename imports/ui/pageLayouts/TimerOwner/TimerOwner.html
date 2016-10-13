@@ -9,15 +9,19 @@
                 <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span>
             </h1>
             {{#if Template.subscriptionsReady}}
-                {{#if TimerNotRunning}}
+                {{#unless TimerRunning}}
                     <h1 class="center">{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</h1>
-                {{/if}}
+                {{/unless}}
             {{/if}}
         </div>
         <!--must be outside of div so that can call jQuery on rendered and there will be no race condition-->
         <div class="row">
             <div class="center">
-                <button class="waves-effect waves-light btn-large indigo" id="timer-start-button">Start Timer</button>
+                {{#if TimerRunning}}
+                    <button class="waves-effect waves-light btn-large red accent-2" id="timer-reset-button">Reset Timer</button>
+                {{else}}
+                         <button class="waves-effect waves-light btn-large indigo" id="timer-start-button">Start Timer</button>
+                {{/if}}
                 <a class="waves-effect waves-light btn-large pink lighten-1 modal-trigger" href="#generateModal">Generate New</a>
             </div>
         </div>
