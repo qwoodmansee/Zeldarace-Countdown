@@ -190,13 +190,6 @@ Template.TimerOwner.onCreated(function(){
                                 clearInterval(timeinterval);
                                 $('#countdown').hide();
 
-                            } else if (fields.hasOwnProperty('running')) {
-                                // timer was reset
-                                // new timer from non started timer
-                                self.timerStartTime.set(null);
-                                self.timerRunning.set(false);
-                                clearInterval(timeinterval);
-                                $('#countdown').hide();
                             } else {
                                 // timer ended (hit 00:00:00) - this actually might not happen
                                 self.timerRunning.set(false);
@@ -238,8 +231,8 @@ Template.TimerOwner.onRendered(function() {
 });
 
 Template.TimerOwner.helpers({
-    TimerRunning() {
-        return Template.instance().timerRunning.get();
+    TimerNotRunning() {
+        return !Template.instance().timerRunning.get();
     },
 
     UnactiveTimeFormatted() {
@@ -275,11 +268,6 @@ Template.TimerOwner.events({
    'click #timer-start-button': function() {
        var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
        Timers.update(originalTimer._id, {$set: {'timeStarted': new Date(), 'running': true}});
-   },
-
-   'click #timer-reset-button': function() {
-       var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
-       Timers.update(originalTimer._id, {$set: {'running': false}});
    }
 });
 
