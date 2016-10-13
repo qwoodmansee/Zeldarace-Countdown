@@ -8,7 +8,7 @@ OoT Countdown Current Status
 * Each item has an assigned point value, so some may be worth more than others.
 * At the end of the race, all players pause and double check that their scorecard is correct. Whoever has the most points, wins the race.
 	 
-**Rules: **
+**Rules:**
 
 *  English Version (for new community outreach reasons).
 	
