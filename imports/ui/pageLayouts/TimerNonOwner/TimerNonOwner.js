@@ -157,6 +157,14 @@ Template.TimerNonOwner.onCreated(function(){
                                        clearInterval(timeinterval);
                                        $('#countdown').hide();
 
+                                   } else if (fields.hasOwnProperty('running')) {
+                                       // timer was reset
+                                       // new timer from non started timer
+                                       self.timerStartTime.set(null);
+                                       self.timerRunning.set(false);
+                                       clearInterval(timeinterval);
+                                       $('#countdown').hide();
+                                       
                                    } else {
                                        // timer ended (hit 00:00:00) - this actually might not happen
                                        self.timerRunning.set(false);
