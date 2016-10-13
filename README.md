@@ -88,7 +88,7 @@ Implementation Details:
 
 Implemented User Requests:
  
-* Stream card which displays up to date goals, score, and timer in a verticle fashion
+* Stream card which displays up to date goals, score, and timer in a vertical fashion
 * Smart goal generation so impossible goals aren't chosen for low length timers.
 *  Reset Timer button so the same card and goals can be used for a second attempt at a race.
 * Tooltips when hovering over items in the scorecard, mainly to be able to tell difference between bomb bags, quivers, songs, and hookshot
