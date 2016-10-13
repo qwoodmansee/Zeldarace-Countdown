@@ -32,10 +32,11 @@ OoT Countdown Current Status
 * Weights: There is a scorecard with each item in the game, those items have a point value associated with them. If you have the item when the timer hits 00:00:00, you get the points
     
      * There are a few options with weights:
-        	Equal: All items have a point value of one
-        	Random: All items have a positive random point value
-        	Random (Allow Negative): All items have a random point value
-        	Smart: In development - Goals will have a random point value which makes sense
+     
+        	- Equal: All items have a point value of one
+        	- Random: All items have a positive random point value
+        	- Random (Allow Negative): All items have a random point value
+        	- Smart: In development - Goals will have a random point value which makes sense
 
 * Smart Goals: If checked, the app will make sure that at least some percentage of the possible selections of goals are completable in the time limit (this is recommended)
     
