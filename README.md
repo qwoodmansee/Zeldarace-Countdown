@@ -109,6 +109,7 @@ Unimplemented User Requests:
 	* Filename Generation %
 	* Official Handicap Protocol %
 	* UI to support Handicap Protocol
+	* BK, Map, and Compass points
 		
  % - Plan on implementing soon
 			
