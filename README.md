@@ -45,7 +45,7 @@ OoT Countdown Current Status
 Basic Race Procedure:
 	
 	1. Decide on a host (hereby named "Host" for this example).
-	2. 
+	
 	2. All other racers hereby named "Racers" for this example.
 
 	3. Host logs in to zeldarace.com and invites Racers to his zeldarace.com URL
