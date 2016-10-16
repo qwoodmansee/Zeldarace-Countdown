@@ -89,7 +89,8 @@ export const WeightGenerator = function() {
             var retval = mean + stdev * y1;
             if(retval > 0)
                 return retval;
-            return -retval;
+            //return -retval;
+            return retval;
         }
     }
 
