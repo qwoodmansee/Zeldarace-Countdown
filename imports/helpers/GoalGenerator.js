@@ -146,8 +146,10 @@ export const GoalGenerator = function() {
             var s = []; //keeps indicies pointing to elements in potentialGoals
 
             if (k <= chosenGoals.length) {
-                for (var i=0; (s[i] = i) < k - 1; i++);
+                for (var i=0; (s[i] = i) < k - 1; i++); //initialize array to original values
                 permCounter++;
+
+                //check original (first path)
                 if (self._subsetViable(chosenGoals, s, minutes)) {
                     numViable++;
                 }
