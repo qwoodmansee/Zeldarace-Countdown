@@ -151,6 +151,8 @@ Template.body.events({
             weights = weightGenerator.generateRandomWeights(false);
         } else if (weightsChoice === "3") {
             weights = weightGenerator.generateRandomWeights(true);
+        } else if (weightsChoice === "4") {
+            weights = weightGenerator.generateSmartWeights(true, true);
         } else {
             weights = weightGenerator.generateEqualWeights();
 

@@ -171,6 +171,7 @@ export const GoalGenerator = function() {
             }
 
             if ((numViable / permCounter) > requiredPercentage) {
+
                 attempting = false;
 
                 //TODO(quinton): choose prechosen a little smarter than this

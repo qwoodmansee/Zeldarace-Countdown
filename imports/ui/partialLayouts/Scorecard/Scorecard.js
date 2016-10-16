@@ -132,8 +132,8 @@ Template.Scorecard.helpers({
             var row1 = [];
             row1.push({name: timer.randomItems['quiver'].name, weight: weights[timer.randomItems['quiver'].name],
                         tooltip: timer.randomItems['quiver'].tooltip});
-            row1.push({name: "KokiriSword", weight: weights["KokiriSword"], tooltip: "KokiriSword"});
-            row1.push({name: "MasterSword", weight: weights["MasterSword"], tooltip: "MasterSword"});
+            row1.push({name: "KokiriSword", weight: weights["KokiriSword"], tooltip: "Kokiri Sword"});
+            row1.push({name: "MasterSword", weight: weights["MasterSword"], tooltip: "Master Sword"});
             row1.push({name: timer.randomItems['bigSword'].name, weight: weights[timer.randomItems['bigSword'].name],
                         tooltip: timer.randomItems['bigSword'].tooltip});
 
