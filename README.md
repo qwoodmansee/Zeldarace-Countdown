@@ -8,7 +8,7 @@ OoT Countdown Current Status
 * Each item has an assigned point value, so some may be worth more than others.
 * At the end of the race, all players pause and double check that their scorecard is correct. Whoever has the most points, wins the race.
 	 
-**Rules: **
+**Rules:**
 
 *  English Version (for new community outreach reasons).
 	
@@ -32,10 +32,11 @@ OoT Countdown Current Status
 * Weights: There is a scorecard with each item in the game, those items have a point value associated with them. If you have the item when the timer hits 00:00:00, you get the points
     
      * There are a few options with weights:
-        	Equal: All items have a point value of one
-        	Random: All items have a positive random point value
-        	Random (Allow Negative): All items have a random point value
-        	Smart: In development - Goals will have a random point value which makes sense
+     
+        	- Equal: All items have a point value of one
+        	- Random: All items have a positive random point value
+        	- Random (Allow Negative): All items have a random point value
+        	- Smart: In development - Goals will have a random point value which makes sense
 
 * Smart Goals: If checked, the app will make sure that at least some percentage of the possible selections of goals are completable in the time limit (this is recommended)
     
@@ -44,7 +45,7 @@ OoT Countdown Current Status
 Basic Race Procedure:
 	
 	1. Decide on a host (hereby named "Host" for this example).
-	2. 
+	
 	2. All other racers hereby named "Racers" for this example.
 
 	3. Host logs in to zeldarace.com and invites Racers to his zeldarace.com URL
@@ -88,7 +89,7 @@ Implementation Details:
 
 Implemented User Requests:
  
-* Stream card which displays up to date goals, score, and timer in a verticle fashion
+* Stream card which displays up to date goals, score, and timer in a vertical fashion
 * Smart goal generation so impossible goals aren't chosen for low length timers.
 *  Reset Timer button so the same card and goals can be used for a second attempt at a race.
 * Tooltips when hovering over items in the scorecard, mainly to be able to tell difference between bomb bags, quivers, songs, and hookshot
@@ -108,6 +109,7 @@ Unimplemented User Requests:
 	* Filename Generation %
 	* Official Handicap Protocol %
 	* UI to support Handicap Protocol
+	* BK, Map, and Compass points
 		
  % - Plan on implementing soon
 			
