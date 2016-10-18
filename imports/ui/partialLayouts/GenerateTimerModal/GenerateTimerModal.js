@@ -20,50 +20,63 @@ Template.body.events({
     //event which will trigger when a preset is selected and set all the relevant forms
     'change #preset-select': function(event, template) {
         event.preventDefault();
+
         //determine the preset selected
         switch ($(this).val()) {
             //short
             case "1":
-                //set length to 25 minutes
-                $('#length_input').val(25);
+                //set length to 46 minutes
+                $('#length_input').val(46);
 
                 //set available goals to 3, required to 1, prechosen to 0
-                $('#total_goals').val(3);
+                $('#total_goals').val(4);
                 $('#required_goals').val(1);
                 $('#pre_chosen_goals').val(0);
+
+                //weights to smart
+                $('#weights-select').val(4);
+
                 break;
 
             //medium
             case "2":
-                //set length to 55 minutes
-                $('#length_input').val(55);
+                //set length 1 hr 16 minutes
+                $('#length_input').val(76);
 
-                //set available goals to 5, required to 3, prechosen to 0
-                $('#total_goals').val(5);
-                $('#required_goals').val(3);
-                $('#pre_chosen_goals').val(1);
+                //set available goals to 7, required to 5, prechosen to 2
+                $('#total_goals').val(7);
+                $('#required_goals').val(4);
+                $('#pre_chosen_goals').val(2);
+
+                //weights to smart
+                $('#weights-select').val(4);
+
                 break;
 
             //long
             case "3":
-                //set length to 1 hour 40 minutes
-                $('#length_input').val(100);
+                //set length to 2 hour 21 minutes
+                $('#length_input').val(181);
 
                 //set available goals to 6, required to 5, prechosen to 2
-                $('#total_goals').val(6);
-                $('#required_goals').val(5);
-                $('#pre_chosen_goals').val(2);
+                $('#total_goals').val(8);
+                $('#required_goals').val(6);
+                $('#pre_chosen_goals').val(3);
+
+                //weights to smart
+                $('#weights-select').val(4);
+
                 break;
 
             //collectathon
             case "4":
-                //set length to 55 minutes
-                $('#length_input').val(55);
+                //set length to 1 hr
+                $('#length_input').val(61);
 
                 //set available goals to 6, required to 5, prechosen to 2
                 $('#total_goals').val(6);
-                $('#required_goals').val(2);
-                $('#pre_chosen_goals').val(1);
+                $('#required_goals').val(1);
+                $('#pre_chosen_goals').val(0);
 
                 //weights to random
                 $('#weights-select').val(2);
@@ -72,16 +85,17 @@ Template.body.events({
 
             //goal-master
             case "5":
-                //set length to 55 minutes
-                $('#length_input').val(55);
+                //set length to 1 hr
+                $('#length_input').val(61);
 
                 //set available goals to 5, required to 4, prechosen to 2
                 $('#total_goals').val(5);
-                $('#required_goals').val(4);
-                $('#pre_chosen_goals').val(2);
+                $('#required_goals').val(5);
+                $('#pre_chosen_goals').val(5);
 
-                //weights to random
-                $('#weights-select').val(2);
+                //weights to equal
+                $('#weights-select').val(1);
+
                 break;
         }
 
@@ -99,14 +113,14 @@ Template.body.events({
         var numGoals = target.totalGoals.value;
         var numRequiredGoals = target.requiredGoals.value;
         var numPrechosenGoals = target.preChosen.value;
-        var smartGoals = target.smartGoals.value;
+        //var smartGoals = target.smartGoals.value;
         var superSmartGoals = target.superSmartGoals.value;
 
         //validate values and set to random if incorrect
 
         //random time between 20 minutes and 3 hours
         if (lengthInMinutes < 1) {
-            lengthInMinutes = Math.floor(Math.random()*(180-20+1)+20);
+            lengthInMinutes = Math.floor(Math.random()*(180-35+1)+35);
         }
 
         var lengthInMS = lengthInMinutes * 60 * 1000;
