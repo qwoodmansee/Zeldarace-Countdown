@@ -6,11 +6,21 @@ import './FAQModal.html';
 import './FAQModal.css';
 
 Template.FAQModal.helpers({
-   WhatIsCountdown() {
+    WhatIsCountdown() {
        return "Countdown is a tool used by Ocarina of Time enthusiasts to race one another against a common clock. " +
            "To win, users must complete a set number of goals which they can choose from. Additionally, one must collect " +
            "as many items as possible. At the end of the countdown, each racer can tally up their points using the scorecard.";
-   },
+    },
+
+    Rules() {
+        return [
+            "English Version (for new community outreach reasons)",
+            "No Bottle Duping over negative value items, however RBA'ing them away is acceptable",
+            "An item must exist in it's intended place on the menu at the end of the race to receive credit for it",
+            "All custom rules, restrictions, handicaps must be agreed upon by all racers"
+        ];
+    },
+
     WhatAreWeights() {
         return "Weights are an optional setting for the scorecard of a timer. Weights allow different items throughout the game " +
             "to be worth more or less points. When creating Countdown, we were worried that the run might end up being the same " +

@@ -7,6 +7,15 @@
                 <span class="faq-normal-text">{{WhatIsCountdown}}</span>
             </div>
             <div class="row">
+                <span class="faq-header">Rules</span>
+                <br/>
+                {{#each rule in Rules}}
+                    <div class="row">
+                        <span class="faq-normal-text">{{rule}}</span>
+                    </div>
+                {{/each}}
+            </div>
+            <div class="row">
                 <span class="faq-header">Login With Twitch?</span>
                 <br/>
                 <span class="faq-normal-text">{{LoginWith}}</span>

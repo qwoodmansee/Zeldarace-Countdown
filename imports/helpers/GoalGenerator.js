@@ -122,11 +122,14 @@ export const GoalGenerator = function() {
 
         var attempting = true;
         var numAttempts = 0;
+        var tracker = {tooShort: false};
         while (attempting) {
             //reset potential goals after last attempt
             potentialGoals = potentialGoalsCopy.slice(); //creates a shallow copy
             //reset permutation counter
             var permCounter = 0;
+            //reset the too short marker
+            tracker.tooShort = false;
 
             //randomly sort the goals
             potentialGoals.sort(function(xx,yy){ return Math.floor(Math.random() * 3) - 1; });
@@ -150,7 +153,7 @@ export const GoalGenerator = function() {
                 permCounter++;
 
                 //check original (first path)
-                if (self._subsetViable(chosenGoals, s, minutes)) {
+                if (self._subsetViable(chosenGoals, tracker, s, minutes)) {
                     numViable++;
                 }
                 for(;;) {
@@ -165,14 +168,18 @@ export const GoalGenerator = function() {
                             s[i] = s[i - 1] + 1;
                         }
                         permCounter++;
-                        if (self._subsetViable(chosenGoals, s, minutes)) {
+                        if (self._subsetViable(chosenGoals, tracker, s, minutes)) {
                             numViable++;
+                        }
+                        // if this subset is too fast start over
+                        if (tracker.tooShort) {
+                            break;
                         }
                     }
                 }
             }
 
-            if ((numViable / permCounter) > requiredPercentage) {
+            if (((numViable / permCounter) > requiredPercentage) && !tracker.tooShort) {
 
                 attempting = false;
 
@@ -199,11 +206,15 @@ export const GoalGenerator = function() {
     };
 
     //helper function to detemine if a subset of goals is viable
-    self._subsetViable = function(potentialGoals, subset, minutes) {
+    self._subsetViable = function(potentialGoals, tracker, subset, minutes) {
         var totalTimeEstimate = 0;
         for (var i = 0; i < subset.length; i++) {
             totalTimeEstimate += parseFloat(potentialGoals[subset[i]].time * 1.3);
         }
-        return (totalTimeEstimate + 30) < minutes;
+        totalTimeEstimate += 30;
+        if (totalTimeEstimate < minutes * .6) {
+            tracker.tooShort = true;
+        }
+        return totalTimeEstimate < minutes;
     }
 };
