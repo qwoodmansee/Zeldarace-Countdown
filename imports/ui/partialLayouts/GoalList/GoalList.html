@@ -7,14 +7,18 @@
                     {{name}}
                 </div>
             {{else}}
-                {{#if required}}
-                    <div class="card-panel goal-card required locked white-text">
-                        {{name}}
-                    </div>
+                {{#if inProgress}}
+                    <div class="card-panel goal-card red accent-2 white-text pointer">{{name}}</div>
                 {{else}}
-                    <div class="card-panel goal-card white-text">
-                        {{name}}
-                    </div>
+                    {{#if required}}
+                        <div class="card-panel goal-card required locked white-text">
+                            {{name}}
+                        </div>
+                    {{else}}
+                        <div class="card-panel goal-card white-text">
+                            {{name}}
+                        </div>
+                    {{/if}}
                 {{/if}}
             {{/if}}
             </div>
@@ -40,14 +44,20 @@
                         <div class="card-panel streamcard-goal green white-text pointer">{{name}}</div>
                     </div>
                 {{else}}
-                    {{#if required}}
+                    {{#if inProgress}}
                         <div class="col s6">
-                            <div class="card-panel streamcard-goal pink white-text pointer">{{name}}</div>
+                            <div class="card-panel streamcard-goal red accent-2 white-text pointer">{{name}}</div>
                         </div>
                     {{else}}
-                        <div class="col s6">
-                            <div class="card-panel streamcard-goal indigo white-text pointer">{{name}}</div>
-                        </div>
+                        {{#if required}}
+                            <div class="col s6">
+                                <div class="card-panel streamcard-goal pink white-text pointer">{{name}}</div>
+                            </div>
+                        {{else}}
+                            <div class="col s6">
+                                <div class="card-panel streamcard-goal indigo white-text pointer">{{name}}</div>
+                            </div>
+                        {{/if}}
                     {{/if}}
                 {{/if}}
             {{/each}}

@@ -173,6 +173,7 @@ Template.GoalList.events({
                if (goals[i].complete) {
                    goals[i].complete = false;
                } else {
+                   goals[i].inProgress = false;
                    goals[i].complete = true;
                }
                break;
@@ -182,6 +183,30 @@ Template.GoalList.events({
        //set the goals once changed
        Session.set('goals', goals);
    },
+
+    'contextmenu .goal-card': function(event) {
+        //get the goals
+        var goals = Session.get('goals');
+        for (var i=0; i < goals.length; i++) {
+            if (goals[i].name === this.name) {
+                if (goals[i].complete) {
+                    goals[i].complete = false;
+                    goals[i].inProgress = true;
+                } else if (goals[i].inProgress) {
+                    goals[i].complete = false;
+                    goals[i].inProgress = false;
+                } else {
+                    goals[i].inProgress = true;
+                }
+                break;
+            }
+        }
+
+        //set the goals once changed
+        Session.set('goals', goals);
+        return false;
+
+    },
 
    'click #stream-card-open': function() {
        var requiredGoalObjects = $('.required');
@@ -254,6 +279,7 @@ Template.StreamCard.events({
                 if (goals[i].complete) {
                     goals[i].complete = false;
                 } else {
+                    goals[i].inProgress = false;
                     goals[i].complete = true;
                 }
                 break;
@@ -262,5 +288,29 @@ Template.StreamCard.events({
 
         //set the goals once changed
         Session.set('goals', goals);
+    },
+
+    'contextmenu .streamcard-goal': function(event) {
+        //get the goals
+        var goals = Session.get('goals');
+        for (var i=0; i < goals.length; i++) {
+            if (goals[i].name === this.name) {
+                if (goals[i].complete) {
+                    goals[i].complete = false;
+                    goals[i].inProgress = true;
+                } else if (goals[i].inProgress) {
+                    goals[i].complete = false;
+                    goals[i].inProgress = false;
+                } else {
+                    goals[i].inProgress = true;
+                }
+                break;
+            }
+        }
+
+        //set the goals once changed
+        Session.set('goals', goals);
+        return false;
+
     }
 });

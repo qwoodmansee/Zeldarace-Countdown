@@ -101,7 +101,6 @@ Template.TimerOwner.onCreated(function(){
     self.autorun(function() {
         self.subscribe('singleTimer', FlowRouter.getParam('username'));
         //subscribe to pageViewers and make sure if you aren't added to it yet to add yourself
-        //subscribe to pageViewers and make sure if you aren't added to it yet to add yourself
         self.subscribe('pageViewers', {
             onReady: function() {
                 var viewers = null;
@@ -144,7 +143,6 @@ Template.TimerOwner.onCreated(function(){
                                 ownerUsername: FlowRouter.getParam('username'),
                                 timerId: timer.owner,
                                 score: 0,
-                                goalsSelected: requiredGoals
                             };
                             PageViewers.insert(newPageViewer);
 
@@ -152,7 +150,7 @@ Template.TimerOwner.onCreated(function(){
                         } else {
                             //already exists, just update
                             PageViewers.update(viewers._id, {
-                                $set: {'score': 0, 'goalsSelected': requiredGoals}
+                                $set: {'score': 0}
                             });
                         }
 
