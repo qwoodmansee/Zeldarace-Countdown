@@ -14,17 +14,6 @@
                 {{/unless}}
             {{/if}}
         </div>
-        <!--must be outside of div so that can call jQuery on rendered and there will be no race condition-->
-        <div class="row">
-            <div class="center">
-                {{#if TimerRunning}}
-                    <button class="waves-effect waves-light btn-large red accent-2" id="timer-reset-button">Reset Timer</button>
-                {{else}}
-                         <button class="waves-effect waves-light btn-large indigo" id="timer-start-button">Start Timer</button>
-                {{/if}}
-                <a class="waves-effect waves-light btn-large pink lighten-1 modal-trigger" href="#generateModal">Generate New</a>
-            </div>
-        </div>
 
         <ul class="collapsible grey darken-3 center" data-collapsible="expandable">
             <li>
@@ -36,6 +25,57 @@
                 <div class="collapsible-body">{{>Scorecard}}</div>
             </li>
         </ul>
+
+
+        <!--must be outside of div so that can call jQuery on rendered and there will be no race condition-->
+        <div class="row">
+            <div class="col s6">
+                <div class="center card-panel grey darken-3">
+                    <div class="row">
+                        <span class="center"> Owner Controls </span>
+                    </div>
+                    <div class="row">
+                        {{#if TimerRunning}}
+                            <button class="waves-effect waves-light btn-large red accent-2" id="timer-reset-button">Reset Timer</button>
+                        {{else}}
+                            <button class="waves-effect waves-light btn-large indigo" id="timer-start-button">Start Timer</button>
+                        {{/if}}
+                    </div>
+                    <div class="row">
+                        <a class="waves-effect waves-light btn-large pink lighten-1 modal-trigger" href="#generateModal">Generate New</a>
+                    </div>
+                    <div class="row">
+                        {{#if CurrentlyRacing}}
+                            <button class="waves-effect waves-light btn-large white black-text" id="leave-race-button">Leave Race</button>
+                        {{else}}
+                            <button class="waves-effect waves-light btn-large white black-text" id="join-race-button">Join Race</button>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="center card-panel grey darken-3">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-field="racers">Username</th>
+                                <th data-field="scores">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each viewer in PageViewers}}
+                                {{#if viewer.currentlyRacing}}
+                                    <tr>
+                                        <td>{{viewer.username}}</td>
+                                        <td>{{viewer.score}}</td>
+                                    </tr>
+                                {{/if}}
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>

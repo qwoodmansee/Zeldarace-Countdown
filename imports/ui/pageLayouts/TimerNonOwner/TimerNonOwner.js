@@ -108,9 +108,8 @@ Template.TimerNonOwner.onCreated(function(){
                                     var newPageViewer = {
                                         username: Meteor.user().profile.name,
                                         ownerUsername: FlowRouter.getParam('username'),
-                                        timerId: timer.owner,
                                         score: 0,
-                                        goalsSelected: requiredGoals
+                                        currentlyRacing: false
                                     };
                                     PageViewers.insert(newPageViewer);
 
@@ -118,7 +117,7 @@ Template.TimerNonOwner.onCreated(function(){
                                 } else {
                                     //already exists, just update
                                     PageViewers.update(viewers._id, {
-                                        $set: {'score': 0, 'goalsSelected': requiredGoals}
+                                        $set: {'score': 0, 'currentlyRacing': false}
                                     });
                                 }
 
@@ -185,6 +184,16 @@ Template.TimerNonOwner.onCreated(function(){
                                }
                            }
                         });
+
+                        Tracker.autorun(function() {
+                            var score = Session.get("score");
+                            if (viewers) {
+                                PageViewers.update(viewers._id, {
+                                    $set: {'score': score, 'currentlyRacing': true}
+                                });
+                            }
+                        });
+
                     }
                 });
 
@@ -245,5 +254,57 @@ Template.TimerNonOwner.helpers({
 
     TimerExists() {
         return Template.instance().timerExists.get();
+    },
+
+    PageViewers() {
+        var viewers = PageViewers.find({ownerUsername: FlowRouter.getParam('username')});
+        viewers = viewers.fetch();
+        //return viewers sorted by score
+        return viewers.sort(function(a,b) {
+            return parseInt(a.score) - parseInt(b.score);
+        })
+    },
+
+    CurrentlyRacing() {
+        if (Meteor.userId()) {
+            //get pageviewers table
+            var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+            if (viewer) {
+                return viewer.currentlyRacing;
+            }
+        }
+        return false;
+    },
+
+    LoggedIn() {
+        return Meteor.userId();
+    }
+});
+
+
+Template.TimerNonOwner.events({
+
+    'click #join-race-button': function() {
+        if (Meteor.userId()) {
+            //get pageviewers table
+            var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+            if (viewer) {
+                PageViewers.update(viewer._id, {
+                    $set: {'score': Session.get('score'), 'currentlyRacing': true}
+                });
+            }
+        }
+    },
+
+    'click #leave-race-button': function() {
+        if (Meteor.userId()) {
+            //get pageviewers table
+            var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+            if (viewer) {
+                PageViewers.update(viewer._id, {
+                    $set: {'score': Session.get('score'), 'currentlyRacing': false}
+                });
+            }
+        }
     }
 });

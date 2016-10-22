@@ -34,9 +34,9 @@ PageViewersSchema = new SimpleSchema({
         type: Number,
         label: "Current Score"
     },
-    goalsSelected: {
-        type: [Number],
-        label: "Indexes of selected goals from the current goals list"
+    currentlyRacing: {
+        type: Boolean,
+        label: "Is currently racing"
     }
 });
 

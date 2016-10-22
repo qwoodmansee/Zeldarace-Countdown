@@ -31,7 +31,48 @@
             </li>
         </ul>
 
-
+        <div class="row">
+            <div class="col s6">
+                <div class="center card-panel grey darken-3">
+                    <div class="row">
+                        <span class="center"> Viewer Controls </span>
+                    </div>
+                    <div class="row">
+                        {{#if LoggedIn}}
+                            {{#if CurrentlyRacing}}
+                                <button class="waves-effect waves-light btn-large white black-text" id="leave-race-button">Leave Race</button>
+                            {{else}}
+                                <button class="waves-effect waves-light btn-large white black-text" id="join-race-button">Join Race</button>
+                            {{/if}}
+                        {{else}}
+                            <span class="white-text">Log in to officially join race!</span>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="center card-panel grey darken-3">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th data-field="racers">Username</th>
+                            <th data-field="scores">Score</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each viewer in PageViewers}}
+                            {{#if viewer.currentlyRacing}}
+                                <tr>
+                                    <td>{{viewer.username}}</td>
+                                    <td>{{viewer.score}}</td>
+                                </tr>
+                            {{/if}}
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>

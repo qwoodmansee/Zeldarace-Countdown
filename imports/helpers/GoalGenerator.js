@@ -183,15 +183,30 @@ export const GoalGenerator = function() {
 
                 attempting = false;
 
-                //TODO(quinton): choose prechosen a little smarter than this
+                //choose middle of the road goals for prechosen
                 var requiredSet = 0;
-                while (requiredSet < parseInt(numPreChosenRequired)) {
-                    var goalNum = Math.floor((Math.random() * numGoals - 1) + 1);
-                    if (chosenGoals[goalNum].required == false) {
+
+                if (parseInt(numPreChosenRequired) > 0) {
+                    //sort the goals by their required time
+                    chosenGoals.sort(function(a,b) {
+                        return parseInt(a.time) - parseInt(b.time);
+                    });
+
+                    while (requiredSet < parseInt(numPreChosenRequired)) {
+                        var goalNum = Math.floor(numGoals / 2 - requiredSet);
                         chosenGoals[goalNum].required = true;
                         requiredSet += 1;
                     }
+
+                    //shuffle the array for that random look everybody likes
+                    for (var i = chosenGoals.length - 1; i > 0; i--) {
+                        var j = Math.floor(Math.random() * (i + 1));
+                        var temp = chosenGoals[i];
+                        chosenGoals[i] = chosenGoals[j];
+                        chosenGoals[j] = temp;
+                    }
                 }
+
 
                 return chosenGoals;
             } else if (numAttempts > 100000) {
