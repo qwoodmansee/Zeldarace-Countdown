@@ -118,9 +118,9 @@ Template.body.events({
 
         //validate values and set to random if incorrect
 
-        //random time between 20 minutes and 3 hours
+        //random time between 40 minutes and 2 hours
         if (lengthInMinutes < 1) {
-            lengthInMinutes = Math.floor(Math.random()*(180-35+1)+35);
+            lengthInMinutes = Math.floor(Math.random()*(120-40+1)+40);
         }
 
         var lengthInMS = lengthInMinutes * 60 * 1000;

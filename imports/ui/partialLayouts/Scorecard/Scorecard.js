@@ -245,14 +245,6 @@ Template.Scorecard.events({
             object.addClass('collected');
             Session.set('score', Session.get('score') + parseInt( $(event.currentTarget)[0].dataset.weight))
         }
-        //get page viewer for this user
-        var pageViewer;
-        if (Meteor.user()) {
-            pageViewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
-            PageViewers.update(pageViewer._id,{
-                $set: {'score': Session.get('score')}
-            });
-        }
     },
 
    'click #score-reset-button' : function() {
@@ -261,18 +253,6 @@ Template.Scorecard.events({
        Template.instance().rupees.set(0);
        Template.instance().heartContainers.set(3);
        Template.instance().goldSkulls.set(0);
-
-       //get page viewer for this user
-       var pageViewer;
-       if (Meteor.user()) {
-           pageViewer = PageViewers.findOne({
-               viewer: Meteor.user().profile.name,
-               owner: FlowRouter.getParam('username')
-           });
-           PageViewers.update(pageViewer._id, {
-               $set: {'score': Session.get('score')}
-           });
-       }
    },
 
    'click #subtract-heart' : function(){

@@ -141,8 +141,8 @@ Template.TimerOwner.onCreated(function(){
                             var newPageViewer = {
                                 username: Meteor.user().profile.name,
                                 ownerUsername: FlowRouter.getParam('username'),
-                                timerId: timer.owner,
                                 score: 0,
+                                currentlyRacing: false
                             };
                             PageViewers.insert(newPageViewer);
 
@@ -150,7 +150,7 @@ Template.TimerOwner.onCreated(function(){
                         } else {
                             //already exists, just update
                             PageViewers.update(viewers._id, {
-                                $set: {'score': 0}
+                                $set: {'score': 0, currentlyRacing: false}
                             });
                         }
 
@@ -207,6 +207,7 @@ Template.TimerOwner.onCreated(function(){
                             // new timer from non started timer
                             self.timerStartTime.set(null);
                             Session.set('goals', fields['goals']);
+
                             //if this is false the timer is the same length as before
                             if (fields.hasOwnProperty('length')) {
                                 self.timerLength.set(fields['length']);
@@ -214,11 +215,18 @@ Template.TimerOwner.onCreated(function(){
                         }
                     }
                 });
+
+                Tracker.autorun(function() {
+                    var score = Session.get("score");
+                    if (viewers) {
+                        PageViewers.update(viewers._id, {
+                            $set: {'score': score}
+                        });
+                    }
+                });
             }
         });
-
     });
-
 });
 
 
@@ -266,6 +274,23 @@ Template.TimerOwner.helpers({
                 'seconds': '00'
             };
         }
+    },
+
+    PageViewers() {
+        var viewers = PageViewers.find({ownerUsername: FlowRouter.getParam('username')});
+        viewers = viewers.fetch();
+        //return viewers sorted by score
+        return viewers.sort(function(a,b) {
+            return parseInt(a.score) - parseInt(b.score);
+        })
+    },
+
+    CurrentlyRacing() {
+        //get pageviewers table
+        var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+        if (viewer) {
+            return viewer.currentlyRacing;
+        }
     }
 });
 
@@ -278,6 +303,30 @@ Template.TimerOwner.events({
    'click #timer-reset-button': function() {
        var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
        Timers.update(originalTimer._id, {$set: {'running': false}});
+   },
+
+   'click #join-race-button': function() {
+       if (Meteor.userId()) {
+           //get pageviewers table
+           var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+           if (viewer) {
+               PageViewers.update(viewer._id, {
+                   $set: {'score': Session.get('score'), 'currentlyRacing': true}
+               });
+           }
+       }
+   },
+
+   'click #leave-race-button': function() {
+       if (Meteor.userId()) {
+           //get pageviewers table
+           var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+           if (viewer) {
+               PageViewers.update(viewer._id, {
+                   $set: {'score': Session.get('score'), 'currentlyRacing': false}
+               });
+           }
+       }
    }
 });
 

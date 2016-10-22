@@ -33,6 +33,10 @@ PageViewersSchema = new SimpleSchema({
     score: {
         type: Number,
         label: "Current Score"
+    },
+    currentlyRacing: {
+        type: Boolean,
+        label: "Is currently racing"
     }
 });
 

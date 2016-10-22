@@ -82,12 +82,6 @@ Template.GoalList.onCreated(function() {
                                                 Session.set("numGoalsRequired", fields['goalsRequired']);
                                             }
 
-                                            //change the viewers goal selected if applicable
-                                            if (viewers) {
-                                                PageViewers.update(viewers._id, {$set: {'goalsSelected': goalsCurrentlySelected}});
-                                            }
-
-
 
                                         } else {
                                             // timer ended (hit 00:00:00) - this actually might not happen
@@ -108,11 +102,6 @@ Template.GoalList.onCreated(function() {
                                         self.goalsSelected.set(goalsSelected);
                                         if (fields.hasOwnProperty('goalsRequired')) {
                                             Session.set("numGoalsRequired", fields['goalsRequired']);
-                                        }
-
-                                        //change the viewers goal selected if applicable
-                                        if (viewers) {
-                                            PageViewers.update(viewers._id, {$set: {'goalsSelected': goalsSelected}});
                                         }
                                     }
                                 }
@@ -161,18 +150,47 @@ Template.GoalList.helpers({
 
     numGoalsRequired() {
         return Session.get("numGoalsRequired");
+    },
+
+    superGoalBonusAvailable() {
+        return Session.get('goals').length > Session.get('numGoalsRequired') * 2;
     }
 });
 
 Template.GoalList.events({
    'click .goal-card': function(event) {
+       //get the number of complete goals
+       var numGoalsComplete = $('.complete').length;
+       var numGoalsTotal =  Session.get('goals').length;
+
        //get the goals
        var goals = Session.get('goals');
        for (var i=0; i < goals.length; i++) {
            if (goals[i].name === this.name) {
+               var temp = Session.get('score');
+
                if (goals[i].complete) {
+
+                   if (numGoalsComplete <= Session.get('numGoalsRequired')){
+                       if (goals[i].required) {
+                           Session.set('score', temp - 20);
+                       }  else {
+                           Session.set('score', temp - 15);
+                       }
+                   } else if (numGoalsComplete == numGoalsTotal && numGoalsTotal > Session.get("numGoalsRequired") * 2) {
+                       Session.set('score', temp - 50);
+                   }
                    goals[i].complete = false;
                } else {
+                   if (numGoalsComplete < Session.get('numGoalsRequired')){
+                       if (goals[i].required) {
+                           Session.set('score', temp + 20);
+                       } else {
+                           Session.set('score', temp + 15);
+                       }
+                   } else if (numGoalsComplete == (numGoalsTotal - 1) && numGoalsTotal > Session.get("numGoalsRequired") * 2) {
+                       Session.set('score', temp + 50);
+                   }
                    goals[i].inProgress = false;
                    goals[i].complete = true;
                }
@@ -272,13 +290,39 @@ Template.StreamCard.helpers({
 });
 Template.StreamCard.events({
     'click .streamcard-goal': function(event) {
+        //get the number of complete goals
+        var numGoalsComplete = $('.complete').length;
+        var numGoalsTotal =  Session.get('goals').length;
+        var numGoalsRequired = Session.get('numGoalsRequired');
+
         //get the goals
         var goals = Session.get('goals');
         for (var i=0; i < goals.length; i++) {
             if (goals[i].name === this.name) {
+                var temp = Session.get('score');
+
                 if (goals[i].complete) {
+                    if (numGoalsComplete <= numGoalsRequired){
+                        if (goals[i].required) {
+                            Session.set('score', temp - 20);
+                        } else {
+                            Session.set('score', temp - 15);
+                        }
+                    } else if (numGoalsComplete == numGoalsTotal && numGoalsTotal > numGoalsRequired * 2) {
+                        Session.set('score', temp - 50);
+                    }
                     goals[i].complete = false;
                 } else {
+                    if (numGoalsComplete < numGoalsRequired){
+                        if (goals[i].required) {
+                            Session.set('score', temp + 20);
+                        }  else {
+                            Session.set('score', temp + 15);
+                        }
+                    } else if (numGoalsComplete == (numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
+                        Session.set('score', temp + 50);
+                    }
+
                     goals[i].inProgress = false;
                     goals[i].complete = true;
                 }
@@ -296,6 +340,7 @@ Template.StreamCard.events({
         for (var i=0; i < goals.length; i++) {
             if (goals[i].name === this.name) {
                 if (goals[i].complete) {
+
                     goals[i].complete = false;
                     goals[i].inProgress = true;
                 } else if (goals[i].inProgress) {
