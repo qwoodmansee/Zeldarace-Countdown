@@ -80,7 +80,8 @@ Template.Scorecard.helpers({
 
             var row2 = [];
             row2.push({name: "FairySlingshot", weight: weights["FairySlingshot"], tooltip: "Fairy Slingshot"});
-            row2.push({name: timer.randomItems['ocarina'].name, weight: weights[timer.randomItems['ocarina'].name]});
+            row2.push({name: timer.randomItems['ocarina'].name, weight: weights[timer.randomItems['ocarina'].name],
+                        tooltip: timer.randomItems['ocarina'].tooltip});
             row2.push({name: "Bombchu", weight: weights["Bombchu"], tooltip: "Bombchu"});
             row2.push({name: timer.randomItems['hookshotOption'].name, weight: weights[timer.randomItems['hookshotOption'].name],
                         tooltip: timer.randomItems['hookshotOption'].tooltip});
