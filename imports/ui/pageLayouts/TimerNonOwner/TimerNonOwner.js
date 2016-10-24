@@ -189,7 +189,7 @@ Template.TimerNonOwner.onCreated(function(){
                             var score = Session.get("score");
                             if (viewers) {
                                 PageViewers.update(viewers._id, {
-                                    $set: {'score': score, 'currentlyRacing': true}
+                                    $set: {'score': score}
                                 });
                             }
                         });
@@ -261,7 +261,7 @@ Template.TimerNonOwner.helpers({
         viewers = viewers.fetch();
         //return viewers sorted by score
         return viewers.sort(function(a,b) {
-            return parseInt(a.score) - parseInt(b.score);
+            return parseInt(b.score) - parseInt(a.score);
         })
     },
 

@@ -5,9 +5,9 @@ export const ItemList = function() {
     self.allItems = [
         ["AdultsWallet",  "1",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["BiggoronsSword",  "5",  "2",  "0.5",  "1",  "1",  "0.5" ],
-        ["BigPoe",  "1",  "3",  "0.5",  "1",  "1",  "0.5" ],
-        ["BlueFire",  "2",  "3",  "0.5",  "1",  "1",  "0.5" ],
-        ["BluePotion",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
+        ["BigPoe",  "2",  "1",  "0.5",  "1",  "1",  "0.5" ],
+        ["BlueFire",  "2",  "1",  "0.5",  "1",  "1",  "0.5" ],
+        ["BluePotion",  "3",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["BoleroOfFire",  "-1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["Bomb",  "-2",  "2",  "0.6",  "1",  "1",  "0.5" ],
         ["BombBag20",  "-2",  "2",  "0.2",  "1",  "1",  "0.5" ],
@@ -16,8 +16,10 @@ export const ItemList = function() {
         ["Bombchu",  "-2",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["Boomerang",  "4",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["BossKey",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
-        ["BottledFairy",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
-        ["Bug",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
+        ["BottledFairy",  "0",  "1",  "0.5",  "1",  "1",  "0.5" ],
+        ["BrokenBiggoronsSword",  "-1",  "2",  "0.5",  "1",  "1",  "0.5" ],
+        ["BrokenGiantsKnife",  "3",  "1",  "0.5",  "1",  "1",  "0.5" ],
+        ["Bug",  "-1",  "1",  "0.5",  "1",  "1",  "0.5" ],
         ["BulletBag30",  "2",  "4",  "0.5",  "1",  "1",  "0.5" ],
         ["BulletBag40",  "2",  "4",  "0.5",  "1",  "1",  "0.5" ],
         ["BulletBag50",  "1",  "4",  "0.5",  "1",  "1",  "0.5" ],
@@ -42,11 +44,12 @@ export const ItemList = function() {
         ["FaroresWind",  "3",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["FireArrow",  "3",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["FireMedallion",  "3",  "2",  "0.5",  "1",  "1",  "0.5" ],
-        ["Fish",  "-3",  "2",  "0.5",  "1",  "1",  "0.5" ],
+        ["Fish",  "-1",  "1",  "0.5",  "1",  "1",  "0.5" ],
         ["FishingPole",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["ForestMedallion",  "0",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["GerudoCard",  "5",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["GerudoMask",  "12",  "1",  "0.5",  "1",  "1",  "0.5" ],
+        ["GiantsKnife",  "3",  "1",  "0.5",  "1",  "1",  "0.5" ],
         ["GiantsWallet",  "2",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["GoldenGauntlets",  "4",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["GoldScale",  "0",  "2",  "0.5",  "1",  "1",  "0.5" ],
@@ -54,10 +57,9 @@ export const ItemList = function() {
         ["GoronBracelet",  "3",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["GoronMask",  "12",  "1",  "0.1",  "1",  "1",  "0.5" ],
         ["GoronsRuby",  "0",  "3",  "0.5",  "1",  "1",  "0.5" ],
-        ["GoronsSwordBroken",  "2",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["GoronTunic",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["GrayNote",  "6",  "2",  "0.5",  "1",  "1",  "0.5" ],
-        ["GreenPotion",  "-1",  "2",  "0.5",  "1",  "1",  "0.5" ],
+        ["GreenPotion",  "2",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["HeartContainer",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["HeartPiece",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["Hookshot",  "-3",  "2",  "0.5",  "1",  "1",  "0.5" ],
@@ -68,7 +70,7 @@ export const ItemList = function() {
         ["KeatonMask",  "3",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["KokiriBoots",  "0",  "1",  "0.5",  "1",  "1",  "0.5" ],
         ["KokiriEmerald",  "0",  "3",  "0.5",  "1",  "1",  "0.5" ],
-        ["KokiriSword",  "-1",  "4",  "0.5",  "1",  "1",  "0.5" ],
+        ["KokiriSword",  "0",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["KokiriTunic",  "0",  "1",  "0.5",  "1",  "1",  "0.5" ],
         ["LensOfTruth",  "1",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["LightArrow",  "5",  "3",  "0.5",  "1",  "1",  "0.5" ],
@@ -78,8 +80,8 @@ export const ItemList = function() {
         ["MaskOfTruth",  "12",  "1",  "0.5",  "1",  "1",  "0.5" ],
         ["MasterSword",  "0",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["MegatonHammer",  "5",  "2",  "0.5",  "1",  "1",  "0.5" ],
-        ["Milk",  "2",  "2",  "0.5",  "1",  "1",  "0.5" ],
-        ["MilkHalf",  "2",  "2",  "0.5",  "1",  "1",  "0.5" ],
+        ["Milk",  "3",  "2",  "0.5",  "1",  "1",  "0.5" ],
+        ["MilkHalf",  "3",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["MinuetOfForest",  "1",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["MirrorShield",  "5",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["NayrusLove",  "3",  "3",  "0.5",  "1",  "1",  "0.5" ],
@@ -88,16 +90,17 @@ export const ItemList = function() {
         ["OddMushroom",  "5",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["OddPotion",  "2",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["PoachersSaw",  "2",  "3",  "0.5",  "1",  "1",  "0.5" ],
+        ["PocketEgg",  "3",  "1",  "0.5",  "1",  "1",  "0.5" ],
         ["Poe",  "-1",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["PreludeofLight",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["Prescription",  "4",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["Quiver30",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["Quiver40",  "2",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["Quiver50",  "2",  "3",  "0.5",  "1",  "1",  "0.5" ],
-        ["RedPotion",  "-1",  "2",  "0.5",  "1",  "1",  "0.5" ],
+        ["RedPotion",  "2",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["RequiemofSpirit",  "2",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["RupeeIcon",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
-        ["RutosLetter",  "3",  "3",  "0.5",  "1",  "1",  "0.5" ],
+        ["RutosLetter",  "4",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["SariasSong",  "4",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["SerenadeOfWater",  "-1",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["ShadowMedallion",  "0",  "2",  "0.5",  "1",  "1",  "0.5" ],
@@ -109,8 +112,8 @@ export const ItemList = function() {
         ["SongofStorms",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["SongofTime",  "0",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["SpiritMedallion",  "0",  "3",  "0.5",  "1",  "1",  "0.5" ],
-        ["SpookyMask",  "1",  "3",  "0.5",  "1",  "1",  "0.5" ],
-        ["StoneofAgony",  "3",  "3",  "0.5",  "1",  "1",  "0.5" ],
+        ["SpookyMask",  "3",  "1",  "0.5",  "1",  "1",  "0.5" ],
+        ["StoneofAgony",  "2",  "1",  "0.5",  "1",  "1",  "0.5" ],
         ["SunsSong",  "3",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["WaterMedallion",  "0",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["WeirdEgg",  "1",  "3",  "0.5",  "1",  "1",  "0.5" ],
@@ -171,7 +174,7 @@ export const ItemList = function() {
         //first option is filename, second option is tooltip
         var adultQuestOptions = [["Cojiro", "Cojiro"], ["OddMushroom", "Odd Mushroom"], ["OddPotion", "Odd Potion"],
             ["PoachersSaw", "Poachers Saw"], ["Prescription", "Prescription"], ["GoronsSwordBroken", "Broken Sword"],
-            ["ClaimCheck", "Claim Check"], ["WeirdEgg", "Weird Egg"]];
+            ["ClaimCheck", "Claim Check"], ["PocketEgg", "Pocket Egg"]];
         idx = self.generateRandomNumber(0, adultQuestOptions.length, false);
         newObject.adultTrade = {name: adultQuestOptions[idx][0], tooltip: adultQuestOptions[idx][1]};
 
@@ -179,7 +182,7 @@ export const ItemList = function() {
         var childQuestOptions = [["KeatonMask", "Keaton Mask"], ["SkullMask", "Skull Mask"], ["SpookyMask", "Spooky Mask"],
             ["BunnyHood", "Bunny Hood"], ["ZoraMask", "Zora Mask"], ["GoronMask", "Goron Mask"], ["GerudoMask", "Gerudo Mask"],
             ["MaskOfTruth", "Mask of Truth"], ["ZeldasLetter", "Zelda's Letter"], ["SOLDOUT", "SOLDOUT"], ["WeirdEgg", "Weird Egg"],
-            ["Cucco", "Cucco"]];
+            ["WeirdCucco", "Weird Egg Cucco"]];
         idx = self.generateRandomNumber(0, childQuestOptions.length, false);
         newObject.childTrade = {name: childQuestOptions[idx][0], tooltip: childQuestOptions[idx][1]};
 
@@ -189,7 +192,7 @@ export const ItemList = function() {
         newObject.quiver = {name: quiverOptions[idx][0], tooltip:quiverOptions[idx][1]};
 
         //large sword
-        var bigSwordOptions = [["GoronsSwordBroken", "Broken Sword"], ["BiggoronsSword", "Biggorons Sword"]];
+        var bigSwordOptions = [["BrokenGiantsKnife", "Broken Giant's Knife"], ["GiantsKnife", "Giant's Knife"], ["BiggoronsSword", "Biggoron's Sword"]];
         idx = self.generateRandomNumber(0, bigSwordOptions.length, false);
         newObject.bigSword = {name: bigSwordOptions[idx][0], tooltip:bigSwordOptions[idx][1]};
 
