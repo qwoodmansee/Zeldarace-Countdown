@@ -104,7 +104,7 @@ Template.TimerOwner.onCreated(function(){
         self.subscribe('pageViewers', {
             onReady: function() {
                 var viewers = null;
-                var timer = Timers.findOne();
+                var timer = Timers.findOne({owner: FlowRouter.getParam('username')});
 
                 if (timer) {
                     //initialize reactives to initial timer value
@@ -281,7 +281,7 @@ Template.TimerOwner.helpers({
         viewers = viewers.fetch();
         //return viewers sorted by score
         return viewers.sort(function(a,b) {
-            return parseInt(a.score) - parseInt(b.score);
+            return parseInt(b.score) - parseInt(a.score);
         })
     },
 

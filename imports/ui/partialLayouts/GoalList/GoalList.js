@@ -162,6 +162,8 @@ Template.GoalList.events({
        //get the number of complete goals
        var numGoalsComplete = $('.complete').length;
        var numGoalsTotal =  Session.get('goals').length;
+       var numPrechosen = $('.required').length;
+       var numGoalsRequired = Session.get('numGoalsRequired');
 
        //get the goals
        var goals = Session.get('goals');
@@ -169,31 +171,67 @@ Template.GoalList.events({
            if (goals[i].name === this.name) {
                var temp = Session.get('score');
 
-               if (goals[i].complete) {
-
-                   if (numGoalsComplete <= Session.get('numGoalsRequired')){
-                       if (goals[i].required) {
-                           Session.set('score', temp - 20);
-                       }  else {
-                           Session.set('score', temp - 15);
+               // if goal clicked is required
+               if (goals[i].required) {
+                   // if goal is becoming incomplete
+                   if (goals[i].complete) {
+                       numGoalsComplete -= 1;
+                       // take away 20 points
+                       temp -= 20;
+                       // if the number of required goals is still met
+                       if (numGoalsComplete >= numGoalsRequired) {
+                           //give back 15 points because of another complete goal
+                           temp += 15;
                        }
-                   } else if (numGoalsComplete == numGoalsTotal && numGoalsTotal > Session.get("numGoalsRequired") * 2) {
-                       Session.set('score', temp - 50);
+                       if ((numGoalsComplete == numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
+                           temp -= 50;
+                       }
+                       goals[i].complete = false;
+                   } else {
+                       numGoalsComplete += 1;
+                       // if the goal is becoming complete add 20 points
+                       temp += 20;
+                       // if the number of required goals was already met
+                       if (numGoalsComplete - 1 >= numGoalsRequired) {
+                           // take away 15 points from one of the blue goals
+                           temp -= 15;
+                       }
+                       if ((numGoalsComplete == numGoalsTotal) && numGoalsTotal > numGoalsRequired * 2) {
+                           temp += 50;
+                       }
+                       goals[i].inProgress = false;
+                       goals[i].complete = true;
                    }
-                   goals[i].complete = false;
                } else {
-                   if (numGoalsComplete < Session.get('numGoalsRequired')){
-                       if (goals[i].required) {
-                           Session.set('score', temp + 20);
-                       } else {
-                           Session.set('score', temp + 15);
+                   // if the goal is not required
+                   // else if the goal is becoming incomplete and the required number of goals (after removal) is not met
+                   if (goals[i].complete) {
+                       numGoalsComplete -= 1;
+                       if (numGoalsComplete < numGoalsRequired) {
+                           // take away 15 points
+                           temp -= 15;
                        }
-                   } else if (numGoalsComplete == (numGoalsTotal - 1) && numGoalsTotal > Session.get("numGoalsRequired") * 2) {
-                       Session.set('score', temp + 50);
+                       if ((numGoalsComplete == numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
+                           temp -= 50;
+                       }
+                       goals[i].complete = false;
+                   } else if (!goals[i].complete) {
+                        numGoalsComplete += 1;
+                        // if the goal is becoming complete
+                        if (numGoalsComplete - 1 < numGoalsRequired) {
+                            // and we have not met the number of required goals
+                            // give 15 points
+                            temp += 15;
+                        }
+                       if ((numGoalsComplete == numGoalsTotal) && numGoalsTotal > numGoalsRequired * 2) {
+                           temp += 50;
+                       }
+                       goals[i].inProgress = false;
+                       goals[i].complete = true;
                    }
-                   goals[i].inProgress = false;
-                   goals[i].complete = true;
                }
+
+               Session.set('score', temp);
                break;
            }
        }
@@ -208,6 +246,13 @@ Template.GoalList.events({
         for (var i=0; i < goals.length; i++) {
             if (goals[i].name === this.name) {
                 if (goals[i].complete) {
+                    var temp = Session.get('score');
+                    if (goals[i].required) {
+                        temp -= 20;
+                    } else {
+                        temp -= 15;
+                    }
+                    Session.set('score', temp);
                     goals[i].complete = false;
                     goals[i].inProgress = true;
                 } else if (goals[i].inProgress) {
@@ -259,7 +304,7 @@ Template.StreamCard.helpers({
 
     timer() {
         var time = Session.get('currentTimerRemaining');
-        if (time.seconds > 0) {
+        if (time.seconds != 0 || time.minutes != 0 || time.hours != 0 ) {
             return {
                 'hours': ('0' + time.hours).slice(-2),
                 'minutes': ('0' + time.minutes).slice(-2),
@@ -293,6 +338,7 @@ Template.StreamCard.events({
         //get the number of complete goals
         var numGoalsComplete = $('.complete').length;
         var numGoalsTotal =  Session.get('goals').length;
+        var numPrechosen = $('.required').length;
         var numGoalsRequired = Session.get('numGoalsRequired');
 
         //get the goals
@@ -301,31 +347,59 @@ Template.StreamCard.events({
             if (goals[i].name === this.name) {
                 var temp = Session.get('score');
 
-                if (goals[i].complete) {
-                    if (numGoalsComplete <= numGoalsRequired){
-                        if (goals[i].required) {
-                            Session.set('score', temp - 20);
-                        } else {
-                            Session.set('score', temp - 15);
+                // if goal clicked is required
+                if (goals[i].required) {
+                    // if goal is becoming incomplete
+                    if (goals[i].complete) {
+                        // take away 20 points
+                        temp -= 20;
+                        // if the number of required goals is still met
+                        if (numGoalsComplete - 1 >= numGoalsRequired) {
+                            //give back 15 points because of another complete goal
+                            temp += 15;
                         }
-                    } else if (numGoalsComplete == numGoalsTotal && numGoalsTotal > numGoalsRequired * 2) {
-                        Session.set('score', temp - 50);
+                        goals[i].complete = false;
+                    } else{
+                        // if the goal is becoming complete add 20 points
+                        temp += 20;
+                        // if the number of required goals was already met
+                        if (numGoalsComplete >= numGoalsRequired) {
+                            // take away 15 points from one of the blue goals
+                            temp -= 15;
+                        }
+                        goals[i].inProgress = false;
+                        goals[i].complete = true;
                     }
-                    goals[i].complete = false;
                 } else {
-                    if (numGoalsComplete < numGoalsRequired){
-                        if (goals[i].required) {
-                            Session.set('score', temp + 20);
-                        }  else {
-                            Session.set('score', temp + 15);
+                    // if the goal is not required
+                    // else if the goal is becoming incomplete and the required number of goals (after removal) is not met
+                    if (goals[i].complete) {
+                        if (numGoalsComplete - 1 < numGoalsRequired) {
+                            // take away 15 points
+                            temp -= 15;
                         }
-                    } else if (numGoalsComplete == (numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
-                        Session.set('score', temp + 50);
-                    }
+                        goals[i].complete = false;
+                    } else if (!goals[i].complete) {
 
-                    goals[i].inProgress = false;
-                    goals[i].complete = true;
+                        // if the goal is becoming complete
+                        if (numGoalsComplete < numGoalsRequired) {
+                            // and we have not met the number of required goals
+                            // give 15 points
+                            temp += 15;
+                        }
+                        goals[i].inProgress = false;
+                        goals[i].complete = true;
+                    }
                 }
+
+                //add bonus for completing all goals if applicable
+                if (numGoalsComplete == (numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
+                    temp += 50;
+                } else if (numGoalsComplete == numGoalsTotal && numGoalsTotal > numGoalsRequired * 2) {
+                    temp -= 50;
+                }
+
+                Session.set('score', temp);
                 break;
             }
         }
@@ -340,7 +414,13 @@ Template.StreamCard.events({
         for (var i=0; i < goals.length; i++) {
             if (goals[i].name === this.name) {
                 if (goals[i].complete) {
-
+                    var temp = Session.get('score');
+                    if (goals[i].required) {
+                        temp -= 20;
+                    } else {
+                        temp -= 15;
+                    }
+                    Session.set('score', temp);
                     goals[i].complete = false;
                     goals[i].inProgress = true;
                 } else if (goals[i].inProgress) {
