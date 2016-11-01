@@ -178,11 +178,7 @@ Template.GoalList.events({
                        numGoalsComplete -= 1;
                        // take away 20 points
                        temp -= 20;
-                       // if the number of required goals is still met
-                       if (numGoalsComplete >= numGoalsRequired) {
-                           //give back 15 points because of another complete goal
-                           temp += 15;
-                       }
+
                        if ((numGoalsComplete == numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
                            temp -= 50;
                        }
@@ -192,10 +188,7 @@ Template.GoalList.events({
                        // if the goal is becoming complete add 20 points
                        temp += 20;
                        // if the number of required goals was already met
-                       if (numGoalsComplete - 1 >= numGoalsRequired) {
-                           // take away 15 points from one of the blue goals
-                           temp -= 15;
-                       }
+
                        if ((numGoalsComplete == numGoalsTotal) && numGoalsTotal > numGoalsRequired * 2) {
                            temp += 50;
                        }
@@ -207,7 +200,7 @@ Template.GoalList.events({
                    // else if the goal is becoming incomplete and the required number of goals (after removal) is not met
                    if (goals[i].complete) {
                        numGoalsComplete -= 1;
-                       if (numGoalsComplete < numGoalsRequired) {
+                       if (numGoalsComplete < numGoalsRequired - numPrechosen) {
                            // take away 15 points
                            temp -= 15;
                        }
@@ -218,7 +211,7 @@ Template.GoalList.events({
                    } else if (!goals[i].complete) {
                         numGoalsComplete += 1;
                         // if the goal is becoming complete
-                        if (numGoalsComplete - 1 < numGoalsRequired) {
+                        if (numGoalsComplete - 1 < numGoalsRequired - numPrechosen) {
                             // and we have not met the number of required goals
                             // give 15 points
                             temp += 15;
