@@ -110,6 +110,8 @@ Template.body.events({
         //get values
         var lengthInMinutes = target.length.value;
         var weightsChoice = $('#weights-select').val();
+        var difficultyChoice = $('#difficulty-slider').val();
+        console.log("Difficulty:" +  difficultyChoice);
         var numGoals = target.totalGoals.value;
         var numRequiredGoals = target.requiredGoals.value;
         var numPrechosenGoals = target.preChosen.value;
@@ -151,9 +153,9 @@ Template.body.events({
         const goalGenerator = new GoalGenerator();
         var goals;
         if (superSmartGoals == "on") {
-            goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes);
+            goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes, difficultyChoice);
         } else if (smartGoals == "on") {
-            goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes);
+            goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes, difficultyChoice);
         } else {
             goals = goalGenerator.generateGoals(numGoals, numPrechosenGoals);
         }

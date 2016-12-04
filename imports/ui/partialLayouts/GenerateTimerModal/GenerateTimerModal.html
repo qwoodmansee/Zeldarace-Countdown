@@ -27,7 +27,7 @@
                             <option value="3" class="indigo-text">Random (Allow Negatives)</option>
                             <option value="4" class="indigo-text" selected>Smart</option>
                         </select>
-                        <label class="pink-text">Weights</label>
+                        <label class="label-text">Weights</label>
                     </div>
                 </div>
                 <div class="row">
@@ -45,7 +45,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="right">
+                    <div class="col s9">
+                        <p class="label-text">Difficulty</p>
+                        <p class="range-field">
+                            <input type="range" id="difficulty-slider" min="1" max="5" />
+                        </p>
+                    </div>
+                    <div class="col s3">
                         <input type="checkbox" class="filled-in checkbox-pink" id="super_smart_goals" checked="checked" name="superSmartGoals" />
                         <label for="super_smart_goals" class="white-text">Smart Goals</label>
                     </div>
