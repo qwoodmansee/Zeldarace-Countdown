@@ -99,11 +99,15 @@ export const GoalGenerator = function() {
 
     };
 
-    self.generateCSVGoalList = function(numGoals, numRequired, numPreChosenRequired, minutes) {
+    self.generateCSVGoalList = function(numGoals, numRequired, numPreChosenRequired, minutes, difficulty) {
         const csvDataGenerator = new csvData();
         var csvGoals = csvDataGenerator.data;
 
         var potentialGoals = [];
+        if (!difficulty || difficulty < 1) {
+            var difficulty =  3;
+        }
+
         //determine list of possible goals
         for (var goal in csvGoals) {
             if (!csvGoals.hasOwnProperty(goal)) {
@@ -153,7 +157,7 @@ export const GoalGenerator = function() {
                 permCounter++;
 
                 //check original (first path)
-                if (self._subsetViable(chosenGoals, tracker, s, minutes)) {
+                if (self._subsetViable(chosenGoals, tracker, s, minutes, difficulty)) {
                     numViable++;
                 }
                 for(;;) {
@@ -168,7 +172,7 @@ export const GoalGenerator = function() {
                             s[i] = s[i - 1] + 1;
                         }
                         permCounter++;
-                        if (self._subsetViable(chosenGoals, tracker, s, minutes)) {
+                        if (self._subsetViable(chosenGoals, tracker, s, minutes, difficulty)) {
                             numViable++;
                         }
                         // if this subset is too fast start over
@@ -221,12 +225,18 @@ export const GoalGenerator = function() {
     };
 
     //helper function to detemine if a subset of goals is viable
-    self._subsetViable = function(potentialGoals, tracker, subset, minutes) {
+    self._subsetViable = function(potentialGoals, tracker, subset, minutes, difficulty) {
         var totalTimeEstimate = 0;
+
+        // add a certain amount of time to each estimate based on difficulty: higher difficulty -> less buffer
+        // NOTE(quinton) did some subtraction here since difficulty goes up while amount of available time goes down.
+        // here difficulty of 5 will result in 1.1 as buffer, where difficulty of 1 will result in 1.5 buffer
+        var difficultyBuffer = 1 + (.6 - difficulty * .1);
         for (var i = 0; i < subset.length; i++) {
-            totalTimeEstimate += parseFloat(potentialGoals[subset[i]].time * 1.3);
+            totalTimeEstimate += parseFloat(potentialGoals[subset[i]].time * difficultyBuffer);
         }
-        totalTimeEstimate += 30;
+
+        totalTimeEstimate += 35 - difficulty; // add standard setup time - 30 minutes + some more based on difficulty.
         if (totalTimeEstimate < minutes * .6) {
             tracker.tooShort = true;
         }

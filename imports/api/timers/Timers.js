@@ -17,6 +17,7 @@ Timers.allow({
    }
 });
 
+// create the schema for the timers table in the database
 TimerSchema = new SimpleSchema({
     ownerId: {
         type: String,

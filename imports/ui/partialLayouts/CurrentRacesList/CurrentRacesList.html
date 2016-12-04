@@ -1,0 +1,20 @@
+<template name="CurrentRacesList">
+    <div class="row">
+        <div class="col s6">
+            <p>Owner</p>
+        </div>
+        <div class="col s6">
+            <p>Length</p>
+        </div>
+    </div>
+        {{#each race in allRaces}}
+        <div class="row">
+            <div class="col s6">
+                <p>{{race.owner}}</p>
+            </div>
+            <div class="col s6">
+                <p>{{race.length}}</p>
+            </div>
+        </div>
+    {{/each}}
+</template>

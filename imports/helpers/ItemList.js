@@ -27,7 +27,7 @@ export const ItemList = function() {
         ["ClaimCheck",  "4",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["Cojiro",  "-4",  "3",  "0.5",  "1",  "1",  "0.5" ],
         ["Compass",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
-        ["Cucco",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
+        ["WeirdCucco",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["DekuNut",  "-2",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["DekuSeeds",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
         ["DekuShield",  "1",  "2",  "0.5",  "1",  "1",  "0.5" ],
@@ -173,7 +173,7 @@ export const ItemList = function() {
         //adult trade
         //first option is filename, second option is tooltip
         var adultQuestOptions = [["Cojiro", "Cojiro"], ["OddMushroom", "Odd Mushroom"], ["OddPotion", "Odd Potion"],
-            ["PoachersSaw", "Poachers Saw"], ["Prescription", "Prescription"], ["GoronsSwordBroken", "Broken Sword"],
+            ["PoachersSaw", "Poachers Saw"], ["Prescription", "Prescription"], ["BrokenBiggoronsSword", "Broken Sword"],
             ["ClaimCheck", "Claim Check"], ["PocketEgg", "Pocket Egg"]];
         idx = self.generateRandomNumber(0, adultQuestOptions.length, false);
         newObject.adultTrade = {name: adultQuestOptions[idx][0], tooltip: adultQuestOptions[idx][1]};
