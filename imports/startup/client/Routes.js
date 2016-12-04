@@ -13,11 +13,20 @@ import '../../ui/baseLayouts/MainLayout/MainLayout.js';
 import '../../ui/pageLayouts/TimerNonOwner/TimerNonOwner.js';
 import '../../ui/pageLayouts/TimerOwner/TimerOwner.js';
 import '../../ui/pageLayouts/Welcome/Welcome.js';
+import '../../ui/pageLayouts/ActiveRaceList/ActiveRaceList.js';
 
 
 //partial layouts
 import '../../ui/partialLayouts/SidebarLoggedIn/SidebarLoggedIn.js';
 import '../../ui/partialLayouts/SidebarLoggedOut/SidebarLoggedOut.js';
+
+
+FlowRouter.route('/races/current', {
+    name: 'currentRaces',
+    action: function() {
+        BlazeLayout.render('MainLayout', {main:'ActiveRaceList'})
+    }
+});
 
 FlowRouter.route('/:username', {
     name: 'timer',
@@ -55,3 +64,4 @@ FlowRouter.route('/user/logout', {
         FlowRouter.go('/' + queryParams['redir']);
     }
 });
+
