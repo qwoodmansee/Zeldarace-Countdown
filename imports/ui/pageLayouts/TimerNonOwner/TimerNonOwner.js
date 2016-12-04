@@ -64,18 +64,23 @@ Template.TimerNonOwner.onCreated(function(){
     };
 
     self.autorun(function() {
+
+        // gets a single timer with the username from the URL
         self.subscribe('singleTimer', FlowRouter.getParam('username'), {
             onReady: function() {
+
                 // this will be final now since singleTimer's on ready has been called
                 var timer = Timers.findOne();
 
                 if (timer) {
+
                     //initialize reactives to initial timer value
                     self.timerExists.set(true);
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
                     if (self.timerRunning.get() === true) {
                         self.timerStartTime.set(timer['timeStarted']);
+
                         // create and start countdown
                         self.createTimer('countdown', self.timerStartTime.get().getTime() + self.timerLength.get() * 60 * 1000);
 
@@ -84,12 +89,16 @@ Template.TimerNonOwner.onCreated(function(){
                     }
                 }
 
-                //subscribe to pageViewers and make sure if you aren't added to it yet to add yourself
+                //subscribe to all pageViewers for the current timer
                 self.subscribe('pageViewers', {
+
+                    // make sure if you aren't added to it yet to add yourself
                     onReady: function() {
                         var viewers = null;
+
                         //logged in users get a pageViewer entry/are tracked on page
                         if (Meteor.userId()) {
+
                             //get pageviewers table
                             viewers = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
 
@@ -256,6 +265,7 @@ Template.TimerNonOwner.helpers({
         return Template.instance().timerExists.get();
     },
 
+    // returns all the viewers for the current page from highest to lowest score
     PageViewers() {
         var viewers = PageViewers.find({ownerUsername: FlowRouter.getParam('username')});
         viewers = viewers.fetch();
