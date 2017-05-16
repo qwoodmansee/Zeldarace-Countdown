@@ -111,6 +111,13 @@ Template.TimerNonOwner.onCreated(function(){
                                     }
                                 }
 
+                                // initialize an array to hold the values of collected items, hearts, skulls, and rupees
+                                scorecardValues = new Array(65);
+                                for (var i=0; i < 66; i++) {
+                                    scorecardValues[i] = 0
+                                }
+                                scorecardValues[63] = 3 // hearts start at 3
+
                                 //basically perform a client side upsert - have to work around since this is untrusted code
                                 if (!viewers) {
                                     //if none existing, create a page viewer to go into the table
@@ -118,7 +125,8 @@ Template.TimerNonOwner.onCreated(function(){
                                         username: Meteor.user().profile.name,
                                         ownerUsername: FlowRouter.getParam('username'),
                                         score: 0,
-                                        currentlyRacing: false
+                                        currentlyRacing: false,
+                                        scorecardValues: scorecardValues
                                     };
                                     PageViewers.insert(newPageViewer);
 
@@ -126,7 +134,7 @@ Template.TimerNonOwner.onCreated(function(){
                                 } else {
                                     //already exists, just update
                                     PageViewers.update(viewers._id, {
-                                        $set: {'score': 0, 'currentlyRacing': false}
+                                        $set: {'score': 0, 'currentlyRacing': false, 'scorecardValues': scorecardValues}
                                     });
                                 }
 
@@ -221,7 +229,6 @@ Template.TimerNonOwner.onCreated(function(){
 
 Template.TimerNonOwner.onRendered(function() {
     $('.collapsible').collapsible({});
-
 });
 
 

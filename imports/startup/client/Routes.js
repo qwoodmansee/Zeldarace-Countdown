@@ -9,9 +9,11 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 //base templates
 import '../../ui/baseLayouts/AppLayout/AppLayout.js';
 import '../../ui/baseLayouts/MainLayout/MainLayout.js';
+import '../../ui/baseLayouts/PopoutLayout/PopoutLayout.js';
 //page layouts
 import '../../ui/pageLayouts/TimerNonOwner/TimerNonOwner.js';
 import '../../ui/pageLayouts/TimerOwner/TimerOwner.js';
+import '../../ui/pageLayouts/ScorecardViewer/ScorecardViewer.js';
 import '../../ui/pageLayouts/Welcome/Welcome.js';
 import '../../ui/pageLayouts/ActiveRaceList/ActiveRaceList.js';
 
@@ -26,6 +28,31 @@ FlowRouter.route('/races/current', {
     action: function() {
         BlazeLayout.render('MainLayout', {main:'ActiveRaceList'})
     }
+});
+
+FlowRouter.route('/:timerOwner/scorecard/:scorecardOwner', {
+    name: 'scorecardView',
+        action(params) {
+            Tracker.autorun(function() {
+                if (Meteor.user() != null) {
+                    BlazeLayout.render('PopoutLayout', {main: 'ScorecardViewer', navbar: 'SidebarLoggedIn'});
+                } else {
+                    BlazeLayout.render('PopoutLayout', {main: 'ScorecardViewer', navbar: 'SidebarLoggedOut'});
+                }
+            });
+        }
+});
+FlowRouter.route('/:timerOwner/scorecards', {
+    name: 'scorecardView',
+        action(params) {
+            Tracker.autorun(function() {
+                if (Meteor.user() != null) {
+                    BlazeLayout.render('PopoutLayout', {main: 'ScorecardViewer', navbar: 'SidebarLoggedIn'});
+                } else {
+                    BlazeLayout.render('PopoutLayout', {main: 'ScorecardViewer', navbar: 'SidebarLoggedOut'});
+                }
+            });
+        }
 });
 
 FlowRouter.route('/:username', {
