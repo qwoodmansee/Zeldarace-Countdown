@@ -97,7 +97,6 @@ Template.TimerOwner.onCreated(function(){
         }
     });
 
-
     self.autorun(function() {
         self.subscribe('singleTimer', FlowRouter.getParam('username'));
         //subscribe to pageViewers and make sure if you aren't added to it yet to add yourself
@@ -336,6 +335,19 @@ Template.TimerOwner.events({
                });
            }
        }
-   }
+   },
+
+    'click .remove-user': function(e) {
+        // Instead of using $(this), you can do:
+        var $this = $(e.target);
+        var userToRemove = $this[0].id.substring(0, $this[0].id.length - 14);
+        var viewers = PageViewers.findOne({username: userToRemove, ownerUsername: FlowRouter.getParam('username')});
+
+        if (viewers) {
+            PageViewers.update(viewers._id, {
+                $set: {'currentlyRacing': false}
+            });
+        }
+    }
 });
 

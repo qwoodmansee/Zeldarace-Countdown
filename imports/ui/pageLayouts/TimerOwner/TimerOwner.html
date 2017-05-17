@@ -60,6 +60,7 @@
                             <tr>
                                 <th data-field="racers">Username</th>
                                 <th data-field="scores">Score</th>
+                                <th>Remove</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,6 +69,7 @@
                                     <tr>
                                         <td>{{viewer.username}}</td>
                                         <td>{{viewer.score}}</td>
+                                        <td><i id="{{viewer.username}}-remove-button" class="remove-user mdi mdi-account-remove mdi-24px center pointer"></i></td>
                                     </tr>
                                 {{/if}}
                             {{/each}}
