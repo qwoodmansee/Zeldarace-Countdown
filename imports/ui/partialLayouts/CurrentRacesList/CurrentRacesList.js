@@ -17,5 +17,5 @@ Template.CurrentRacesList.onCreated(function() {
 Template.CurrentRacesList.helpers({
    allRaces() {
        return Timers.find();
-   }
+   },
 });

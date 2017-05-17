@@ -23,7 +23,7 @@ import '../../ui/partialLayouts/SidebarLoggedIn/SidebarLoggedIn.js';
 import '../../ui/partialLayouts/SidebarLoggedOut/SidebarLoggedOut.js';
 
 
-FlowRouter.route('/races/current', {
+FlowRouter.route('/currentRaces', {
     name: 'currentRaces',
     action: function() {
         BlazeLayout.render('MainLayout', {main:'ActiveRaceList'})
