@@ -13,13 +13,6 @@
     background-color: #e91e63;
 }
 
-.streamcard-background {
-    background-color: #303030;
-    width: 90vw;
-    position: fixed;
-    top: 0;
-}
-
 .streamcard-goal {
     width: 95vw;
     cursor: pointer;
