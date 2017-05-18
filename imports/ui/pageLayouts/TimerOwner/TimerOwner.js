@@ -348,6 +348,187 @@ Template.TimerOwner.events({
                 $set: {'currentlyRacing': false}
             });
         }
+    },
+
+    'click #popout-stream-layout-open': function() {
+        var requiredGoalObjects = $('.required');
+
+        if (!$('#popout-stream-layout-open').hasClass('disabled')) {
+
+            var popout = new Popout({
+                template : 'StreamLayoutPopout',
+                on : 'popoutStreamLayoutSessionVar',
+                win : true,
+                width: 960,
+                height: 525,
+                context : {
+                    goals: requiredGoalObjects,
+                    goalsCompleted: Template.instance().completedGoals,
+                    itemMenuGridRows: Template.instance().itemMenuGridRows,
+                    EquipMenuGridRows: Template.instance().EquipMenuGridRows,
+                    SongGridRows: Template.instance().SongGridRows,
+                    MedallionAndExtraGridRows: Template.instance().MedallionAndExtraGridRows,
+                    numHeartContainers: Template.instance().numHeartContainers,
+                    numGoldSkulls: Template.instance().numGoldSkulls,
+                    numRupees: Template.instance().numRupees
+                }
+            });
+
+            popout.show();
+            $('#popout-stream-layout-open').addClass('disabled');
+        } else {
+            Session.set('createWindowSessionVar', true);
+        }
+
     }
 });
 
+
+//popout logic
+Template.StreamLayoutPopout.onCreated(function() {
+    var self = this;
+
+});
+
+Template.StreamLayoutPopout.helpers({
+    goals() {
+        return Session.get('goals');
+    },
+
+    timer() {
+        var time = Session.get('currentTimerRemaining');
+        if (time.seconds != 0 || time.minutes != 0 || time.hours != 0 ) {
+            return {
+                'hours': ('0' + time.hours).slice(-2),
+                'minutes': ('0' + time.minutes).slice(-2),
+                'seconds': ('0' + time.seconds).slice(-2)
+            };
+        } else {
+            return {
+                'hours': '00',
+                'minutes': '00',
+                'seconds': '00',
+            }
+        }
+
+    },
+    Score() {
+        return Session.get('score');
+    },
+
+    numGoalsComplete() {
+        var goals = Session.get('goals');
+        return goals.filter(function(obj){return obj.complete}).length;
+    },
+
+    numGoalsRequired() {
+        return Session.get("numGoalsRequired");
+    }
+});
+
+Template.StreamLayoutPopout.events({
+    'click .streamcard-goal': function(event) {
+        //get the number of complete goals
+        var numGoalsComplete = $('.complete').length;
+        var numGoalsTotal =  Session.get('goals').length;
+        var numPrechosen = $('.required').length;
+        var numGoalsRequired = Session.get('numGoalsRequired');
+
+        //get the goals
+        var goals = Session.get('goals');
+        for (var i=0; i < goals.length; i++) {
+            if (goals[i].name === this.name) {
+                var temp = Session.get('score');
+
+                // if goal clicked is required
+                if (goals[i].required) {
+                    // if goal is becoming incomplete
+                    if (goals[i].complete) {
+                        // take away 20 points
+                        temp -= 20;
+                        // if the number of required goals is still met
+                        if (numGoalsComplete - 1 >= numGoalsRequired) {
+                            //give back 15 points because of another complete goal
+                            temp += 15;
+                        }
+                        goals[i].complete = false;
+                    } else{
+                        // if the goal is becoming complete add 20 points
+                        temp += 20;
+                        // if the number of required goals was already met
+                        if (numGoalsComplete >= numGoalsRequired) {
+                            // take away 15 points from one of the blue goals
+                            temp -= 15;
+                        }
+                        goals[i].inProgress = false;
+                        goals[i].complete = true;
+                    }
+                } else {
+                    // if the goal is not required
+                    // else if the goal is becoming incomplete and the required number of goals (after removal) is not met
+                    if (goals[i].complete) {
+                        if (numGoalsComplete - 1 < numGoalsRequired) {
+                            // take away 15 points
+                            temp -= 15;
+                        }
+                        goals[i].complete = false;
+                    } else if (!goals[i].complete) {
+
+                        // if the goal is becoming complete
+                        if (numGoalsComplete < numGoalsRequired) {
+                            // and we have not met the number of required goals
+                            // give 15 points
+                            temp += 15;
+                        }
+                        goals[i].inProgress = false;
+                        goals[i].complete = true;
+                    }
+                }
+
+                //add bonus for completing all goals if applicable
+                if (numGoalsComplete == (numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
+                    temp += 50;
+                } else if (numGoalsComplete == numGoalsTotal && numGoalsTotal > numGoalsRequired * 2) {
+                    temp -= 50;
+                }
+
+                Session.set('score', temp);
+                break;
+            }
+        }
+
+        //set the goals once changed
+        Session.set('goals', goals);
+    },
+
+    'contextmenu .streamcard-goal': function(event) {
+        //get the goals
+        var goals = Session.get('goals');
+        for (var i=0; i < goals.length; i++) {
+            if (goals[i].name === this.name) {
+                if (goals[i].complete) {
+                    var temp = Session.get('score');
+                    if (goals[i].required) {
+                        temp -= 20;
+                    } else {
+                        temp -= 15;
+                    }
+                    Session.set('score', temp);
+                    goals[i].complete = false;
+                    goals[i].inProgress = true;
+                } else if (goals[i].inProgress) {
+                    goals[i].complete = false;
+                    goals[i].inProgress = false;
+                } else {
+                    goals[i].inProgress = true;
+                }
+                break;
+            }
+        }
+
+        //set the goals once changed
+        Session.set('goals', goals);
+        return false;
+
+    }
+});
