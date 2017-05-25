@@ -150,7 +150,8 @@ Template.TimerOwner.onCreated(function(){
                                 ownerUsername: FlowRouter.getParam('username'),
                                 score: 0,
                                 currentlyRacing: false,
-                                scorecardValues: scorecardValues
+                                scorecardValues: scorecardValues,
+                                isReady: false
                             };
                             PageViewers.insert(newPageViewer);
 
@@ -158,7 +159,7 @@ Template.TimerOwner.onCreated(function(){
                         } else {
                             //already exists, just update
                             PageViewers.update(viewers._id, {
-                                $set: {'score': 0, 'currentlyRacing': false, 'scorecardValues': scorecardValues}
+                                $set: {'score': 0, 'currentlyRacing': false, 'scorecardValues': scorecardValues, 'isReady': false}
                             });
                         }
 

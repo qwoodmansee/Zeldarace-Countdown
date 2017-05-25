@@ -124,6 +124,7 @@ Template.TimerNonOwner.onCreated(function(){
                                     var newPageViewer = {
                                         username: Meteor.user().profile.name,
                                         ownerUsername: FlowRouter.getParam('username'),
+                                        isReady: false,
                                         score: 0,
                                         currentlyRacing: false,
                                         scorecardValues: scorecardValues

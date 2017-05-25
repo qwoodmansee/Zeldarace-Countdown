@@ -38,6 +38,10 @@ PageViewersSchema = new SimpleSchema({
         type: Boolean,
         label: "Is currently racing"
     },
+    isReady: {
+        type: Boolean,
+        label: "Is ready"
+    },
     scorecardValues: {
         type: [Number],
         label: "numbers representing current status of each menu item. for most, it will be a 0 or a 1, but for some, #"
