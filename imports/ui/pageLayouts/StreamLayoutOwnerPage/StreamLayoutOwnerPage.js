@@ -6,8 +6,8 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 
 import {Timers} from '../../../api/timers/Timers.js';
 import {PageViewers} from '../../../api/pageViewers/PageViewers.js';
+import {Presets} from '../../../api/presets/Presets.js';
 import {ItemList} from '../../../helpers/ItemList.js';
-
 
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/StreamLayoutGoalList/StreamLayoutGoalList.js';
@@ -26,6 +26,7 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
         'owner-control-panel',
         'timer',
         'racer-list-card',
+        'preset-loader',
         'item-menu-card',
         'equip-menu-card',
         'quest-status-card',
@@ -33,90 +34,89 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
         'individual-score-card'
     ];
 
-    self.presets = [
+    self.basicPreset =
         {
-            'goals': {
-                bottom: 'auto',
-                width: '272px',
-                height: '374px',
-                left: '3px',
-                right: 'auto',
-                top: '-0.75px'
+            "goals": {
+                "width": "353px",
+                "height": "333px",
+                "left": "6px",
+                "right": "1316px",
+                "bottom": "600px",
+                "top": "5.5px"
             },
-
-            'owner-control-panel': {
-                width: '233px',
-                height: '269px',
-                left: '911px',
-                right: 'auto',
-                bottom: 'auto',
-                top: '-318.75px'
+            "owner-control-panel": {
+                "width": "192px",
+                "height": "267px",
+                "left": "367px",
+                "right": "1116px",
+                "bottom": "558px",
+                "top": "113.5px"
             },
-
-            'timer': {
-                width: '231px',
-                height: '65px',
-                left: '913px',
-                right: 'auto',
-                bottom: 'auto',
-                top: '-672.75px'
+            "timer": {
+                "width": "185px",
+                "height": "66px",
+                "left": "271px",
+                "right": "1219px",
+                "bottom": "433.5px",
+                "top": "439px"
             },
-
-            'racer-list-card': {
-                width: '356px',
-                height: '105px',
-                left: '769px',
-                right: 'auto',
-                bottom: 'auto',
-                top: '-285.75px'
+            "racer-list-card": {
+                "width": "372px",
+                "height": "113px",
+                "left": "372px",
+                "right": "931px",
+                "bottom": "825px",
+                "top": "0.5px"
             },
-
-            'item-menu-card': {
-                width: '289px',
-                height: '181px',
-                left: '-5px',
-                right: 'auto',
-                bottom: 'auto',
-                top: '-413.75px'
+            "preset-loader": {
+                "width": "264px",
+                "height": "163px",
+                "left": "3px",
+                "right": "1408px",
+                "bottom": "432.5px",
+                "top": "343px"
             },
-
-            'equip-menu-card': {
-                width: '193px',
-                height: '181px',
-                left: '-4px',
-                right: 'auto',
-                bottom: 'auto',
-                top: '-413.75px'
+            "item-menu-card": {
+                "width": "238px",
+                "height": "177px",
+                "left": "11px",
+                "right": "1426px",
+                "bottom": "244.5px",
+                "top": "517px"
             },
-
-            'quest-status-card': {
-                width: '289px',
-                right: 'auto',
-                height: '181px',
-                bottom: 'auto',
-                left: '-4px',
-                top: '-413.75px'
+            "equip-menu-card": {
+                "width": "179px",
+                "height": "176px",
+                "left": "251px",
+                "right": "1245px",
+                "bottom": "246px",
+                "top": "516.5px"
             },
-
-            'hearts-skulls-rupees-card': {
-                width: '261px',
-                right: 'auto',
-                height: '83px',
-                bottom: 'auto',
-                left: '-766px',
-                top: '-502.75px'
+            "quest-status-card": {
+                "width": "199px",
+                "height": "171px",
+                "left": "434px",
+                "right": "1042px",
+                "bottom": "254.5px",
+                "top": "513px"
             },
-
-            'individual-score-card': {
-                width: '226px',
-                right: 'auto',
-                height: '127px',
-                bottom: 'auto',
-                left: '137px',
-                top: '-643.75px'
+            "hearts-skulls-rupees-card": {
+                "width": "263px",
+                "height": "96px",
+                "left": "452px",
+                "right": "960px",
+                "bottom": "460.5px",
+                "top": "382px"
+            },
+            "individual-score-card": {
+                "width": "182px",
+                "height": "161px",
+                "left": "566px",
+                "right": "927px",
+                "bottom": "662px",
+                "top": "115.5px"
             }
-        }
-    ];
+        };
 
     self.applyPreset = function(preset) {
         for (prop in preset) {
@@ -128,11 +128,24 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                     }
                 }
             }
+            $(idProp).css("position", "fixed");
         }
     };
 
     self.createPreset = function() {
-        self.p
+        var elementIdList = self.moveableObjectIds;
+        var cssPropertyList = ["width", "height", "left", "right", "bottom", "top"];
+        var preset = {};
+        elementIdList.forEach(function(elementId) {
+            var selectorId = "#" + elementId;
+            var handle = $(selectorId);
+            preset[elementId] = {};
+            cssPropertyList.forEach(function(propertyName) {
+                preset[elementId][propertyName] = $(selectorId).css(propertyName);
+            });
+        });
+
+        return preset;
     };
 
     //these reactives act as observables that are changed when the timer changes
@@ -239,7 +252,7 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                 //logged in users get a pageViewer entry/are tracked on page
                 if (Meteor.userId()) {
                     //get pageviewers table
-                    viewers = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('timerOwner')});
+                    viewers = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
 
                     //create a viewer object to insert into the db
                     var requiredGoals = [];
@@ -351,6 +364,7 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                 });
             }
         });
+        self.subscribe('userPresets', Meteor.user().profile.name);
     });
 });
 
@@ -374,6 +388,8 @@ Template.StreamLayoutOwnerPage.onRendered(function() {
 
     $('.draggable').draggable();
     $('.droppable').droppable();
+
+    Template.instance().applyPreset(Template.instance().basicPreset);
 });
 
 Template.StreamLayoutOwnerPage.helpers({
@@ -425,6 +441,16 @@ Template.StreamLayoutOwnerPage.helpers({
         if (viewer) {
             return viewer.currentlyRacing;
         }
+    },
+
+    Presets() {
+        // get the presets table
+        var presetRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
+        if (presetRetVal && presetRetVal.presets) {
+            return presetRetVal.presets;
+        } else {
+            return [];
+        }
     }
 });
 
@@ -438,8 +464,8 @@ Template.StreamLayoutOwnerPage.events({
         var formData = new FormData();
         formData.append("content", message);
         var request = new XMLHttpRequest();
-        //request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
-        //request.send(formData);
+        request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
+        request.send(formData);
     },
 
     'click #timer-reset-button': function() {
@@ -473,7 +499,6 @@ Template.StreamLayoutOwnerPage.events({
 
     'click #toggle-ready-button': function() {
         var viewers = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
-
         if (viewers) {
             if (viewers.isReady) {
                 PageViewers.update(viewers._id, {
@@ -500,40 +525,60 @@ Template.StreamLayoutOwnerPage.events({
         }
     },
 
-    'click #popout-stream-layout-open': function() {
-        var requiredGoalObjects = $('.required');
-
-        if (!$('#popout-stream-layout-open').hasClass('disabled')) {
-
-            var popout = new Popout({
-                template : 'StreamLayoutPopout',
-                on : 'popoutStreamLayoutSessionVar',
-                win : true,
-                width: 960,
-                height: 525,
-                context : {
-                    goals: requiredGoalObjects,
-                    goalsCompleted: Template.instance().completedGoals,
-                    itemMenuGridRows: Template.instance().itemMenuGridRows,
-                    EquipMenuGridRows: Template.instance().EquipMenuGridRows,
-                    SongGridRows: Template.instance().SongGridRows,
-                    MedallionAndExtraGridRows: Template.instance().MedallionAndExtraGridRows,
-                    numHeartContainers: Template.instance().numHeartContainers,
-                    numGoldSkulls: Template.instance().numGoldSkulls,
-                    numRupees: Template.instance().numRupees
-                }
-            });
-
-            popout.show();
-            $('#popout-stream-layout-open').addClass('disabled');
-        } else {
-            Session.set('createWindowSessionVar', true);
+    'click .load-preset-button': function(element) {
+        // get the index of which button you clicked
+        var presetIndex = parseInt(element.target.dataset.value);
+        var presetsRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
+        if (presetsRetVal) {
+            var preset = presetsRetVal.presets[presetIndex];
+            Template.instance().applyPreset(preset);
         }
-
     },
 
-    'click #preset-test': function() {
-        Template.instance().applyPreset(Template.instance().presets[0]);
+    'contextmenu .load-preset-button': function(event) {
+        event.preventDefault();
+        if (confirm("This will delete this preset, are you sure?")) {
+            // get the index of which button you clicked
+            var presetIndex = parseInt(event.target.dataset.value);
+            var presetsRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
+            if (presetsRetVal) {
+                var presets = presetsRetVal.presets.splice(presetIndex, 1);
+                Presets.update(presetsRetVal._id, {
+                    $set: {'presets': presetsRetVal.presets}
+                });
+
+            }
+        }
+    },
+
+    'click #load-default-preset': function() {
+        Template.instance().applyPreset(Template.instance().basicPreset);
+    },
+
+    'click #create-preset': function() {
+        var newPreset = Template.instance().createPreset();
+        // find the presets that are associated with this user
+        var presetsRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
+        console.log(presetsRetVal);
+
+        // if a preset has never been made for this user
+        if (presetsRetVal) {
+            presetsRetVal.presets.push(newPreset);
+            Presets.update(presetsRetVal._id, {
+                $set: {'presets': presetsRetVal.presets}
+            });
+
+        } else {
+            temp = [];
+            temp.push(newPreset);
+            var presetObject = {
+                createdBy: Meteor.user().profile.name,
+                presets: temp
+            };
+            console.log("inserting new preset row");
+            console.log(presetObject);
+            Presets.insert(presetObject);
+        }
     },
 
     'resize #timer' : function() {

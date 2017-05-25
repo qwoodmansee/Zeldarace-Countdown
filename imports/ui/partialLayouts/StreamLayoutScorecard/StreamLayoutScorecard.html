@@ -1,7 +1,7 @@
 <template name="StreamLayoutScorecard">
     <div class="row">
         <div class="score-card-container">
-            <div id="item-menu-card" class="card-panel col s3 grey darken-3 resizable-scorecard draggable no-left-padding">
+            <div id="item-menu-card" class="card-panel col s3 grey darken-3 resizable-scorecard draggable no-left-padding fixed-position">
                 {{#each itemMenuGridRows}}
                     <div class="row thin-margins">
                         {{#each items}}
@@ -20,7 +20,7 @@
                     </div>
                 {{/each}}
             </div>
-            <div id="equip-menu-card" class="card-panel col s2 grey darken-3 resizable-scorecard draggable no-left-padding">
+            <div id="equip-menu-card" class="card-panel col s2 grey darken-3 resizable-scorecard draggable no-left-padding fixed-position">
                 {{#each EquipMenuGridRows}}
                     <div class="row thin-margins">
                         {{#each items}}
@@ -39,7 +39,7 @@
                     </div>
                 {{/each}}
             </div>
-            <div id="quest-status-card" class="card-panel col s3 grey darken-3 resizable-scorecard draggable no-left-padding">
+            <div id="quest-status-card" class="card-panel col s3 grey darken-3 resizable-scorecard draggable no-left-padding fixed-position">
                 {{#each SongGridRows}}
                     <div class="row thin-margins">
                         {{#each items}}
@@ -75,7 +75,7 @@
                     </div>
                 {{/each}}
             </div>
-            <div id="hearts-skulls-rupees-card" class="card-panel col s2 grey darken-3 resizable-scorecard draggable no-left-padding">
+            <div id="hearts-skulls-rupees-card" class="card-panel col s2 grey darken-3 resizable-scorecard draggable no-left-padding fixed-position">
                 <div class="row thin-margins">
                     <div class="col s4">
                         <div>
@@ -106,11 +106,9 @@
                     </div>
                 </div>
             </div>
-            <div id="individual-score-card" class="card-panel col s grey darken-3 resizable-scorecard draggable no-left-padding">
+            <div id="individual-score-card" class="card-panel col s grey darken-3 resizable-scorecard draggable no-left-padding fixed-position">
                 <div class="center-block thin-margins">
-                    <!--<button id="popout-scorecard-open" class="waves-effect waves-light btn white black-text" style="margin-top: 1em">Popout</button>-->
                     <h3>Score: {{CurrentScore}}</h3>
-                    <br>
                     <button id="score-reset-button" class="waves-effect waves-light btn white black-text">Clear</button>
                 </div>
             </div>

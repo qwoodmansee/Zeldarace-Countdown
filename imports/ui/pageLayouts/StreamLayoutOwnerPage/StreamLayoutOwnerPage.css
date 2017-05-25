@@ -18,6 +18,18 @@
     width: 25%;
 }
 
+.one-half-width {
+    width: 25%;
+}
+
+.one-tenth-width {
+    width: 10%;
+}
+
+.fixed-position {
+    position: fixed;
+}
+
 .three-fourths-height {
     height: 75%;
 }
@@ -29,6 +41,11 @@
 .thin-margins {
     margin: .4em;
 }
+
+.miniscule-margins {
+    margin: .1em;
+}
+
 .thin-padding {
     padding: .4em;
 }
@@ -54,6 +71,10 @@
 
 .inline-block {
     display: inline-block;
+    vertical-align: top;
+}
+
+.align-top {
     vertical-align: top;
 }
 

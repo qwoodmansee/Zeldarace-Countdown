@@ -10,6 +10,18 @@
     width: 20%;
 }
 
+.one-tenth-width {
+    width: 10%;
+}
+
+.one-half-width {
+    width: 25%;
+}
+
+.fixed-position {
+    position: fixed;
+}
+
 .one-fifth-height {
     height: 20%;
 }
@@ -32,6 +44,11 @@
 .thin-margins {
     margin: .4em;
 }
+
+.miniscule-margins {
+    margin: .1em;
+}
+
 .dark-background {
     background-color: grey;
 }
@@ -57,6 +74,9 @@
     vertical-align: top;
 }
 
+.align-top {
+    vertical-align: top;
+}
 .app-background-color {
     background-color: #303030;
 }

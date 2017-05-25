@@ -65,9 +65,9 @@ FlowRouter.route('/:username/streamLayout', {
             if (Meteor.user() != null && Meteor.user().profile.name === params.username) {
                 BlazeLayout.render('AppLayout', {main: 'StreamLayoutOwnerPage'});
             } else if (Meteor.userId()){
-                BlazeLayout.render('AppLayout', {main: 'StreamLayoutNonOwnerPage', navbar: 'SidebarLoggedIn'});
+                BlazeLayout.render('AppLayout', {main: 'StreamLayoutNonOwnerPage'});
             } else {
-                BlazeLayout.render('AppLayout', {main: 'StreamLayoutNonOwnerPage', navbar: 'SidebarLoggedOut'});
+                BlazeLayout.render('AppLayout', {main: 'StreamLayoutNonOwnerPage'});
             }
         });
     }

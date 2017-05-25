@@ -6,8 +6,8 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 
 import {Timers} from '../../../api/timers/Timers.js';
 import {PageViewers} from '../../../api/pageViewers/PageViewers.js';
+import {Presets} from '../../../api/presets/Presets.js';
 import {ItemList} from '../../../helpers/ItemList.js';
-
 
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/StreamLayoutGoalList/StreamLayoutGoalList.js';
@@ -25,6 +25,134 @@ Template.StreamLayoutNonOwnerPage.onCreated(function(){
     self.timerRunning = new ReactiveVar(false);
     self.timerStartTime = new ReactiveVar(null);
     self.timerLength = new ReactiveVar(null);
+
+    // this array holds the ids of all the moveable elements on the page.
+    self.moveableObjectIds = [
+        'goals',
+        'owner-control-panel',
+        'timer',
+        'racer-list-card',
+        'preset-loader',
+        'item-menu-card',
+        'equip-menu-card',
+        'quest-status-card',
+        'hearts-skulls-rupees-card',
+        'individual-score-card'
+    ];
+
+    self.basicPreset =
+        {
+            "goals": {
+                "width": "353px",
+                "height": "333px",
+                "left": "6px",
+                "right": "1316px",
+                "bottom": "600px",
+                "top": "5.5px"
+            },
+            "owner-control-panel": {
+                "width": "192px",
+                "height": "267px",
+                "left": "367px",
+                "right": "1116px",
+                "bottom": "558px",
+                "top": "113.5px"
+            },
+            "timer": {
+                "width": "185px",
+                "height": "66px",
+                "left": "271px",
+                "right": "1219px",
+                "bottom": "433.5px",
+                "top": "439px"
+            },
+            "racer-list-card": {
+                "width": "372px",
+                "height": "113px",
+                "left": "372px",
+                "right": "931px",
+                "bottom": "825px",
+                "top": "0.5px"
+            },
+            "preset-loader": {
+                "width": "264px",
+                "height": "163px",
+                "left": "3px",
+                "right": "1408px",
+                "bottom": "432.5px",
+                "top": "343px"
+            },
+            "item-menu-card": {
+                "width": "238px",
+                "height": "177px",
+                "left": "11px",
+                "right": "1426px",
+                "bottom": "244.5px",
+                "top": "517px"
+            },
+            "equip-menu-card": {
+                "width": "179px",
+                "height": "176px",
+                "left": "251px",
+                "right": "1245px",
+                "bottom": "246px",
+                "top": "516.5px"
+            },
+            "quest-status-card": {
+                "width": "199px",
+                "height": "171px",
+                "left": "434px",
+                "right": "1042px",
+                "bottom": "254.5px",
+                "top": "513px"
+            },
+            "hearts-skulls-rupees-card": {
+                "width": "263px",
+                "height": "96px",
+                "left": "452px",
+                "right": "960px",
+                "bottom": "460.5px",
+                "top": "382px"
+            },
+            "individual-score-card": {
+                "width": "182px",
+                "height": "161px",
+                "left": "566px",
+                "right": "927px",
+                "bottom": "662px",
+                "top": "115.5px"
+            }
+        };
+
+    self.applyPreset = function(preset) {
+        for (prop in preset) {
+            var idProp = '#' + prop;
+            if (preset.hasOwnProperty(prop)) {
+                for (cssProp in preset[prop]) {
+                    if (preset[prop].hasOwnProperty(cssProp)) {
+                        $(idProp).css(cssProp, preset[prop][cssProp]);
+                    }
+                }
+            }
+            $(idProp).css("position", "fixed");
+        }
+    };
+
+    self.createPreset = function() {
+        var elementIdList = self.moveableObjectIds;
+        var cssPropertyList = ["width", "height", "left", "right", "bottom", "top"];
+        var preset = {};
+        elementIdList.forEach(function(elementId) {
+            var selectorId = "#" + elementId;
+            var handle = $(selectorId);
+            preset[elementId] = {};
+            cssPropertyList.forEach(function(propertyName) {
+                preset[elementId][propertyName] = $(selectorId).css(propertyName);
+            });
+        });
+
+        return preset;
+    };
 
 
     self.createTimer = function(id, endtime){
@@ -233,6 +361,11 @@ Template.StreamLayoutNonOwnerPage.onCreated(function(){
                 }
             }
         });
+
+        if (Meteor.userId()) {
+            self.subscribe('userPresets', Meteor.user().profile.name);
+        }
+
     });
 });
 
@@ -249,6 +382,9 @@ Template.StreamLayoutNonOwnerPage.onRendered(function() {
 
     $('.draggable').draggable();
     $('.droppable').droppable();
+
+    Template.instance().applyPreset(Template.instance().basicPreset);
+
 });
 
 Template.StreamLayoutNonOwnerPage.helpers({
@@ -315,6 +451,16 @@ Template.StreamLayoutNonOwnerPage.helpers({
 
     LoggedIn() {
         return Meteor.userId();
+    },
+
+    Presets() {
+        // get the presets table
+        var presetRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
+        if (presetRetVal && presetRetVal.presets) {
+            return presetRetVal.presets;
+        } else {
+            return [];
+        }
     }
 });
 
@@ -346,7 +492,6 @@ Template.StreamLayoutNonOwnerPage.events({
 
     'click #toggle-ready-button': function() {
         if (Meteor.userId()) {
-            //get pageviewers table
             var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
             if (viewer) {
                 if (viewer.isReady) {
@@ -390,8 +535,69 @@ Template.StreamLayoutNonOwnerPage.events({
         }
     },
 
+    'click .load-preset-button': function(element) {
+        // get the index of which button you clicked
+        var presetIndex = parseInt(element.target.dataset.value);
+        var presetsRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
+        if (presetsRetVal) {
+            var preset = presetsRetVal.presets[presetIndex];
+            Template.instance().applyPreset(preset);
+        }
+    },
+
+    'contextmenu .load-preset-button': function(event) {
+        event.preventDefault();
+        if (confirm("This will delete this preset, are you sure?")) {
+            // get the index of which button you clicked
+            var presetIndex = parseInt(event.target.dataset.value);
+            var presetsRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
+            if (presetsRetVal) {
+                var presets = presetsRetVal.presets.splice(presetIndex, 1);
+                Presets.update(presetsRetVal._id, {
+                    $set: {'presets': presetsRetVal.presets}
+                });
+
+            }
+        }
+    },
+
+    'click #load-default-preset': function() {
+        Template.instance().applyPreset(Template.instance().basicPreset);
+    },
+
+    'click #create-preset': function() {
+        var newPreset = Template.instance().createPreset();
+        // find the presets that are associated with this user
+        var presetsRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
+        console.log(presetsRetVal);
+
+        // if a preset has never been made for this user
+        if (presetsRetVal) {
+            presetsRetVal.presets.push(newPreset);
+            Presets.update(presetsRetVal._id, {
+                $set: {'presets': presetsRetVal.presets}
+            });
+
+        } else {
+            temp = [];
+            temp.push(newPreset);
+            var presetObject = {
+                createdBy: Meteor.user().profile.name,
+                presets: temp
+            };
+            console.log("inserting new preset row");
+            console.log(presetObject);
+            Presets.insert(presetObject);
+        }
+    },
+
     'resize #timer' : function() {
-        $('#timer h1').css('font-size', ($('#timer').width() * $('#timer').height()) / 600);
+        var timer = $('#timer');
+        if (timer.width() < timer.height() / 2.5){
+            $('#timer span').css('font-size', timer.width() / 1.5);
+        } else {
+            $('#timer span').css('font-size', timer.height() / 1.5);
+        }
     }
 });
 

@@ -5,54 +5,71 @@
 
     <div id="full-stream-layout">
 
-        <div id="goals" class="draggable card grey darken-3 resizable-card one-fourth-width">
+        <div id="goals" class="draggable card grey darken-3 resizable-card one-fourth-width fixed-position">
             {{>StreamLayoutGoalList}}
         </div>
 
-        <div id="owner-control-panel" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width" >
-            <div class="thin-margins no-pad-top" style="width:100%">
+        <div id="owner-control-panel" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width fixed-position" >
+            <div class="thin-margins no-pad-top full-width">
                 <span class="center"> Owner Controls </span>
             </div>
-            <div class="thin-margins" style="width:100%">
+            <div class="thin-margins full-width">
                 {{#if TimerRunning}}
                     <button class="waves-effect waves-light btn red accent-2 full-width" id="timer-reset-button">Reset Timer</button>
                 {{else}}
                     <button class="waves-effect waves-light btn indigo full-width" id="timer-start-button">Start Timer</button>
                 {{/if}}
             </div>
-            <div class="thin-margins" style="width:100%">
+            <div class="thin-margins full-width">
                 <a class="waves-effect waves-light btn pink lighten-1 modal-trigger full-width" href="#generateModal">Generate New</a>
             </div>
-            <div class="thin-margins" style="width:100%">
+            <div class="thin-margins full-width">
                 {{#if CurrentlyRacing}}
                     <button class="waves-effect waves-light btn white black-text full-width" id="leave-race-button">Leave Race</button>
-                    <button class="waves-effect waves-light btn white black-text full-width" id="toggle-ready-button">Toggle Ready</button>
+                    {{#if isReady}}
+                        <button class="waves-effect waves-light btn white black-text full-width" id="toggle-ready-button">Not Ready</button>
+                    {{else}}
+                        <button class="waves-effect waves-light btn white black-text full-width" id="toggle-ready-button">Ready</button>
+                    {{/if}}
                 {{else}}
                     <button class="waves-effect waves-light btn white black-text full-width" id="join-race-button">Join Race</button>
                 {{/if}}
             </div>
-            <div class="thin-margins" style="width:100%">
+            <div class="thin-margins full-width">
                 <a class="waves-effect waves-light btn white black-text modal-trigger full-width" href="#screenshotModal">Screenshot</a>
-            </div>
-            <div class="thin-margins" style="width:100%">
-                <button class="waves-effect waves-light btn white black-text full-width" id="preset-test">Test</button>
             </div>
         </div>
 
-        <div id="timer" class="card resizable-card grey darken-3 draggable one-fifth-width">
+        <div id="preset-loader" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width fixed-position">
+            <div class="miniscule-margins no-pad-top center full-width">
+                <span class="center"> Preset Controls </span>
+            </div>
+            <div class="full-width">
+                <button class="waves-effect waves-light btn white black-text miniscule-margins" id="create-preset">Create</button>
+                <button class="waves-effect waves-light btn white black-text miniscule-margins" id="load-default-preset">Load Default Preset</button>
+            </div>
+
+            {{#each Presets}}
+                <div class="miniscule-margins inline-block">
+                    <button class="waves-effect waves-light btn white black-text one-tenth-width inline-block load-preset-button" data-value="{{@index}}">{{@index}}</button>
+                </div>
+            {{/each}}
+        </div>
+
+        <div id="timer" class="card resizable-card grey darken-3 draggable one-fifth-width fixed-position">
             {{#if Template.subscriptionsReady}}
-                <div class="center" id="countdown" style="vertical-align: top;" hidden>
+                <div class="center align-top" id="countdown" hidden>
                     <span class="hours"></span><span>:</span><span class="minutes"></span><span>:</span><span class="seconds"></span>
                 </div>
                 {{#unless TimerRunning}}
-                <div class="center" style="vertical-align: top;">
+                <div class="center align-top">
                     <span>{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</span>
                 </div>
                 {{/unless}}
             {{/if}}
         </div>
 
-        <div id="racer-list-card" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width thin-padding" >
+        <div id="racer-list-card" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width thin-padding fixed-position" >
             <table>
                 <thead>
                 <tr>
