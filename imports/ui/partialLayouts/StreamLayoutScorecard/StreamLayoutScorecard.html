@@ -1,0 +1,128 @@
+<template name="StreamLayoutScorecard">
+    <div class="row">
+        <div class="score-card-container">
+            <div id="item-menu-card" class="card-panel col s3 grey darken-3 resizable-scorecard draggable no-left-padding">
+                {{#each itemMenuGridRows}}
+                    <div class="row thin-margins">
+                        {{#each items}}
+                            {{#if scoreCardItemObtained scoreCardIndex}}
+                                <div class="col s2 scorecard-item unselectable " data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardCollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{else}}
+                                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardUncollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                {{/each}}
+            </div>
+            <div id="equip-menu-card" class="card-panel col s2 grey darken-3 resizable-scorecard draggable no-left-padding">
+                {{#each EquipMenuGridRows}}
+                    <div class="row thin-margins">
+                        {{#each items}}
+                            {{#if scoreCardItemObtained scoreCardIndex}}
+                                <div class="col s3 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardCollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{else}}
+                                <div class="col s3 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardUncollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                {{/each}}
+            </div>
+            <div id="quest-status-card" class="card-panel col s3 grey darken-3 resizable-scorecard draggable no-left-padding">
+                {{#each SongGridRows}}
+                    <div class="row thin-margins">
+                        {{#each items}}
+                            {{#if scoreCardItemObtained scoreCardIndex}}
+                                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardCollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{else}}
+                                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardUncollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                {{/each}}
+                {{#each MedallionAndExtraGridRows}}
+                    <div class="row thin-margins">
+                        {{#each items}}
+                            {{#if scoreCardItemObtained scoreCardIndex}}
+                                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardCollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{else}}
+                                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardUncollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                {{/each}}
+            </div>
+            <div id="hearts-skulls-rupees-card" class="card-panel col s2 grey darken-3 resizable-scorecard draggable no-left-padding">
+                <div class="row thin-margins">
+                    <div class="col s4">
+                        <div>
+                            <img class="unselectable center" src="/icons/HeartContainer.png">
+                            <span class="unselectable" style="margin-left: -1em; font-size: .8em; margin-top: -.4em">1</span>
+                        </div>
+                         <div class="col s6 pointer unselectable" id="heart-container-text" >
+                             <span class="center unselectable">{{numHeartContainers}}</span>
+                         </div>
+                    </div>
+                    <div class="col s4">
+                        <div>
+                            <img class="unselectable center" src="/icons/GoldSkulltula.png">
+                            <span class="unselectable" style="margin-left: -1em; font-size: .8em; margin-top: -.4em">1/3</span>
+                        </div>
+                        <div class="col s6 pointer unselectable" id="gold-skull-text" >
+                            <span class="center unselectable">{{numGoldSkulls}}</span>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <div>
+                            <img class="unselectable center" src="/icons/RupeeIcon.png">
+                            <span class="unselectable" style="margin-left: -1em; font-size: .8em; margin-top: -.4em">1/100</span>
+                        </div>
+                        <div class="col s6 pointer unselectable" id="rupee-text">
+                            <span class="center unselectable">{{numRupees}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="individual-score-card" class="card-panel col s grey darken-3 resizable-scorecard draggable no-left-padding">
+                <div class="center-block thin-margins">
+                    <!--<button id="popout-scorecard-open" class="waves-effect waves-light btn white black-text" style="margin-top: 1em">Popout</button>-->
+                    <h3>Score: {{CurrentScore}}</h3>
+                    <br>
+                    <button id="score-reset-button" class="waves-effect waves-light btn white black-text">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+<template name="streamLayoutScorecardUncollectedIconTemplate">
+    <img class="scorecard-icon unselectable tooltipped" src="/icons/{{name}}.png"  data-tooltip={{tooltip}}>
+</template>
+
+<template name="streamLayoutScorecardCollectedIconTemplate">
+        <img class="scorecard-icon unselectable tooltipped collected" src="/icons/{{name}}.png"  data-tooltip={{tooltip}}>
+</template>

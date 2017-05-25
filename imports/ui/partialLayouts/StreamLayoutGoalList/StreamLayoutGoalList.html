@@ -1,0 +1,39 @@
+<template name="StreamLayoutGoalList">
+    <div class="row">
+        {{#if superGoalBonusAvailable}}
+            <div class="col s6">
+                <span>Required: </span><span class="pink-text">{{numGoalsRequired}}</span>
+            </div>
+            <div class="col s6">
+                <span class="green-text">Super Bonus!</span>
+            </div>
+        {{else}}
+            <div class="col s12">
+                <span>Required: </span><span class="pink-text">{{numGoalsRequired}}</span>
+            </div>
+        {{/if}}
+        {{#each goals}}
+            <div class="col s6 stream-layout-goal-container">
+            {{#if complete}}
+                <div class="card-panel goal-card complete green white-text">
+                    {{name}}
+                </div>
+            {{else}}
+                {{#if inProgress}}
+                    <div class="card-panel goal-card red accent-2 white-text pointer">{{name}}</div>
+                {{else}}
+                    {{#if required}}
+                        <div class="card-panel goal-card required locked white-text">
+                            {{name}}
+                        </div>
+                    {{else}}
+                        <div class="card-panel goal-card white-text">
+                            {{name}}
+                        </div>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+            </div>
+        {{/each}}
+    </div>
+</template>

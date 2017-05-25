@@ -1,5 +1,5 @@
 /**
- * Created by Quinton on 9/23/2016.
+ * Created by Quinton on 5/19/17.
  */
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/kadira:flow-router';
@@ -10,14 +10,130 @@ import {ItemList} from '../../../helpers/ItemList.js';
 
 
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
-import '../../partialLayouts/GoalList/GoalList.js';
-import '../../partialLayouts/Scorecard/Scorecard.js';
-import './TimerOwner.html';
-import './TimerOwner.css';
+import '../../partialLayouts/StreamLayoutGoalList/StreamLayoutGoalList.js';
+import '../../partialLayouts/StreamLayoutScorecard/StreamLayoutScorecard.js';
+import '../../partialLayouts/ScreenshotModal/ScreenshotModal.js';
+import './StreamLayoutOwnerPage.html';
+import './StreamLayoutOwnerPage.css';
 
-Template.TimerOwner.onCreated(function(){
+Template.StreamLayoutOwnerPage.onCreated(function(){
     var self = this;
     self.countdown = null;
+
+    // this array holds the ids of all the moveable elements on the page.
+    self.moveableObjectIds = [
+        'goals',
+        'owner-control-panel',
+        'timer',
+        'racer-list-card',
+        'item-menu-card',
+        'equip-menu-card',
+        'quest-status-card',
+        'hearts-skulls-rupees-card',
+        'individual-score-card'
+    ];
+
+    self.presets = [
+        {
+            'goals': {
+                bottom: 'auto',
+                width: '272px',
+                height: '374px',
+                left: '3px',
+                right: 'auto',
+                top: '-0.75px'
+            },
+
+            'owner-control-panel': {
+                width: '233px',
+                height: '269px',
+                left: '911px',
+                right: 'auto',
+                bottom: 'auto',
+                top: '-318.75px'
+            },
+
+            'timer': {
+                width: '231px',
+                height: '65px',
+                left: '913px',
+                right: 'auto',
+                bottom: 'auto',
+                top: '-672.75px'
+            },
+
+            'racer-list-card': {
+                width: '356px',
+                height: '105px',
+                left: '769px',
+                right: 'auto',
+                bottom: 'auto',
+                top: '-285.75px'
+            },
+
+            'item-menu-card': {
+                width: '289px',
+                height: '181px',
+                left: '-5px',
+                right: 'auto',
+                bottom: 'auto',
+                top: '-413.75px'
+            },
+
+            'equip-menu-card': {
+                width: '193px',
+                height: '181px',
+                left: '-4px',
+                right: 'auto',
+                bottom: 'auto',
+                top: '-413.75px'
+            },
+
+            'quest-status-card': {
+                width: '289px',
+                right: 'auto',
+                height: '181px',
+                bottom: 'auto',
+                left: '-4px',
+                top: '-413.75px'
+            },
+
+            'hearts-skulls-rupees-card': {
+                width: '261px',
+                right: 'auto',
+                height: '83px',
+                bottom: 'auto',
+                left: '-766px',
+                top: '-502.75px'
+            },
+
+            'individual-score-card': {
+                width: '226px',
+                right: 'auto',
+                height: '127px',
+                bottom: 'auto',
+                left: '137px',
+                top: '-643.75px'
+            }
+        }
+    ];
+
+    self.applyPreset = function(preset) {
+        for (prop in preset) {
+            var idProp = '#' + prop;
+            if (preset.hasOwnProperty(prop)) {
+                for (cssProp in preset[prop]) {
+                    if (preset[prop].hasOwnProperty(cssProp)) {
+                        $(idProp).css(cssProp, preset[prop][cssProp]);
+                    }
+                }
+            }
+        }
+    };
+
+    self.createPreset = function() {
+        self.p
+    };
 
     //these reactives act as observables that are changed when the timer changes
     self.timerExists = new ReactiveVar(false);
@@ -123,7 +239,7 @@ Template.TimerOwner.onCreated(function(){
                 //logged in users get a pageViewer entry/are tracked on page
                 if (Meteor.userId()) {
                     //get pageviewers table
-                    viewers = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+                    viewers = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('timerOwner')});
 
                     //create a viewer object to insert into the db
                     var requiredGoals = [];
@@ -149,9 +265,9 @@ Template.TimerOwner.onCreated(function(){
                                 username: Meteor.user().profile.name,
                                 ownerUsername: FlowRouter.getParam('username'),
                                 score: 0,
+                                isReady: false,
                                 currentlyRacing: false,
-                                scorecardValues: scorecardValues,
-                                isReady: false
+                                scorecardValues: scorecardValues
                             };
                             PageViewers.insert(newPageViewer);
 
@@ -159,7 +275,7 @@ Template.TimerOwner.onCreated(function(){
                         } else {
                             //already exists, just update
                             PageViewers.update(viewers._id, {
-                                $set: {'score': 0, 'currentlyRacing': false, 'scorecardValues': scorecardValues, 'isReady': false}
+                                $set: {'score': 0, 'currentlyRacing': false, 'scorecardValues': scorecardValues}
                             });
                         }
 
@@ -239,7 +355,7 @@ Template.TimerOwner.onCreated(function(){
 });
 
 
-Template.TimerOwner.onRendered(function() {
+Template.StreamLayoutOwnerPage.onRendered(function() {
     //must move the modal to body so it can sit on top of everything else
     $('.modal-trigger').leanModal();
     $("#generateModal").appendTo("body");
@@ -248,11 +364,20 @@ Template.TimerOwner.onRendered(function() {
     $('#to-my-timer').hide();
 
     $('select').material_select();
-    $('.collapsible').collapsible({
+
+    $('.resizable-column').resizable({
+        handles: "n, e, s, w, ne, se, sw, nw"
     });
+    $('.resizable-card').resizable({
+        handles: "n, e, s, w, ne, se, sw, nw"
+    });
+
+    $('.draggable').draggable();
+    $('.droppable').droppable();
 });
 
-Template.TimerOwner.helpers({
+Template.StreamLayoutOwnerPage.helpers({
+
     TimerRunning() {
         return Template.instance().timerRunning.get();
     },
@@ -300,76 +425,49 @@ Template.TimerOwner.helpers({
         if (viewer) {
             return viewer.currentlyRacing;
         }
-    },
-
-    isReady() {
-        //get pageviewers table
-        var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
-        if (viewer) {
-            return viewer.isReady;
-        }
     }
 });
 
-Template.TimerOwner.events({
-   'click #timer-start-button': function() {
-       var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
-       Timers.update(originalTimer._id, {$set: {'timeStarted': new Date(), 'running': true}});
-       //notify discord of start
-       var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
-                    + " to check it out";
-       var formData = new FormData();
-       formData.append("content", message);
-       var request = new XMLHttpRequest();
-       //request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
-       //request.send(formData);
-   },
+Template.StreamLayoutOwnerPage.events({
+    'click #timer-start-button': function() {
+        var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
+        Timers.update(originalTimer._id, {$set: {'timeStarted': new Date(), 'running': true}});
+        //notify discord of start
+        var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
+            + " to check it out";
+        var formData = new FormData();
+        formData.append("content", message);
+        var request = new XMLHttpRequest();
+        //request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
+        //request.send(formData);
+    },
 
-   'click #timer-reset-button': function() {
-       var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
-       Timers.update(originalTimer._id, {$set: {'running': false}});
-   },
+    'click #timer-reset-button': function() {
+        var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
+        Timers.update(originalTimer._id, {$set: {'running': false}});
+    },
 
-   'click #join-race-button': function() {
-       if (Meteor.userId()) {
-           //get pageviewers table
-           var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
-           if (viewer) {
-               PageViewers.update(viewer._id, {
-                   $set: {'score': Session.get('score'), 'currentlyRacing': true}
-               });
-           }
-       }
-   },
-
-   'click #leave-race-button': function() {
-       if (Meteor.userId()) {
-           //get pageviewers table
-           var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
-           if (viewer) {
-               PageViewers.update(viewer._id, {
-                   $set: {'score': Session.get('score'), 'currentlyRacing': false}
-               });
-           }
-       }
-   },
-
-    'click .remove-user': function(e) {
-        // Instead of using $(this), you can do:
-        var $this = $(e.target);
-        var userToRemove = $this[0].id.substring(0, $this[0].id.length - 14);
-        var viewers = PageViewers.findOne({username: userToRemove, ownerUsername: FlowRouter.getParam('username')});
-
-        if (viewers) {
-            PageViewers.update(viewers._id, {
-                $set: {'currentlyRacing': false}
-            });
+    'click #join-race-button': function() {
+        if (Meteor.userId()) {
+            //get pageviewers table
+            var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+            if (viewer) {
+                PageViewers.update(viewer._id, {
+                    $set: {'score': Session.get('score'), 'currentlyRacing': true}
+                });
+            }
         }
     },
 
-    'click #stream-layout-open': function() {
-        if (confirm("This will clear your current scorecard, are you sure?")) {
-            FlowRouter.go('/:username/streamLayout', {username: FlowRouter.getParam('username')});
+    'click #leave-race-button': function() {
+        if (Meteor.userId()) {
+            //get pageviewers table
+            var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+            if (viewer) {
+                PageViewers.update(viewer._id, {
+                    $set: {'score': Session.get('score'), 'currentlyRacing': false}
+                });
+            }
         }
     },
 
@@ -387,5 +485,64 @@ Template.TimerOwner.events({
                 });
             }
         }
+    },
+
+    'click .remove-user': function(e) {
+        // Instead of using $(this), you can do:
+        var $this = $(e.target);
+        var userToRemove = $this[0].id.substring(0, $this[0].id.length - 14);
+        var viewers = PageViewers.findOne({username: userToRemove, ownerUsername: FlowRouter.getParam('username')});
+
+        if (viewers) {
+            PageViewers.update(viewers._id, {
+                $set: {'currentlyRacing': false}
+            });
+        }
+    },
+
+    'click #popout-stream-layout-open': function() {
+        var requiredGoalObjects = $('.required');
+
+        if (!$('#popout-stream-layout-open').hasClass('disabled')) {
+
+            var popout = new Popout({
+                template : 'StreamLayoutPopout',
+                on : 'popoutStreamLayoutSessionVar',
+                win : true,
+                width: 960,
+                height: 525,
+                context : {
+                    goals: requiredGoalObjects,
+                    goalsCompleted: Template.instance().completedGoals,
+                    itemMenuGridRows: Template.instance().itemMenuGridRows,
+                    EquipMenuGridRows: Template.instance().EquipMenuGridRows,
+                    SongGridRows: Template.instance().SongGridRows,
+                    MedallionAndExtraGridRows: Template.instance().MedallionAndExtraGridRows,
+                    numHeartContainers: Template.instance().numHeartContainers,
+                    numGoldSkulls: Template.instance().numGoldSkulls,
+                    numRupees: Template.instance().numRupees
+                }
+            });
+
+            popout.show();
+            $('#popout-stream-layout-open').addClass('disabled');
+        } else {
+            Session.set('createWindowSessionVar', true);
+        }
+
+    },
+
+    'click #preset-test': function() {
+        Template.instance().applyPreset(Template.instance().presets[0]);
+    },
+
+    'resize #timer' : function() {
+        var timer = $('#timer');
+        if (timer.width() < timer.height() / 2.5){
+            $('#timer span').css('font-size', timer.width() / 1.5);
+        } else {
+            $('#timer span').css('font-size', timer.height() / 1.5);
+        }
     }
 });
+

@@ -1,15 +1,22 @@
+/**
+ * Created by Quinton on 5/19/17.
+ */
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/kadira:flow-router';
+
 import {Timers} from '../../../api/timers/Timers.js';
 import {PageViewers} from '../../../api/pageViewers/PageViewers.js';
+import {ItemList} from '../../../helpers/ItemList.js';
 
 
-import '../../partialLayouts/GoalList/GoalList.js';
-import '../../partialLayouts/Scorecard/Scorecard.js';
-import './TimerNonOwner.html';
-import './TimerNonOwner.css';
+import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
+import '../../partialLayouts/StreamLayoutGoalList/StreamLayoutGoalList.js';
+import '../../partialLayouts/StreamLayoutScorecard/StreamLayoutScorecard.js';
+import '../../partialLayouts/ScreenshotModal/ScreenshotModal.js';
+import './StreamLayoutNonOwnerPage.html';
+import './StreamLayoutNonOwnerPage.css';
 
-Template.TimerNonOwner.onCreated(function(){
+Template.StreamLayoutNonOwnerPage.onCreated(function(){
     var self = this;
     self.countdown = null;
 
@@ -18,6 +25,7 @@ Template.TimerNonOwner.onCreated(function(){
     self.timerRunning = new ReactiveVar(false);
     self.timerStartTime = new ReactiveVar(null);
     self.timerLength = new ReactiveVar(null);
+
 
     self.createTimer = function(id, endtime){
         var endTime = endtime;
@@ -62,7 +70,6 @@ Template.TimerNonOwner.onCreated(function(){
         Session.set("currentTimerRemaining" , timeObj);
         return timeObj;
     };
-
 
     self.autorun(function() {
 
@@ -125,8 +132,8 @@ Template.TimerNonOwner.onCreated(function(){
                                     var newPageViewer = {
                                         username: Meteor.user().profile.name,
                                         ownerUsername: FlowRouter.getParam('username'),
-                                        isReady: false,
                                         score: 0,
+                                        isReady: false,
                                         currentlyRacing: false,
                                         scorecardValues: scorecardValues
                                     };
@@ -149,59 +156,59 @@ Template.TimerNonOwner.onCreated(function(){
                         //set up a function to be called whenever the timer is updated
                         var query = Timers.find();
                         var handle = query.observeChanges({
-                           changed: function(id, fields) {
+                            changed: function(id, fields) {
 
-                               if (fields['running'] === true) {
-                                   // timer started
-                                   self.timerRunning.set(true);
-                                   self.timerStartTime.set(fields['timeStarted']);
+                                if (fields['running'] === true) {
+                                    // timer started
+                                    self.timerRunning.set(true);
+                                    self.timerStartTime.set(fields['timeStarted']);
 
-                                   // create and start countdown
-                                   self.createTimer('countdown', self.timerStartTime.get().getTime() + self.timerLength.get() * 60 * 1000);
+                                    // create and start countdown
+                                    self.createTimer('countdown', self.timerStartTime.get().getTime() + self.timerLength.get() * 60 * 1000);
 
 
-                               } else if (fields['running'] === false) {
+                                } else if (fields['running'] === false) {
 
-                                   if (fields.hasOwnProperty('goals')) {
-                                       // new timer from existing running timer
-                                       self.timerRunning.set(false);
-                                       self.timerStartTime.set(null);
-                                       Session.set('goals', fields['goals']);
+                                    if (fields.hasOwnProperty('goals')) {
+                                        // new timer from existing running timer
+                                        self.timerRunning.set(false);
+                                        self.timerStartTime.set(null);
+                                        Session.set('goals', fields['goals']);
 
-                                       //if this is false the timer is the same length as before
-                                       if (fields.hasOwnProperty('length')) {
-                                           self.timerLength.set(fields['length']);
-                                       }
-                                       clearInterval(timeinterval);
-                                       $('#countdown').hide();
+                                        //if this is false the timer is the same length as before
+                                        if (fields.hasOwnProperty('length')) {
+                                            self.timerLength.set(fields['length']);
+                                        }
+                                        clearInterval(timeinterval);
+                                        $('#countdown').hide();
 
-                                   } else if (fields.hasOwnProperty('running')) {
-                                       // timer was reset
-                                       // new timer from non started timer
-                                       self.timerStartTime.set(null);
-                                       self.timerRunning.set(false);
-                                       clearInterval(timeinterval);
-                                       $('#countdown').hide();
-                                       
-                                   } else {
-                                       // timer ended (hit 00:00:00) - this actually might not happen
-                                       self.timerRunning.set(false);
-                                       clearInterval(timeinterval);
-                                       $('#countdown').hide();
-                                   }
-                               }
+                                    } else if (fields.hasOwnProperty('running')) {
+                                        // timer was reset
+                                        // new timer from non started timer
+                                        self.timerStartTime.set(null);
+                                        self.timerRunning.set(false);
+                                        clearInterval(timeinterval);
+                                        $('#countdown').hide();
 
-                               if (fields.hasOwnProperty('goals')) {
-                                   // new timer from non started timer
-                                   self.timerStartTime.set(null);
-                                   Session.set('goals', fields['goals']);
+                                    } else {
+                                        // timer ended (hit 00:00:00) - this actually might not happen
+                                        self.timerRunning.set(false);
+                                        clearInterval(timeinterval);
+                                        $('#countdown').hide();
+                                    }
+                                }
 
-                                   //if this is false the timer is the same length as before
-                                   if (fields.hasOwnProperty('length')) {
-                                       self.timerLength.set(fields['length']);
-                                   }
-                               }
-                           }
+                                if (fields.hasOwnProperty('goals')) {
+                                    // new timer from non started timer
+                                    self.timerStartTime.set(null);
+                                    Session.set('goals', fields['goals']);
+
+                                    //if this is false the timer is the same length as before
+                                    if (fields.hasOwnProperty('length')) {
+                                        self.timerLength.set(fields['length']);
+                                    }
+                                }
+                            }
                         });
 
                         Tracker.autorun(function() {
@@ -229,12 +236,23 @@ Template.TimerNonOwner.onCreated(function(){
     });
 });
 
-Template.TimerNonOwner.onRendered(function() {
+
+Template.StreamLayoutNonOwnerPage.onRendered(function() {
     $('.collapsible').collapsible({});
+
+    $('.resizable-column').resizable({
+        handles: "n, e, s, w, ne, se, sw, nw"
+    });
+    $('.resizable-card').resizable({
+        handles: "n, e, s, w, ne, se, sw, nw"
+    });
+
+    $('.draggable').draggable();
+    $('.droppable').droppable();
 });
 
+Template.StreamLayoutNonOwnerPage.helpers({
 
-Template.TimerNonOwner.helpers({
     UnactiveTimeFormatted() {
         var timerLength = Template.instance().timerLength.get();
         if (timerLength && !Template.instance().timerStartTime.get()) {
@@ -243,9 +261,9 @@ Template.TimerNonOwner.helpers({
             var minutes = Math.floor((t / 1000 / 60) % 60);
             var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
             Session.set("currentTimerRemaining" ,
-                            {'hours': ('0' + hours).slice(-2),
-                            'minutes': ('0' + minutes).slice(-2),
-                            'seconds': ('0' + seconds).slice(-2)});
+                {'hours': ('0' + hours).slice(-2),
+                    'minutes': ('0' + minutes).slice(-2),
+                    'seconds': ('0' + seconds).slice(-2)});
             return {
                 'total': t,
                 'hours': ('0' + hours).slice(-2),
@@ -300,8 +318,7 @@ Template.TimerNonOwner.helpers({
     }
 });
 
-
-Template.TimerNonOwner.events({
+Template.StreamLayoutNonOwnerPage.events({
 
     'click #join-race-button': function() {
         if (Meteor.userId()) {
@@ -345,10 +362,36 @@ Template.TimerNonOwner.events({
         }
     },
 
-    'click #stream-layout-open': function() {
-        if (confirm("This will clear your current scorecard, are you sure?")) {
-            FlowRouter.go('/:username/streamLayout', {username: FlowRouter.getParam('username')});
-        }
-    }
+    'click #create-screenshot': function(event) {
+        event.preventDefault();
+        var fullPageDiv = document.getElementById('full-stream-layout');
+        if (fullPageDiv) {
+            html2canvas(fullPageDiv, {
+                onrendered: function(canvas) {
+                    // canvas is the final rendered <canvas> element
+                    canvas.toBlob(function(blob) {
+                        //create fake file using blob
+                        var formData = new FormData();
+                        formData.append("file", blob, "test.png");
+                        var request = new XMLHttpRequest();
+                        request.open("POST", "https://discordapp.com/api/webhooks/315622333152755714/IzYWj76r6ke5tnN0sbPaG-GFTbUUuF_IkCOkQS4P2CyO0F3dfQh6KgCySieuvN1yfHsa");
+                        request.send(formData);
 
+                        request.onreadystatechange = function() {
+                            if (request.readyState == XMLHttpRequest.DONE) {
+                                console.log(request.responseText);
+                            }
+                        };
+
+                        saveAs(blob, "CountdownScorecard.png");
+                    });
+                }
+            });
+        }
+    },
+
+    'resize #timer' : function() {
+        $('#timer h1').css('font-size', ($('#timer').width() * $('#timer').height()) / 600);
+    }
 });
+

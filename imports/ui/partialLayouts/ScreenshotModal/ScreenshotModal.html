@@ -1,0 +1,19 @@
+<template name="ScreenshotModal">
+    <div id="screenshotModal" class="modal grey darken-3">
+        <form class="screenshot-form">
+            <div class="modal-content white-text">
+                <p>
+                    <input type="checkbox" class="filled-in checkbox-pink" id="post-to-discord-checkbox" name="postToDiscord"/>
+                    <label for="post-to-discord-checkbox">Post To Discord</label>
+                </p>
+                <p>
+                    <input type="checkbox" class="filled-in checkbox-pink" id="save-locally-checkbox" name="saveLocally"/>
+                    <label for="save-locally-checkbox">Save Locally</label>
+                </p>
+            </div>
+            <div class="modal-footer grey darken-3">
+                <button class=" modal-action modal-close waves-effect waves-pink btn pink lighten-1 right" type="submit">Confirm</button>
+            </div>
+        </form>
+    </div>
+</template>

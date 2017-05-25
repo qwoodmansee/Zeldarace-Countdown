@@ -47,12 +47,13 @@
                     <div class="row">
                         {{#if CurrentlyRacing}}
                             <button class="waves-effect waves-light btn-large white black-text" id="leave-race-button">Leave Race</button>
+                            <button class="waves-effect waves-light btn-large white black-text" id="toggle-ready-button">Toggle Ready</button>
                         {{else}}
                             <button class="waves-effect waves-light btn-large white black-text" id="join-race-button">Join Race</button>
                         {{/if}}
                     </div>
                     <div class="row">
-                        <button class="waves-effect waves-light btn-large white black-text" id="popout-stream-layout-open">Stream Layout</button>
+                        <button class="waves-effect waves-light btn-large white black-text" id="stream-layout-open">Stream Layout</button>
                     </div>
                 </div>
             </div>
@@ -63,6 +64,7 @@
                             <tr>
                                 <th data-field="racers">Username</th>
                                 <th data-field="scores">Score</th>
+                                <th data-field="isReady">Ready</th>
                                 <th>Remove</th>
                             </tr>
                         </thead>
@@ -72,6 +74,11 @@
                                     <tr>
                                         <td>{{viewer.username}}</td>
                                         <td>{{viewer.score}}</td>
+                                        {{#if viewer.isReady}}
+                                            <td><i class="mdi mdi-check mdi-light mdi-24px center pointer"></i></td>
+                                        {{else}}
+                                            <td></td>
+                                        {{/if}}
                                         <td><i id="{{viewer.username}}-remove-button" class="remove-user mdi mdi-account-remove mdi-24px center pointer"></i></td>
                                     </tr>
                                 {{/if}}
@@ -83,86 +90,3 @@
         </div>
     </div>
 </template>
-
-<template name="StreamLayoutPopout">
-    <style media="screen" type="text/css">
-        .score-card-container .scorecard-item {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .score-card-container .scorecard-item .collected {
-            opacity: 1;
-        }
-
-        .score-card-container .scorecard-icon {
-            opacity: .25;
-        }
-
-        .weight-label {
-            position: absolute;
-            font-size: 1em;
-            top: .9em;
-            left: 2.2em;
-            opacity: 1;
-        }
-
-    </style>
-    <div class="grey darken-3 popout-stream-layout-background" style="height: 100vh; width: 100vw;">
-        <div class="row" style="width: 100%; height: 75%">
-            <div id="left-third" style="height: 100%; width: 21.375%; border: 1px solid white;
-                display: inline-block; vertical-align: top;">
-                <div class="grey darken-3 streamcard-background" style="height: 100%; width: 100%">
-                    <div class="row streamcard-goals-container">
-                        {{#each goals}}
-                            {{#if complete}}
-                                <div class="col s6 pointer" style="padding: 0 .25rem; margin-bottom: -.5em">
-                                    <div class="card-panel streamcard-goal green white-text pointer">{{name}}</div>
-                                </div>
-                            {{else}}
-                                {{#if inProgress}}
-                                    <div class="col s6 pointer" style="padding: 0 .25rem; margin-bottom: -.5em">
-                                        <div class="card-panel streamcard-goal red accent-2 white-text pointer">{{name}}</div>
-                                    </div>
-                                {{else}}
-                                    {{#if required}}
-                                        <div class="col s6 pointer" style="padding: 0 .25rem; margin-bottom: -.5em">
-                                            <div class="card-panel streamcard-goal pink white-text pointer">{{name}}</div>
-                                        </div>
-                                    {{else}}
-                                        <div class="col s6 pointer" style="padding: 0 .25rem; margin-bottom: -.5em">
-                                            <div class="card-panel streamcard-goal indigo white-text pointer">{{name}}</div>
-                                        </div>
-                                    {{/if}}
-                                {{/if}}
-                            {{/if}}
-                        {{/each}}
-                    </div>
-                </div>
-            </div>
-            <div id="video-third" style="background-color: black; height: 100%; width: 56.25%; border: 1px solid white;
-                display: inline-block; vertical-align: top;">
-            </div>
-            <div id="right-third" style="height: 100%; width: 21.375%; border: 1px solid white;
-                 display: inline-block; vertical-align: top;">
-                <div class="row" style="width: 100%; height: 25%">
-                    <div class="grey darken-3 streamcard-background" style="height: 100%; width: 100%">
-                        <div class="row streamcard-score-container">
-                            <p class="white-text center">Required: {{numGoalsRequired}}</p>
-                            <p class="green-text center">Complete: {{numGoalsComplete}}</p>
-                            <h3 class="white-text center">Score: {{Score}}</h3>
-                        </div>
-
-                        <div class="row streamcard-timer-container white-text">
-                            <h1 class="center">{{timer.hours}}:{{timer.minutes}}:{{timer.seconds}}</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="width: 100%; height: 25%;">
-            {{>Scorecard}}
-        </div>
-    </div>
-</template>
-

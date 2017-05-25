@@ -1,0 +1,76 @@
+
+<template name="StreamLayoutNonOwnerPage">
+    {{> GenerateTimerModal}}
+    {{> ScreenshotModal}}
+
+    <div id="full-stream-layout">
+        <div id="goals" class="draggable card grey darken-3 resizable-card one-fourth-width inline-block">
+            {{>StreamLayoutGoalList}}
+        </div>
+
+        <div id="owner-control-panel" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width inline-block" >
+            <div class="row thin-margins">
+                <span class="center"> Viewer Controls </span>
+            </div>
+            <div class="row thin-margins">
+                {{#if LoggedIn}}
+                    {{#if CurrentlyRacing}}
+                        <button class="waves-effect waves-light btn-large white black-text" id="leave-race-button">Leave Race</button>
+                        <button class="waves-effect waves-light btn-large white black-text" id="toggle-ready-button">Toggle Ready</button>
+                    {{else}}
+                        <button class="waves-effect waves-light btn-large white black-text" id="join-race-button">Join Race</button>
+                    {{/if}}
+                    <div class="row thin-margins">
+                        <!--<a id="create-screenshot" class="btn-large white black-text">Screenshot</a>-->
+                        <a class="waves-effect waves-light btn-large white black-text modal-trigger" href="#screenshotModal">Screenshot</a>
+                    </div>
+                {{else}}
+                    <span class="white-text">Log in to officially join race!</span>
+                {{/if}}
+            </div>
+        </div>
+
+        <div id="timer" class="card resizable-card grey darken-3 draggable one-fifth-width inline-block">
+            {{#if Template.subscriptionsReady}}
+                <h1 class="center" id="countdown" style="vertical-align: top;" hidden>
+                    <h1 class="hours"></h1><h1>:</h1><h1 class="minutes"></h1><h1>:</h1><h1 class="seconds"></h1>
+                </h1>
+                {{#unless TimerRunning}}
+                    <h1 class="center" style="vertical-align: top;">{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</h1>
+                {{/unless}}
+            {{/if}}
+        </div>
+
+        <div class="center card-panel grey darken-3 draggable resizable-card one-fifth-width inline-block" >
+            <table>
+                <thead>
+                <tr>
+                    <th data-field="racers">Username</th>
+                    <th data-field="scores">Score</th>
+                    {{#if TimerNotRunning}}
+                        <th data-field="isReady">Ready</th>
+                    {{/if}}
+                </tr>
+                </thead>
+                <tbody>
+                {{#each viewer in PageViewers}}
+                    {{#if viewer.currentlyRacing}}
+                        <tr>
+                            <td>{{viewer.username}}</td>
+                            <td>{{viewer.score}}</td>
+                            {{#if TimerNotRunning}}
+                                {{#if viewer.isReady}}
+                                    <td>Yes</td>
+                                {{else}}
+                                    <td>No</td>
+                                {{/if}}
+                            {{/if}}
+                        </tr>
+                    {{/if}}
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{>StreamLayoutScorecard}}
+    </div>
+</template>

@@ -12,6 +12,8 @@ import '../../ui/baseLayouts/MainLayout/MainLayout.js';
 import '../../ui/baseLayouts/PopoutLayout/PopoutLayout.js';
 //page layouts
 import '../../ui/pageLayouts/TimerNonOwner/TimerNonOwner.js';
+import '../../ui/pageLayouts/StreamLayoutOwnerPage/StreamLayoutOwnerPage.js';
+import '../../ui/pageLayouts/StreamLayoutNonOwnerPage/StreamLayoutNonOwnerPage.js';
 import '../../ui/pageLayouts/TimerOwner/TimerOwner.js';
 import '../../ui/pageLayouts/ScorecardViewer/ScorecardViewer.js';
 import '../../ui/pageLayouts/Welcome/Welcome.js';
@@ -53,6 +55,22 @@ FlowRouter.route('/:timerOwner/scorecards', {
                 }
             });
         }
+});
+
+
+FlowRouter.route('/:username/streamLayout', {
+    name: 'streamLayout',
+    action(params) {
+        Tracker.autorun(function() {
+            if (Meteor.user() != null && Meteor.user().profile.name === params.username) {
+                BlazeLayout.render('AppLayout', {main: 'StreamLayoutOwnerPage'});
+            } else if (Meteor.userId()){
+                BlazeLayout.render('AppLayout', {main: 'StreamLayoutNonOwnerPage', navbar: 'SidebarLoggedIn'});
+            } else {
+                BlazeLayout.render('AppLayout', {main: 'StreamLayoutNonOwnerPage', navbar: 'SidebarLoggedOut'});
+            }
+        });
+    }
 });
 
 FlowRouter.route('/:username', {

@@ -1,0 +1,85 @@
+
+<template name="StreamLayoutOwnerPage">
+    {{> GenerateTimerModal}}
+    {{> ScreenshotModal}}
+
+    <div id="full-stream-layout">
+
+        <div id="goals" class="draggable card grey darken-3 resizable-card one-fourth-width">
+            {{>StreamLayoutGoalList}}
+        </div>
+
+        <div id="owner-control-panel" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width" >
+            <div class="thin-margins no-pad-top" style="width:100%">
+                <span class="center"> Owner Controls </span>
+            </div>
+            <div class="thin-margins" style="width:100%">
+                {{#if TimerRunning}}
+                    <button class="waves-effect waves-light btn red accent-2 full-width" id="timer-reset-button">Reset Timer</button>
+                {{else}}
+                    <button class="waves-effect waves-light btn indigo full-width" id="timer-start-button">Start Timer</button>
+                {{/if}}
+            </div>
+            <div class="thin-margins" style="width:100%">
+                <a class="waves-effect waves-light btn pink lighten-1 modal-trigger full-width" href="#generateModal">Generate New</a>
+            </div>
+            <div class="thin-margins" style="width:100%">
+                {{#if CurrentlyRacing}}
+                    <button class="waves-effect waves-light btn white black-text full-width" id="leave-race-button">Leave Race</button>
+                    <button class="waves-effect waves-light btn white black-text full-width" id="toggle-ready-button">Toggle Ready</button>
+                {{else}}
+                    <button class="waves-effect waves-light btn white black-text full-width" id="join-race-button">Join Race</button>
+                {{/if}}
+            </div>
+            <div class="thin-margins" style="width:100%">
+                <a class="waves-effect waves-light btn white black-text modal-trigger full-width" href="#screenshotModal">Screenshot</a>
+            </div>
+            <div class="thin-margins" style="width:100%">
+                <button class="waves-effect waves-light btn white black-text full-width" id="preset-test">Test</button>
+            </div>
+        </div>
+
+        <div id="timer" class="card resizable-card grey darken-3 draggable one-fifth-width">
+            {{#if Template.subscriptionsReady}}
+                <div class="center" id="countdown" style="vertical-align: top;" hidden>
+                    <span class="hours"></span><span>:</span><span class="minutes"></span><span>:</span><span class="seconds"></span>
+                </div>
+                {{#unless TimerRunning}}
+                <div class="center" style="vertical-align: top;">
+                    <span>{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</span>
+                </div>
+                {{/unless}}
+            {{/if}}
+        </div>
+
+        <div id="racer-list-card" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width thin-padding" >
+            <table>
+                <thead>
+                <tr>
+                    <th data-field="racers">Username</th>
+                    <th data-field="scores">Score</th>
+                    <th data-field="isReady">Ready</th>
+                    <th>Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each viewer in PageViewers}}
+                    {{#if viewer.currentlyRacing}}
+                        <tr>
+                            <td>{{viewer.username}}</td>
+                            <td>{{viewer.score}}</td>
+                            {{#if viewer.isReady}}
+                                <td><i class="mdi mdi-check mdi-light mdi-24px center pointer"></i></td>
+                            {{else}}
+                                <td></td>
+                            {{/if}}
+                            <td><i id="{{viewer.username}}-remove-button" class="remove-user mdi mdi-account-remove mdi-24px center pointer"></i></td>
+                        </tr>
+                    {{/if}}
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        {{>StreamLayoutScorecard}}
+    </div>
+</template>

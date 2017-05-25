@@ -1,0 +1,21 @@
+.label-text {
+    color: #ec407a;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    background-color: #ec407a;
+}
+input[type=range]::-moz-range-thumb {
+    background-color: #ec407a;
+}
+input[type=range]::-ms-thumb {
+    background-color: #ec407a;
+}
+
+/***** These are to edit the thumb and the text inside the thumb *****/
+input[type=range] + .thumb {
+    background-color: #dedede;
+}
+input[type=range] + .thumb.active .value {
+    color: #ec407a;
+}
