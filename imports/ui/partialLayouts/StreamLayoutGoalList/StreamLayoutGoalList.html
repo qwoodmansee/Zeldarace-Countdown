@@ -12,28 +12,28 @@
                 <span>Required: </span><span class="pink-text">{{numGoalsRequired}}</span>
             </div>
         {{/if}}
-        {{#each goals}}
-            <div class="col s6 stream-layout-goal-container">
-            {{#if complete}}
-                <div class="card-panel goal-card complete green white-text">
-                    {{name}}
-                </div>
+    </div>
+    {{#each goals}}
+        <div class="stream-layout-goal-container">
+        {{#if complete}}
+            <div class="card-panel goal-card complete green white-text">
+                {{name}}
+            </div>
+        {{else}}
+            {{#if inProgress}}
+                <div class="card-panel goal-card red accent-2 white-text pointer">{{name}}</div>
             {{else}}
-                {{#if inProgress}}
-                    <div class="card-panel goal-card red accent-2 white-text pointer">{{name}}</div>
+                {{#if required}}
+                    <div class="card-panel goal-card required locked white-text">
+                        {{name}}
+                    </div>
                 {{else}}
-                    {{#if required}}
-                        <div class="card-panel goal-card required locked white-text">
-                            {{name}}
-                        </div>
-                    {{else}}
-                        <div class="card-panel goal-card white-text">
-                            {{name}}
-                        </div>
-                    {{/if}}
+                    <div class="card-panel goal-card white-text">
+                        {{name}}
+                    </div>
                 {{/if}}
             {{/if}}
-            </div>
+        {{/if}}
+        </div>
         {{/each}}
-    </div>
 </template>
