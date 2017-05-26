@@ -371,6 +371,8 @@ Template.StreamLayoutNonOwnerPage.onCreated(function(){
 
 
 Template.StreamLayoutNonOwnerPage.onRendered(function() {
+    $('.modal-trigger').leanModal();
+
     $('.collapsible').collapsible({});
 
     $('.resizable-column').resizable({

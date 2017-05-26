@@ -158,7 +158,7 @@ Template.StreamLayoutGoalList.helpers({
 });
 
 Template.StreamLayoutGoalList.events({
-   'click .goal-card': function(event) {
+   'click .stream-layout-goal-card': function(event) {
        //get the number of complete goals
        var numGoalsComplete = $('.complete').length;
        var numGoalsTotal =  Session.get('goals').length;
@@ -233,7 +233,8 @@ Template.StreamLayoutGoalList.events({
        Session.set('goals', goals);
    },
 
-    'contextmenu .goal-card': function(event) {
+    'contextmenu .stream-layout-goal-card': function(event) {
+       event.preventDefault();
         //get the goals
         var goals = Session.get('goals');
         for (var i=0; i < goals.length; i++) {
@@ -266,7 +267,6 @@ Template.StreamLayoutGoalList.events({
 
    'click #stream-card-open': function() {
        var requiredGoalObjects = $('.required');
-
 
         if (!$('#stream-card-open').hasClass('disabled')) {
             var popout = new Popout({
