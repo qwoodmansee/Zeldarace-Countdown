@@ -1,17 +1,16 @@
-.goal-card {
-    height: 15%;
-    font-size: .75em;
+.stream-layout-goal-card {
+    font-size: .85em;
     cursor: pointer;
     background-color: #3f51b5;
-    margin-top: 3%;
-    margin-bottom: 3%;
+    width: 12em;
+    margin: .25em;
+    padding: .85em;
 }
 
-.stream-layout-goal-container {
-    display: inline-block;
-    margin-left: 5%;
+.goals-container {
+    display: flex;
+    flex-wrap: wrap;
 }
-
 .required {
     background-color: #ec407a;
 }
@@ -20,10 +19,5 @@
     background-color: #e91e63;
 }
 
-.streamcard-goal {
-    height: 20%;
-    width: 95%;
-    cursor: pointer;
-}
 .complete {
 }

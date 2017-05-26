@@ -13,27 +13,27 @@
             </div>
         {{/if}}
     </div>
-    {{#each goals}}
-        <div class="stream-layout-goal-container">
-        {{#if complete}}
-            <div class="card-panel goal-card complete green white-text">
-                {{name}}
-            </div>
-        {{else}}
-            {{#if inProgress}}
-                <div class="card-panel goal-card red accent-2 white-text pointer">{{name}}</div>
+    <div class="goals-container">
+        {{#each goals}}
+            {{#if complete}}
+                <div class="card-panel stream-layout-goal-card complete green white-text">
+                    {{name}}
+                </div>
             {{else}}
-                {{#if required}}
-                    <div class="card-panel goal-card required locked white-text">
-                        {{name}}
-                    </div>
+                {{#if inProgress}}
+                    <div class="card-panel stream-layout-goal-card red accent-2 white-text pointer">{{name}}</div>
                 {{else}}
-                    <div class="card-panel goal-card white-text">
-                        {{name}}
-                    </div>
+                    {{#if required}}
+                        <div class="card-panel stream-layout-goal-card required locked white-text">
+                            {{name}}
+                        </div>
+                    {{else}}
+                        <div class="card-panel stream-layout-goal-card white-text">
+                            {{name}}
+                        </div>
+                    {{/if}}
                 {{/if}}
             {{/if}}
-        {{/if}}
-        </div>
         {{/each}}
+    </div>
 </template>
