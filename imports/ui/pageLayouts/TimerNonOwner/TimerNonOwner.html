@@ -1,6 +1,6 @@
 <template name="TimerNonOwner">
     <div class="grey-darken-1">
-        <div class="row">
+        <div class="row thin-margins">
             <h1 class="center" id="countdown" hidden>
                 <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span>
             </h1>
@@ -20,7 +20,7 @@
             {{/if}}
         {{/if}}
         </div>
-        <ul class="collapsible grey darken-3 center goal-and-scorecard" data-collapsible="expandable" hidden>
+        <ul class="collapsible grey darken-3 center goal-and-scorecard thin-margins" data-collapsible="expandable" hidden>
             <li>
                 <div class="collapsible-header thin-header grey darken-3">Goals</div>
                 <div class="collapsible-body">{{>GoalList}}</div>
