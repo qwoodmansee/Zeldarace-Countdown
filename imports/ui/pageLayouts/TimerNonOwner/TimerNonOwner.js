@@ -6,6 +6,7 @@ import {PageViewers} from '../../../api/pageViewers/PageViewers.js';
 
 import '../../partialLayouts/GoalList/GoalList.js';
 import '../../partialLayouts/Scorecard/Scorecard.js';
+import '../../partialLayouts/MM_Scorecard/MM_Scorecard.js';
 import './TimerNonOwner.html';
 import './TimerNonOwner.css';
 
@@ -18,6 +19,7 @@ Template.TimerNonOwner.onCreated(function(){
     self.timerRunning = new ReactiveVar(false);
     self.timerStartTime = new ReactiveVar(null);
     self.timerLength = new ReactiveVar(null);
+    self.mmTimer = new ReactiveVar(null);
 
     self.createTimer = function(id, endtime){
         var endTime = endtime;
@@ -79,6 +81,11 @@ Template.TimerNonOwner.onCreated(function(){
                     self.timerExists.set(true);
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
+                    if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
+                        self.mmTimer.set(true);
+                    } else {
+                        self.mmTimer.set(false);
+                    }
                     if (self.timerRunning.get() === true) {
                         self.timerStartTime.set(timer['timeStarted']);
 
@@ -150,6 +157,10 @@ Template.TimerNonOwner.onCreated(function(){
                         var query = Timers.find();
                         var handle = query.observeChanges({
                            changed: function(id, fields) {
+
+                               if (fields.hasOwnProperty('is_mm')) {
+                                   self.mmTimer.set(fields['is_mm']);
+                               }
 
                                if (fields['running'] === true) {
                                    // timer started
@@ -272,6 +283,10 @@ Template.TimerNonOwner.helpers({
 
     TimerExists() {
         return Template.instance().timerExists.get();
+    },
+
+    mmTimer() {
+        return Template.instance().mmTimer.get();
     },
 
     // returns all the viewers for the current page from highest to lowest score

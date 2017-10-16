@@ -12,6 +12,7 @@ import {ItemList} from '../../../helpers/ItemList.js';
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/GoalList/GoalList.js';
 import '../../partialLayouts/Scorecard/Scorecard.js';
+import '../../partialLayouts/MM_Scorecard/MM_Scorecard.js';
 import './TimerOwner.html';
 import './TimerOwner.css';
 
@@ -24,6 +25,7 @@ Template.TimerOwner.onCreated(function(){
     self.timerRunning = new ReactiveVar(false);
     self.timerStartTime = new ReactiveVar(null);
     self.timerLength = new ReactiveVar(null);
+    self.mmTimer = new ReactiveVar(null);
 
 
     self.createTimer = function(id, endtime){
@@ -110,6 +112,13 @@ Template.TimerOwner.onCreated(function(){
                     self.timerExists.set(true);
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
+                    console.log(timer);
+                    if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
+                        console.log("set mmTimer to true");
+                        self.mmTimer.set(true);
+                    } else {
+                        self.mmTimer.set(false);
+                    }
                     if (self.timerRunning.get() === true) {
                         self.timerStartTime.set(timer['timeStarted']);
                         // create and start countdown
@@ -211,7 +220,9 @@ Template.TimerOwner.onCreated(function(){
                                 $('#countdown').hide();
                             }
                         }
-
+                        if (fields.hasOwnProperty('is_mm')) {
+                            self.mmTimer.set(fields['is_mm']);
+                        }
                         if (fields.hasOwnProperty('goals')) {
                             // new timer from non started timer
                             self.timerStartTime.set(null);
@@ -255,6 +266,10 @@ Template.TimerOwner.onRendered(function() {
 Template.TimerOwner.helpers({
     TimerRunning() {
         return Template.instance().timerRunning.get();
+    },
+
+    mmTimer() {
+        return Template.instance().mmTimer.get();
     },
 
     UnactiveTimeFormatted() {

@@ -12,6 +12,7 @@ import {ItemList} from '../../../helpers/ItemList.js';
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/StreamLayoutGoalList/StreamLayoutGoalList.js';
 import '../../partialLayouts/StreamLayoutScorecard/StreamLayoutScorecard.js';
+import '../../partialLayouts/MM_StreamLayoutScorecard/MM_StreamLayoutScorecard.js';
 import '../../partialLayouts/ScreenshotModal/ScreenshotModal.js';
 import './StreamLayoutNonOwnerPage.html';
 import './StreamLayoutNonOwnerPage.css';
@@ -25,6 +26,7 @@ Template.StreamLayoutNonOwnerPage.onCreated(function(){
     self.timerRunning = new ReactiveVar(false);
     self.timerStartTime = new ReactiveVar(null);
     self.timerLength = new ReactiveVar(null);
+    self.mmTimer = new ReactiveVar(null);
 
     // this array holds the ids of all the moveable elements on the page.
     self.moveableObjectIds = [
@@ -121,6 +123,47 @@ Template.StreamLayoutNonOwnerPage.onCreated(function(){
                 "right": "927px",
                 "bottom": "662px",
                 "top": "115.5px"
+            },
+            "mm-item-menu-card": {
+                "width": "238px",
+                "height": "177px",
+                "left": "11px",
+                "right": "1426px",
+                "bottom": "244.5px",
+                "top": "517px"
+            },
+            "mm-quest-status-card": {
+                "width": "200px",
+                "height": "176px",
+                "left": "251px",
+                "right": "1245px",
+                "bottom": "246px",
+                "top": "516.5px"
+            },
+            "mm-mask-menu-card": {
+                "width": "238px",
+                "height": "177px",
+                "left": "465px",
+                "right": "1042px",
+                "bottom": "254.5px",
+                "top": "513px"
+            },
+            "mm-hearts-skulls-rupees-card": {
+                "width": "263px",
+                "height": "96px",
+                "left": "452px",
+                "right": "960px",
+                "bottom": "460.5px",
+                "top": "382px"
+            },
+
+            "mm-individual-score-card": {
+                "width": "182px",
+                "height": "161px",
+                "left": "566px",
+                "right": "927px",
+                "bottom": "662px",
+                "top": "115.5px"
             }
         };
 
@@ -135,6 +178,9 @@ Template.StreamLayoutNonOwnerPage.onCreated(function(){
                 }
             }
             $(idProp).css("position", "fixed");
+
+            $('.draggable').draggable();
+            $('.droppable').droppable();
         }
     };
 
@@ -214,6 +260,12 @@ Template.StreamLayoutNonOwnerPage.onCreated(function(){
                     self.timerExists.set(true);
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
+                    if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
+                        console.log("set mmTimer to true");
+                        self.mmTimer.set(true);
+                    } else {
+                        self.mmTimer.set(false);
+                    }
                     if (self.timerRunning.get() === true) {
                         self.timerStartTime.set(timer['timeStarted']);
 
@@ -285,7 +337,9 @@ Template.StreamLayoutNonOwnerPage.onCreated(function(){
                         var query = Timers.find();
                         var handle = query.observeChanges({
                             changed: function(id, fields) {
-
+                                if (fields.hasOwnProperty('is_mm')) {
+                                    self.mmTimer.set(fields['is_mm']);
+                                }
                                 if (fields['running'] === true) {
                                     // timer started
                                     self.timerRunning.set(true);
@@ -416,6 +470,10 @@ Template.StreamLayoutNonOwnerPage.helpers({
                 'seconds': '00'
             };
         }
+    },
+
+    mmTimer() {
+        return Template.instance().mmTimer.get();
     },
 
     OwnerUsername() {

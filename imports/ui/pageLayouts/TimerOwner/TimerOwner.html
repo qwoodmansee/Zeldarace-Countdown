@@ -22,7 +22,13 @@
             </li>
             <li>
                 <div class="collapsible-header thin-header grey darken-3">Scorecard</div>
-                <div class="collapsible-body">{{>Scorecard}}</div>
+                <div class="collapsible-body">
+                    {{#if mmTimer}}
+                        {{>MM_Scorecard}}
+                    {{else}}
+                        {{>Scorecard}}
+                    {{/if}}
+                </div>
             </li>
         </ul>
 

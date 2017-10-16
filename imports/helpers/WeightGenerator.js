@@ -1,8 +1,14 @@
 import {ItemList} from './ItemList.js'
+import {MM_ItemList} from './MM_ItemList.js'
 
-export const WeightGenerator = function() {
-    var self = this;
-    self.itemListGenerator = new ItemList();
+// this class is allowed to create MM version since it's SO similar,
+export const WeightGenerator = function(is_mm) {
+    let self = this;
+    if (is_mm) {
+        self.itemListGenerator = new MM_ItemList();
+    } else {
+        self.itemListGenerator = new ItemList();
+    }
     self.allItems = self.itemListGenerator.allItems;
 
     self.generateEqualWeights = function() {

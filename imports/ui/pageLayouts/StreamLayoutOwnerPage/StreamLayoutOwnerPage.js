@@ -12,6 +12,7 @@ import {ItemList} from '../../../helpers/ItemList.js';
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/StreamLayoutGoalList/StreamLayoutGoalList.js';
 import '../../partialLayouts/StreamLayoutScorecard/StreamLayoutScorecard.js';
+import '../../partialLayouts/MM_StreamLayoutScorecard/MM_StreamLayoutScorecard.js';
 import '../../partialLayouts/ScreenshotModal/ScreenshotModal.js';
 import './StreamLayoutOwnerPage.html';
 import './StreamLayoutOwnerPage.css';
@@ -31,7 +32,12 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
         'equip-menu-card',
         'quest-status-card',
         'hearts-skulls-rupees-card',
-        'individual-score-card'
+        'individual-score-card',
+        'mm-item-menu-card',
+        'mm-mask-menu-card',
+        'mm-quest-status-card',
+        'mm-hearts-skulls-rupees-card',
+        'mm-individual-score-card'
     ];
 
     self.basicPreset =
@@ -100,6 +106,14 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                 "bottom": "254.5px",
                 "top": "513px"
             },
+            "individual-score-card": {
+                "width": "182px",
+                "height": "161px",
+                "left": "566px",
+                "right": "927px",
+                "bottom": "662px",
+                "top": "115.5px"
+            },
             "hearts-skulls-rupees-card": {
                 "width": "263px",
                 "height": "96px",
@@ -108,7 +122,40 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                 "bottom": "460.5px",
                 "top": "382px"
             },
-            "individual-score-card": {
+            "mm-item-menu-card": {
+                "width": "238px",
+                "height": "177px",
+                "left": "11px",
+                "right": "1426px",
+                "bottom": "244.5px",
+                "top": "517px"
+            },
+            "mm-quest-status-card": {
+                "width": "200px",
+                "height": "176px",
+                "left": "251px",
+                "right": "1245px",
+                "bottom": "246px",
+                "top": "516.5px"
+            },
+            "mm-mask-menu-card": {
+                "width": "238px",
+                "height": "177px",
+                "left": "465px",
+                "right": "1042px",
+                "bottom": "254.5px",
+                "top": "513px"
+            },
+            "mm-hearts-skulls-rupees-card": {
+                "width": "263px",
+                "height": "96px",
+                "left": "452px",
+                "right": "960px",
+                "bottom": "460.5px",
+                "top": "382px"
+            },
+
+            "mm-individual-score-card": {
                 "width": "182px",
                 "height": "161px",
                 "left": "566px",
@@ -130,6 +177,8 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
             }
             $(idProp).css("position", "fixed");
         }
+        $('.draggable').draggable();
+        $('.droppable').droppable();
     };
 
     self.createPreset = function() {
@@ -153,6 +202,7 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
     self.timerRunning = new ReactiveVar(false);
     self.timerStartTime = new ReactiveVar(null);
     self.timerLength = new ReactiveVar(null);
+    self.mmTimer = new ReactiveVar(null);
 
 
     self.createTimer = function(id, endtime){
@@ -239,6 +289,12 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                     self.timerExists.set(true);
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
+                    if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
+                        console.log("set mmTimer to true");
+                        self.mmTimer.set(true);
+                    } else {
+                        self.mmTimer.set(false);
+                    }
                     if (self.timerRunning.get() === true) {
                         self.timerStartTime.set(timer['timeStarted']);
                         // create and start countdown
@@ -302,7 +358,9 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                 var query = Timers.find();
                 var handle = query.observeChanges({
                     changed: function(id, fields) {
-
+                        if (fields.hasOwnProperty('is_mm')) {
+                            self.mmTimer.set(fields['is_mm']);
+                        }
                         if (fields['running'] === true) {
                             // timer started
                             self.timerRunning.set(true);
@@ -398,6 +456,9 @@ Template.StreamLayoutOwnerPage.helpers({
         return Template.instance().timerRunning.get();
     },
 
+    mmTimer() {
+        return Template.instance().mmTimer.get();
+    },
     UnactiveTimeFormatted() {
         var timerLength = Template.instance().timerLength.get();
         if (timerLength && !Template.instance().timerStartTime.get()) {

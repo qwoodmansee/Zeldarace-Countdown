@@ -93,6 +93,10 @@
                 </tbody>
             </table>
         </div>
-        {{>StreamLayoutScorecard}}
+        {{#if mmTimer}}
+            {{>MM_StreamLayoutScorecard}}
+        {{else}}
+            {{>StreamLayoutScorecard}}
+        {{/if}}
     </div>
 </template>

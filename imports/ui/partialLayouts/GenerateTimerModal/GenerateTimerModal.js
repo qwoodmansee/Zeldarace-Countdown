@@ -8,8 +8,10 @@ import './GenerateTimerModal.css';
 import './GenerateTimerModal.html';
 
 import {GoalGenerator} from '../../../helpers/GoalGenerator.js';
+import {MM_GoalGenerator} from '../../../helpers/MM_GoalGenerator.js';
 import {WeightGenerator} from '../../../helpers/WeightGenerator.js';
 import {ItemList} from '../../../helpers/ItemList.js';
+import {MM_ItemList} from '../../../helpers/MM_ItemList.js';
 
 Template.GenerateTimerModal.onCreated(function() {
     var self = this;
@@ -85,7 +87,9 @@ Template.body.events({
         var numRequiredGoals = target.requiredGoals.value;
         var numPrechosenGoals = target.preChosen.value;
         //var smartGoals = target.smartGoals.value;
-        var superSmartGoals = target.superSmartGoals.value;
+        var superSmartGoals = target.superSmartGoals.value === "on";
+        var majorasMask = target.mmSetting.checked;
+        console.log( target.mmSetting.checked);
 
         //validate values and set to random if incorrect
 
@@ -119,19 +123,26 @@ Template.body.events({
 
         //all forms validated, generate a goal list first
         //only build this list when we absolutely have to, because it will use memory
-        const goalGenerator = new GoalGenerator();
+        let goalGenerator = new GoalGenerator();
+        let weightGenerator = new WeightGenerator(false);
+        let itemList = new ItemList();
+
+        if (majorasMask){
+            goalGenerator = new MM_GoalGenerator();
+            weightGenerator = new WeightGenerator(true);
+            itemList = new MM_ItemList();
+        }
+
         var goals;
-        if (superSmartGoals == "on") {
-            goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes, difficultyChoice);
-        } else if (smartGoals == "on") {
+        if (majorasMask) {
+            goals = goalGenerator.generateGoals(numGoals, numPrechosenGoals);
+        } else if (superSmartGoals) {
             goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes, difficultyChoice);
         } else {
             goals = goalGenerator.generateGoals(numGoals, numPrechosenGoals);
         }
 
-
         var weights = {};
-        const weightGenerator = new WeightGenerator();
         if (weightsChoice === "2") {
             weights = weightGenerator.generateRandomWeights(false);
         } else if (weightsChoice === "3") {
@@ -140,17 +151,15 @@ Template.body.events({
             weights = weightGenerator.generateSmartWeights(true, true);
         } else {
             weights = weightGenerator.generateEqualWeights();
-
         }
 
         //decide which of the items with multiple versions will be available on this timer (bottles, hookshot, equipment, etc)
-        const itemList = new ItemList();
         const itemChoices = itemList.generateMultiItemChoices();
 
         //update the timer currently associated
         var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
 
-        Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': weights, 'goals': goals, 'goalsRequired': numRequiredGoals, 'running': false, 'randomItems': itemChoices}});
+        Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': weights, 'goals': goals, 'goalsRequired': numRequiredGoals, 'running': false, 'randomItems': itemChoices, 'is_mm': majorasMask}});
 
     }
 });
