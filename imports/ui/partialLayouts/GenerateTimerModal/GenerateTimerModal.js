@@ -159,7 +159,9 @@ Template.body.events({
         //update the timer currently associated
         var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
 
-        Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': weights, 'goals': goals, 'goalsRequired': numRequiredGoals, 'running': false, 'randomItems': itemChoices, 'is_mm': majorasMask}});
+        if (originalTimer.hasOwnProperty("_id") && originalTimer._id !== undefined && originalTimer._id !== null) {
+            Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': weights, 'goals': goals, 'goalsRequired': numRequiredGoals, 'running': false, 'randomItems': itemChoices, 'is_mm': majorasMask}});
+        }
 
     }
 });

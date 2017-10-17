@@ -268,7 +268,8 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                     goals: [],
                     goalsRequired: 0,
                     weights: {active:false},
-                    randomItems: itemsChosen
+                    randomItems: itemsChosen,
+                    is_mm: false
                 };
                 Timers.insert(newTimer);
             }

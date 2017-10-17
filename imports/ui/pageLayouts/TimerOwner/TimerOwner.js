@@ -91,7 +91,8 @@ Template.TimerOwner.onCreated(function(){
                     goals: [],
                     goalsRequired: 0,
                     weights: {active:false},
-                    randomItems: itemsChosen
+                    randomItems: itemsChosen,
+                    is_mm: false
                 };
                 Timers.insert(newTimer);
             }
@@ -336,8 +337,8 @@ Template.TimerOwner.events({
        var formData = new FormData();
        formData.append("content", message);
        var request = new XMLHttpRequest();
-       //request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
-       //request.send(formData);
+       request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
+       request.send(formData);
    },
 
    'click #timer-reset-button': function() {
