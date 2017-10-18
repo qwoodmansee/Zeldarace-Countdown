@@ -60,6 +60,9 @@ Template.GoalList.onCreated(function() {
                             var query = Timers.find();
                             var handle = query.observeChanges({
                                 changed: function(id, fields) {
+                                    if (fields.hasOwnProperty('goalsRequired')) {
+                                        Session.set("numGoalsRequired", fields['goalsRequired']);
+                                    }
 
                                     if (fields['running'] === true) {
                                         //timer started by owner
@@ -78,10 +81,6 @@ Template.GoalList.onCreated(function() {
                                                 }
                                             }
                                             self.goalsSelected.set(goalsCurrentlySelected);
-                                            if (fields.hasOwnProperty('goalsRequired')) {
-                                                Session.set("numGoalsRequired", fields['goalsRequired']);
-                                            }
-
 
                                         } else {
                                             // timer ended (hit 00:00:00) - this actually might not happen
@@ -100,9 +99,6 @@ Template.GoalList.onCreated(function() {
                                             }
                                         }
                                         self.goalsSelected.set(goalsSelected);
-                                        if (fields.hasOwnProperty('goalsRequired')) {
-                                            Session.set("numGoalsRequired", fields['goalsRequired']);
-                                        }
                                     }
                                 }
                             });

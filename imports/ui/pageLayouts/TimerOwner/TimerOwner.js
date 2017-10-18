@@ -13,6 +13,7 @@ import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/GoalList/GoalList.js';
 import '../../partialLayouts/Scorecard/Scorecard.js';
 import '../../partialLayouts/MM_Scorecard/MM_Scorecard.js';
+import '../../partialLayouts/AdminTools/AdminTools.js';
 import './TimerOwner.html';
 import './TimerOwner.css';
 
@@ -183,6 +184,9 @@ Template.TimerOwner.onCreated(function(){
                 var query = Timers.find();
                 var handle = query.observeChanges({
                     changed: function(id, fields) {
+                        if (fields.hasOwnProperty('is_mm')) {
+                            self.mmTimer.set(fields['is_mm']);
+                        }
 
                         if (fields['running'] === true) {
                             // timer started
@@ -221,9 +225,7 @@ Template.TimerOwner.onCreated(function(){
                                 $('#countdown').hide();
                             }
                         }
-                        if (fields.hasOwnProperty('is_mm')) {
-                            self.mmTimer.set(fields['is_mm']);
-                        }
+
                         if (fields.hasOwnProperty('goals')) {
                             // new timer from non started timer
                             self.timerStartTime.set(null);
@@ -324,6 +326,10 @@ Template.TimerOwner.helpers({
         if (viewer) {
             return viewer.isReady;
         }
+    },
+
+    UserIsAdministrator() {
+        return Meteor.user().profile.name === "qwoodmansee" || Meteor.user().profile.name === "qwoodmanseedev";
     }
 });
 

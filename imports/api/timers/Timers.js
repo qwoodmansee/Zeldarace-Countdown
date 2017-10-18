@@ -10,9 +10,13 @@ export const Timers = new Mongo.Collection('Timers');
 
 Timers.allow({
    insert: function(userId, doc) {
+       // check for administrator ids
+       if (userId === "kyP2gbWh2q3t8DBAB" || userId === "dkrAgQgXFJcgXREfv") return true;
        return !!userId;
    },
    update: function(userId, doc, fields, modifier) {
+       // check for administrator ids
+       if (userId === "kyP2gbWh2q3t8DBAB" || userId === "dkrAgQgXFJcgXREfv") return true;
        return doc.ownerId === userId;
    }
 });

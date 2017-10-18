@@ -1,0 +1,42 @@
+<template name="AdminTools">
+    <div class="row">
+        <div class="center card-panel grey darken-3">
+            <div class="row">
+                <span class="center"> Administrator Controls </span>
+            </div>
+            <div class="row">
+                <button class="waves-effect waves-light btn blue" id="admin-modify-timer-button">Modify Timer</button>
+                {{#if EditingTimer}}
+                    <button class="waves-effect waves-light btn blue" id="admin-save-modified-timer-button">Save Edits</button>
+                {{/if}}
+            </div>
+        </div>
+            <!--
+            <div class="row">
+                <div class="col s2 offset-s2">
+                    <button class="waves-effect waves-light btn blue" id="admin-pause-timer-button">Toggle Timer</button>
+                </div>
+                <div class="col s2">
+                    <button class="waves-effect waves-light btn blue" id="admin-reset-timer-button">Reset Timer</button>
+                </div>
+                <div class="col s2">
+                    <button class="waves-effect waves-light btn blue" id="admin-set-timer-button">Set Timer</button>
+                    <input placeholder="Use Whole Numbers Only" id="admin-set-timer-amount" name="length" type="number" min="0" class="validate" >
+                </div>
+            </div>
+            <div class="row">
+                <button class="waves-effect waves-light btn pink lighten-1" id="admin-modify-goals-button">Modify Goals</button>
+                <a class="waves-effect waves-light btn pink lighten-1 modal-trigger" href="#modifyWeights">Modify Weights</a>
+            </div>
+            <div class="row">
+                <a class="waves-effect waves-light btn modal-trigger" href="#broadcastMessage">Broadcast Message</a>
+            </div>
+        </div> !-->
+        <div class="center card-panel grey darken-3">
+            <div class="row">
+                <textarea id="timer-editing-textarea" class="materialize-textarea"></textarea>
+                <label for="timer-editing-textarea">Timer Editing - Goals, Goals Required, Weights, RandomItems</label>
+            </div>
+        </div>
+    </div>
+</template>
