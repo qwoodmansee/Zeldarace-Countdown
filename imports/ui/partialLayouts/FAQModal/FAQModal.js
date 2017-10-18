@@ -15,7 +15,7 @@ Template.FAQModal.helpers({
     Rules() {
         return [
             "English Version (for new community outreach reasons)",
-            "No Bottle Duping over negative value items, however RBA'ing them away is acceptable",
+            "No Bottle Duping/Equip Swapping over negative value items, however RBA'ing them away is acceptable",
             "An item must exist in it's intended place on the menu at the end of the race to receive credit for it",
             "All custom rules, restrictions, handicaps must be agreed upon by all racers"
         ];
@@ -27,7 +27,7 @@ Template.FAQModal.helpers({
             "every time, and we think the optional addition of weights will help with keeping the routes unique.";
     },
     GoalsOrigin() {
-        return "The goals which are generated are taken directly from the OoT-bingo tool on SRL. All credit and thanks to it's orignal creators: " +
+        return "The goals which are generated are taken directly from the OoT-bingo and MM-bingo tool on SRL. All credit and thanks to it's orignal creators: " +
             "Original goal list by Narcissa. Rebalanced by the #zelda community with analysis by Gombill, Runnerguy2489, and Zamiel. " +
             "v9 data collection and coordination by Gombill. Goal timing by Exodus, SnipinG117, Moose1137, Runnerguy2489, and the #zelda community.";
     },
