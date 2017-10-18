@@ -321,19 +321,15 @@ Template.MM_Scorecard.events({
    'click #subtract-goldSkull' : function(){
        var temp = Template.instance().goldSkulls.get();
        Template.instance().goldSkulls.set(temp - 1);
-       if ((temp) % 3 === 0) {
-           temp = Session.get('score');
-           Session.set('score', temp - 1);
-       }
+       temp = Session.get('score');
+       Session.set('score', temp - 1);
    },
 
    'click #add-goldSkull' : function(){
        var temp = Template.instance().goldSkulls.get();
        Template.instance().goldSkulls.set(temp + 1);
-       if ((temp + 1) % 3 === 0) {
-           temp = Session.get('score');
-           Session.set('score', temp + 1);
-       }
+       temp = Session.get('score');
+       Session.set('score', temp + 1);
    },
 
     'click #subtract-100rupee' : function(){

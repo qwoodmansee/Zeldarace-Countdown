@@ -312,19 +312,15 @@ Template.MM_StreamLayoutScorecard.events({
        event.preventDefault();
        var temp = Template.instance().goldSkulls.get();
        Template.instance().goldSkulls.set(temp - 1);
-       if ((temp) % 3 === 0) {
-           temp = Session.get('score');
-           Session.set('score', temp - 1);
-       }
+       temp = Session.get('score');
+       Session.set('score', temp - 1);
    },
 
    'click #gold-skull-text' : function(){
-       var temp = Template.instance().goldSkulls.get();
-       Template.instance().goldSkulls.set(temp + 1);
-       if ((temp + 1) % 3 === 0) {
-           temp = Session.get('score');
-           Session.set('score', temp + 1);
-       }
+        var temp = Template.instance().goldSkulls.get();
+        Template.instance().goldSkulls.set(temp + 1);
+        temp = Session.get('score');
+        Session.set('score', temp + 1);
    },
 
     'contextmenu #rupee-text' : function(event){
