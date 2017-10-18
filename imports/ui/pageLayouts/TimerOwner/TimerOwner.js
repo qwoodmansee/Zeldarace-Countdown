@@ -114,9 +114,7 @@ Template.TimerOwner.onCreated(function(){
                     self.timerExists.set(true);
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
-                    console.log(timer);
                     if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
-                        console.log("set mmTimer to true");
                         self.mmTimer.set(true);
                     } else {
                         self.mmTimer.set(false);

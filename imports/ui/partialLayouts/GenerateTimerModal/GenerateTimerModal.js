@@ -33,7 +33,6 @@ Template.body.events({
             $('#total_goals').val(numGoals);
             $('#required_goals').val(numRequired);
             $('#pre_chosen_goals').val(numPrechosen);
-            console.log(smartGoals);
             $('#super_smart_goals').prop('checked', smartGoals);
         };
 
@@ -89,7 +88,6 @@ Template.body.events({
         //var smartGoals = target.smartGoals.value;
         var superSmartGoals = target.superSmartGoals.value === "on";
         var majorasMask = target.mmSetting.checked;
-        console.log( target.mmSetting.checked);
 
         //validate values and set to random if incorrect
 

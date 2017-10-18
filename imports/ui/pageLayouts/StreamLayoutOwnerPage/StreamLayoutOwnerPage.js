@@ -291,7 +291,6 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
                     if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
-                        console.log("set mmTimer to true");
                         self.mmTimer.set(true);
                     } else {
                         self.mmTimer.set(false);
@@ -621,7 +620,6 @@ Template.StreamLayoutOwnerPage.events({
         var newPreset = Template.instance().createPreset();
         // find the presets that are associated with this user
         var presetsRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
-        console.log(presetsRetVal);
 
         // if a preset has never been made for this user
         if (presetsRetVal) {
@@ -637,8 +635,6 @@ Template.StreamLayoutOwnerPage.events({
                 createdBy: Meteor.user().profile.name,
                 presets: temp
             };
-            console.log("inserting new preset row");
-            console.log(presetObject);
             Presets.insert(presetObject);
         }
     },

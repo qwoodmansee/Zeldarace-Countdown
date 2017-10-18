@@ -22,40 +22,6 @@ Template.AdminTools.helpers({
 });
 
 Template.AdminTools.events({
-    'click #admin-pause-timer-button': function() {
-        var timer = Timers.findOne({owner: FlowRouter.getParam('username')});
-        console.log(timer);
-        if (timer){
-            if (timer.running) {
-                Timers.update(timer._id, {$set: {'running': false}});
-            } else{
-                Timers.update(timer._id, {$set: {'running': true}});
-            }
-        }
-    },
-
-    'click #admin-reset-timer-button': function() {
-        var timer = Timers.findOne({owner: FlowRouter.getParam('username')});
-        console.log(timer);
-        if (timer){
-            if (timer.running) {
-                Timers.update(timer._id, {$set: {'running': false}});
-            }
-        }
-    },
-
-    'click #admin-set-timer-button': function() {
-        var timer = Timers.findOne({owner: FlowRouter.getParam('username')});
-        console.log(timer);
-        let minutes = parseInt($('#admin-set-timer-amount')[0].value);
-        if (timer !== null && timer !== undefined && minutes !== null && minutes !== undefined){
-            if (timer.running) {
-                console.log(minutes);
-                Timers.update(timer._id, {$set: {'running': false, 'length': minutes, 'timeStarted': new Date() }});
-                //Timers.update(timer._id, {$set: {'running': true, 'length': minutes, 'timeStarted': new Date() }});
-            }
-        }
-    },
 
     'click #admin-modify-timer-button': function() {
         if (Template.instance().editingTimer.get()) {
@@ -64,7 +30,6 @@ Template.AdminTools.events({
             Template.instance().editingTimer.set(true);
         }
         var timer = Timers.findOne({owner: FlowRouter.getParam('username')});
-        console.log($('#timer-editing-textarea'));
         if (timer) {
             $('#timer-editing-textarea').val(JSON.stringify(timer, null, 2));
         }
