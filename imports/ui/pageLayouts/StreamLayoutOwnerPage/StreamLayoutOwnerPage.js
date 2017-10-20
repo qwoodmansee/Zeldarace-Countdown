@@ -529,6 +529,24 @@ Template.StreamLayoutOwnerPage.events({
         request.send(formData);
     },
 
+    'click #notify-discord-button': function() {
+        var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
+        var version = "OoT";
+        if (originalTimer.hasOwnProperty('is_mm') && originalTimer['is_mm']) {
+            version = "MM"
+        }
+        //notify discord of start
+        var message = FlowRouter.getParam("username") + " is looking for " + version + " racers! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
+            + " to join the race!";
+        var formData = new FormData();
+        formData.append("content", message);
+        var request = new XMLHttpRequest();
+        request.open("POST", "https://discordapp.com/api/webhooks/371023746183593986/lYTA5l2lT2Fy2QD5VHaC3dJn62eS6JEk-PIG1DDIGUshGjYejNA7ohFsKUSqZTSh-BE1");
+        request.send(formData);
+        $('#notify-discord-button').tooltip('hide');
+        $('#notify-discord-button').remove();
+    },
+
     'click #timer-reset-button': function() {
         var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
         Timers.update(originalTimer._id, {$set: {'running': false}});

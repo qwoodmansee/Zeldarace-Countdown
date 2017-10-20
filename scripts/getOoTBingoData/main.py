@@ -53,12 +53,20 @@ def main():
         i = 0
         finalArray = []
         for row in cr:
-            if i != 0:
-                finalArray.append(row)
+            if i != 0 and i < 121:
+                arr = []
+                arr.append(row[0])
+                arr.append(row[1])
+                arr.append(row[2])
+                arr.append(row[3])
+                arr.append(row[4])
+                arr.append(row[5])
+                finalArray.append(arr)
             i += 1
 
         with open(outputFileName, 'w') as outfile:
-            json.dump(finalArray, outfile, indent=1)
+            json.dump(finalArray, outfile)
+
     elif eval(choice) == 3:
         url = 'https://docs.google.com/spreadsheets/d/1U34tdX8-wHPjLlsxnrWb8gE9PwWoDuQZJQcM8IoYows/export?gid=0&format=csv'
         name = 'name'
