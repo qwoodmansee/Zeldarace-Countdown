@@ -519,14 +519,19 @@ Template.StreamLayoutOwnerPage.events({
     'click #timer-start-button': function() {
         var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
         Timers.update(originalTimer._id, {$set: {'timeStarted': new Date(), 'running': true}});
-        //notify discord of start
-        var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
-            + " to check it out";
-        var formData = new FormData();
-        formData.append("content", message);
-        var request = new XMLHttpRequest();
-        request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
-        request.send(formData);
+        let username = Meteor.user().profile.name.toLowerCase();
+        if (username !== "davpat" && username !== "senn" && username !== "mikekatz45"
+            && username !== "prettybigjoe" && username !== "superguerrer3" && username !== "whatthehellshappened"
+            && username !== "qwoodmanseedev") {
+            //notify discord of start if not special circumstances
+            var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
+                + " to check it out";
+            var formData = new FormData();
+            formData.append("content", message);
+            var request = new XMLHttpRequest();
+            request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
+            request.send(formData);
+        }
     },
 
     'click #notify-discord-button': function() {
