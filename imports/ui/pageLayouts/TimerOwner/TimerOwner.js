@@ -336,7 +336,7 @@ Template.TimerOwner.events({
        var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
        Timers.update(originalTimer._id, {$set: {'timeStarted': new Date(), 'running': true}});
        var username = Meteor.user().profile.name.toLowerCase();
-       if (username !== "davpat" && username !== "senn" && username !== "mikekatz45"
+       if (username !== "tdavpat" && username !== "senn__" && username !== "mikekatz45"
            && username !== "prettybigjoe" && username !== "superguerrer3" && username !== "whatthehellshappened"
            && username !== "qwoodmanseedev") {
            //notify discord of start if not special circumstances
