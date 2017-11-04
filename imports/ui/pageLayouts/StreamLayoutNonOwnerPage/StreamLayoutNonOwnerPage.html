@@ -51,16 +51,14 @@
         </div>
 
         <div id="timer" class="card resizable-card grey darken-3 draggable one-fifth-width fixed-position">
-            {{#if Template.subscriptionsReady}}
-                <div class="center align-top" id="countdown" hidden>
-                    <span class="hours"></span><span>:</span><span class="minutes"></span><span>:</span><span class="seconds"></span>
+            <div class="center align-top" id="countdown" hidden>
+                <span class="hours"></span><span>:</span><span class="minutes"></span><span>:</span><span class="seconds"></span>
+            </div>
+            {{#unless TimerRunning}}
+                <div class="center align-top">
+                    <span>{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</span>
                 </div>
-                {{#unless TimerRunning}}
-                    <div class="center align-top">
-                        <span>{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</span>
-                    </div>
-                {{/unless}}
-            {{/if}}
+            {{/unless}}
         </div>
 
         <div id="racer-list-card" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width thin-padding fixed-position" >
