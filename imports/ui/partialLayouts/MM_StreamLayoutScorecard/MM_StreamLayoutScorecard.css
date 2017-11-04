@@ -1,6 +1,5 @@
 .score-card-container .scorecard-item {
     position: relative;
-    cursor: pointer;
 }
 
 .score-card-container .scorecard-item .collected {
@@ -25,4 +24,8 @@
 
 .resizable-scorecard {
     width: 100%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
