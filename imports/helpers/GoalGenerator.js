@@ -2,17 +2,18 @@
  * Created by Quinton on 9/23/2016.
  */
 
-import {GoalList} from './GoalList.js';
-import {csvData} from './OoTCSVData.js';
-export const GoalGenerator = function() {
+import { GoalList } from './GoalList.js';
+import { csvData } from './OoTCSVData.js';
+
+export const GoalGenerator = () => {
     var self = this;
 
-    self.generateGoals = function(numGoals, numPreChosenRequired) {
+    self.generateGoals = (numGoals, numPreChosenRequired) => {
         var goalListManager = new GoalList();
         var masterGoalList = goalListManager.goalList;
 
         //randomly sort the goals
-        masterGoalList.sort(function(xx,yy){ return Math.floor(Math.random() * 3) - 1; });
+        masterGoalList.sort((xx,yy) => { return Math.floor(Math.random() * 3) - 1; });
 
         var finalGoalList = [];
 
@@ -33,7 +34,7 @@ export const GoalGenerator = function() {
         return finalGoalList;
     };
 
-    self.generateTimeConsciousGoals = function(numGoals, numRequired, numPreChosenRequired, minutes) {
+    self.generateTimeConsciousGoals = (numGoals, numRequired, numPreChosenRequired, minutes) => {
         var goalListManager = new GoalList();
         var masterGoalList = goalListManager.goalList;
 
@@ -69,12 +70,12 @@ export const GoalGenerator = function() {
         }
 
         //randomly sort the goals
-        masterGoalList.sort(function(xx,yy){ return Math.floor(Math.random() * 3) - 1; });
+        masterGoalList.sort((xx,yy) => { return Math.floor(Math.random() * 3) - 1; });
 
         var finalGoalList = [];
         var numAdded = 0;
-
         var goal;
+
         //only add goals which fit in the max and min ranks
         while (numAdded < numGoals) {
             goal = masterGoalList.shift();
@@ -99,11 +100,11 @@ export const GoalGenerator = function() {
 
     };
 
-    self.generateCSVGoalList = function(numGoals, numRequired, numPreChosenRequired, minutes, difficulty) {
+    self.generateCSVGoalList = (numGoals, numRequired, numPreChosenRequired, minutes, difficulty) => {
         const csvDataGenerator = new csvData();
         var csvGoals = csvDataGenerator.data;
-
         var potentialGoals = [];
+
         if (!difficulty || difficulty < 1) {
             var difficulty =  3;
         }
@@ -122,11 +123,14 @@ export const GoalGenerator = function() {
                 }
             }
         }
-        var potentialGoalsCopy = potentialGoals.slice(); //creates a shallow copy
 
+        var potentialGoalsCopy = potentialGoals.slice(); //creates a shallow copy
         var attempting = true;
         var numAttempts = 0;
-        var tracker = {tooShort: false};
+        var tracker = {
+            tooShort: false
+        };
+    
         while (attempting) {
             //reset potential goals after last attempt
             potentialGoals = potentialGoalsCopy.slice(); //creates a shallow copy
@@ -225,7 +229,7 @@ export const GoalGenerator = function() {
     };
 
     //helper function to detemine if a subset of goals is viable
-    self._subsetViable = function(potentialGoals, tracker, subset, minutes, difficulty) {
+    self._subsetViable = (potentialGoals, tracker, subset, minutes, difficulty) => {
         var totalTimeEstimate = 0;
 
         // add a certain amount of time to each estimate based on difficulty: higher difficulty -> less buffer

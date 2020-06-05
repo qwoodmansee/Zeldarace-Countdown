@@ -1,4 +1,4 @@
-export const ItemList = function() {
+export const ItemList = () => {
     var self = this;
     // Object Structure:
     // [ [Filename, mean (RBA), std dev (RBA), negative chance (RBA), mean (No RBA), std dev (No RBA), negative chance (No RBA) ], ...]
@@ -124,7 +124,7 @@ export const ItemList = function() {
         ["ZoraTunic",  "1",  "3",  "0.5",  "1",  "1",  "0.5" ]
     ];
 
-    self.generateRandomNumber = function(positiveMin, max, allowNegative) {
+    self.generateRandomNumber = (positiveMin, max, allowNegative) => {
         var num = Math.floor(Math.random()*max) + positiveMin; // this will get a number between positive min and max;
 
         if (allowNegative) {
@@ -137,7 +137,7 @@ export const ItemList = function() {
         return num
     };
 
-    self.generateMultiItemChoices = function() {
+    self.generateMultiItemChoices = () => {
         var newObject = {};
 
         //decide ocarina
@@ -213,5 +213,4 @@ export const ItemList = function() {
 
         return newObject;
     }
-
 };

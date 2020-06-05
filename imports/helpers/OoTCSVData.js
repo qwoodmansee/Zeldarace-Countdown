@@ -2,7 +2,7 @@
  * Created by Quinton on 10/10/2016.
  */
 
-export const csvData = function() {
+export const csvData = () => {
     var self = this;
     self.data =
     {

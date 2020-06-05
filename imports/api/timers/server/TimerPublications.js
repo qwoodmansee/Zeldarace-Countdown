@@ -4,20 +4,19 @@
  */
 
 import { Meteor } from 'meteor/meteor';
-
 import { Timers } from '../Timers.js';
 
 // create different subscriptions levels depending on what is needed
-Meteor.publish('singleTimer', function(username){
+Meteor.publish('singleTimer', (username) => {
     check(username, String);
     return Timers.find({owner: username});
 });
 
-Meteor.publish('timers', function(){
+Meteor.publish('timers', () => {
     return Timers.find();
 });
 
-Meteor.publish('timerGoals', function(username) {
-   check(username, String);
+Meteor.publish('timerGoals', (username) => {
+    check(username, String);
     return Timers.find({owner: username}, {fields: 'goals'});
 });

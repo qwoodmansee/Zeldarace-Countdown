@@ -1,6 +1,6 @@
 Goals = new Mongo.Collection('goals');
 
- export  const GoalSchema = new SimpleSchema({
+ export const GoalSchema = new SimpleSchema({
     name: {
         type: String,
         label: "Name of Goal",

@@ -1,11 +1,11 @@
-import {ItemList} from './ItemList.js'
+import { ItemList } from './ItemList.js'
 
-export const WeightGenerator = function() {
+export const WeightGenerator = () => {
     var self = this;
     self.itemListGenerator = new ItemList();
     self.allItems = self.itemListGenerator.allItems;
 
-    self.generateEqualWeights = function() {
+    self.generateEqualWeights = () => {
         var weights = {};
         for (var i=0; i < self.allItems.length; i++) {
             weights[self.allItems[i][0]] = 1;
@@ -13,7 +13,7 @@ export const WeightGenerator = function() {
         return weights;
     };
 
-    self.generateRandomWeights = function(allowNegative) {
+    self.generateRandomWeights = (allowNegative) => {
         var temp;
         var weights = {};
         for (var i=0; i < self.allItems.length; i++) {
@@ -27,7 +27,7 @@ export const WeightGenerator = function() {
         return weights;
     };
 
-    self.generateSmartWeights = function(allowNegative, RBA) {
+    self.generateSmartWeights = (allowNegative, RBA) => {
         var weights = {};
         var mean;
         var stdev;
@@ -49,7 +49,7 @@ export const WeightGenerator = function() {
         return weights
     };
 
-    self.generateRandomNumber = function(positiveMin, max, allowNegative) {
+    self.generateRandomNumber = (positiveMin, max, allowNegative) => {
         var num = Math.floor(Math.random()*max) + positiveMin; // this will get a number between positive min and max;
 
         if (allowNegative) {
@@ -64,7 +64,7 @@ export const WeightGenerator = function() {
 
     //helper function which will allow a standard distribution to be created to find weights based on mean and std dev
     //src: http://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
-    self._gaussian = function(mean, stdev) {
+    self._gaussian = (mean, stdev) => {
         var y2;
         var use_last = false;
         return function() {
@@ -93,6 +93,4 @@ export const WeightGenerator = function() {
             return retval;
         }
     }
-
-
 };

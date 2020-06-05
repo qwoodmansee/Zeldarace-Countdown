@@ -1,6 +1,6 @@
 //full credit to https://github.com/giuocob/OoT-Bingo for the bingo list
 
-export const GoalList = function() {
+export const GoalList = () => {
     var self = this;
     self.goalList = [
         { rank: 1, name: "Bottled Fairy", jp: 'ビン(妖精)', types: { "bottle": 0 }, child: "yes" },
