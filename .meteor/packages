@@ -28,7 +28,6 @@ aldeed:collection2
 gildaspk:autoform-materialize
 meteortoys:allthings
 dburles:collection-helpers
-fourseven:scss
 arillo:flow-router-helpers
 session@1.2.0
 aldeed:template-extension
@@ -38,3 +37,4 @@ jchristman:popout
 yanduarte:accounts-twitch
 dynamic-import
 underscore
+service-configuration
