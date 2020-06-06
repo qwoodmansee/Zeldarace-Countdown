@@ -1,0 +1,15 @@
+<template name="ScorecardViewer">
+
+
+    {{#if ViewerIsOwner}}
+        <ul class="collapsible grey darken-3 center goal-and-scorecard" data-collapsible="expandable">
+            {{#each viewer in viewers}}
+                <li>
+                    <div class="collapsible-header thin-header grey darken-3">{{viewer.username}}'s Scorecard</div>
+                    <div class="collapsible-body">{{>Scorecard scorecardOwner=viewer.username}}</div>
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+    {{/if}}
+</template>

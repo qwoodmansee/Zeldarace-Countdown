@@ -8,94 +8,66 @@ import './GenerateTimerModal.css';
 import './GenerateTimerModal.html';
 
 import {GoalGenerator} from '../../../helpers/GoalGenerator.js';
+import {MM_GoalGenerator} from '../../../helpers/MM_GoalGenerator.js';
 import {WeightGenerator} from '../../../helpers/WeightGenerator.js';
 import {ItemList} from '../../../helpers/ItemList.js';
+import {MM_ItemList} from '../../../helpers/MM_ItemList.js';
+
+Template.GenerateTimerModal.onCreated(function() {
+    var self = this;
+});
 
 Template.GenerateTimerModal.onRendered(function() {
-
 });
 
 
 Template.body.events({
+
     //event which will trigger when a preset is selected and set all the relevant forms
     'change #preset-select': function(event, template) {
         event.preventDefault();
+
+        var _setGenerateValues = function(length, weightsChoice, numGoals, numRequired, numPrechosen, difficulty, smartGoals) {
+            $('#length_input').val(length);
+            $('#weights-select').val(weightsChoice);
+            $('#total_goals').val(numGoals);
+            $('#required_goals').val(numRequired);
+            $('#pre_chosen_goals').val(numPrechosen);
+            console.log(smartGoals);
+            $('#super_smart_goals').prop('checked', smartGoals);
+        };
 
         //determine the preset selected
         switch ($(this).val()) {
             //short
             case "1":
-                //set length to 46 minutes
-                $('#length_input').val(46);
-
-                //set available goals to 3, required to 1, prechosen to 0
-                $('#total_goals').val(4);
-                $('#required_goals').val(1);
-                $('#pre_chosen_goals').val(0);
-
-                //weights to smart
-                $('#weights-select').val(4);
-
+                //46 min, smart weights, 4 goals, 1 required, 0 prechosen
+                _setGenerateValues(46, 4, 4, 1, 0, 3, true);
                 break;
 
             //medium
             case "2":
-                //set length 1 hr 16 minutes
-                $('#length_input').val(76);
-
-                //set available goals to 7, required to 5, prechosen to 2
-                $('#total_goals').val(7);
-                $('#required_goals').val(4);
-                $('#pre_chosen_goals').val(2);
-
-                //weights to smart
-                $('#weights-select').val(4);
-
+                _setGenerateValues(76, 4, 7, 4, 2, 3, true);
                 break;
 
             //long
             case "3":
-                //set length to 2 hour 21 minutes
-                $('#length_input').val(181);
-
-                //set available goals to 6, required to 5, prechosen to 2
-                $('#total_goals').val(8);
-                $('#required_goals').val(6);
-                $('#pre_chosen_goals').val(3);
-
-                //weights to smart
-                $('#weights-select').val(4);
-
+                _setGenerateValues(181, 4, 8, 6, 3, 3, true);
                 break;
 
             //collectathon
             case "4":
-                //set length to 1 hr
-                $('#length_input').val(61);
-
-                //set available goals to 6, required to 5, prechosen to 2
-                $('#total_goals').val(6);
-                $('#required_goals').val(1);
-                $('#pre_chosen_goals').val(0);
-
-                //weights to random
-                $('#weights-select').val(2);
-
+                _setGenerateValues(61, 2, 6, 1, 0, 3, true);
                 break;
 
             //goal-master
             case "5":
-                //set length to 1 hr
-                $('#length_input').val(61);
+                _setGenerateValues(61, 1, 5, 5, 5, 3, true);
+                break;
 
-                //set available goals to 5, required to 4, prechosen to 2
-                $('#total_goals').val(5);
-                $('#required_goals').val(5);
-                $('#pre_chosen_goals').val(5);
-
-                //weights to equal
-                $('#weights-select').val(1);
-
+            //Beta Quest
+            case "6":
+                _setGenerateValues(121, 2, 10, 3, 0, 1, false);
                 break;
         }
 
@@ -115,7 +87,9 @@ Template.body.events({
         var numRequiredGoals = target.requiredGoals.value;
         var numPrechosenGoals = target.preChosen.value;
         //var smartGoals = target.smartGoals.value;
-        var superSmartGoals = target.superSmartGoals.value;
+        var superSmartGoals = target.superSmartGoals.value === "on";
+        var majorasMask = target.mmSetting.checked;
+        console.log( target.mmSetting.checked);
 
         //validate values and set to random if incorrect
 
@@ -149,19 +123,26 @@ Template.body.events({
 
         //all forms validated, generate a goal list first
         //only build this list when we absolutely have to, because it will use memory
-        const goalGenerator = new GoalGenerator();
+        let goalGenerator = new GoalGenerator();
+        let weightGenerator = new WeightGenerator(false);
+        let itemList = new ItemList();
+
+        if (majorasMask){
+            goalGenerator = new MM_GoalGenerator();
+            weightGenerator = new WeightGenerator(true);
+            itemList = new MM_ItemList();
+        }
+
         var goals;
-        if (superSmartGoals == "on") {
-            goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes, difficultyChoice);
-        } else if (smartGoals == "on") {
+        if (majorasMask) {
+            goals = goalGenerator.generateGoals(numGoals, numPrechosenGoals);
+        } else if (superSmartGoals) {
             goals = goalGenerator.generateCSVGoalList(numGoals, numRequiredGoals, numPrechosenGoals, lengthInMinutes, difficultyChoice);
         } else {
             goals = goalGenerator.generateGoals(numGoals, numPrechosenGoals);
         }
 
-
         var weights = {};
-        const weightGenerator = new WeightGenerator();
         if (weightsChoice === "2") {
             weights = weightGenerator.generateRandomWeights(false);
         } else if (weightsChoice === "3") {
@@ -170,17 +151,15 @@ Template.body.events({
             weights = weightGenerator.generateSmartWeights(true, true);
         } else {
             weights = weightGenerator.generateEqualWeights();
-
         }
 
         //decide which of the items with multiple versions will be available on this timer (bottles, hookshot, equipment, etc)
-        const itemList = new ItemList();
         const itemChoices = itemList.generateMultiItemChoices();
 
         //update the timer currently associated
         var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
 
-        Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': weights, 'goals': goals, 'goalsRequired': numRequiredGoals, 'running': false, 'randomItems': itemChoices}});
+        Timers.update(originalTimer._id, {$set: {'length': lengthInMinutes, 'weights': weights, 'goals': goals, 'goalsRequired': numRequiredGoals, 'running': false, 'randomItems': itemChoices, 'is_mm': majorasMask}});
 
     }
 });

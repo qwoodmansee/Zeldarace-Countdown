@@ -1,0 +1,86 @@
+.full-width {
+    width:100%;
+}
+
+.one-fourth-height {
+    height: 25%;
+}
+
+.one-fifth-width {
+    width: 20%;
+}
+
+.one-tenth-width {
+    width: 10%;
+}
+
+.one-half-width {
+    width: 25%;
+}
+
+.fixed-position {
+    position: fixed;
+}
+
+.one-fifth-height {
+    height: 20%;
+}
+
+.one-fourth-width {
+    width: 25%;
+}
+
+.three-fourths-height {
+    height: 75%;
+}
+
+.three-fourths-width {
+    width: 75%;
+}
+
+.no-left-padding {
+    padding-left: 0 !important;
+}
+.thin-margins {
+    margin: .4em;
+}
+
+.miniscule-margins {
+    margin: .1em;
+}
+
+.dark-background {
+    background-color: grey;
+}
+
+.black-bordered {
+    border: 1px solid black;
+}
+
+.white-thin-border {
+    border: 1px solid white;
+}
+
+.white-thick-border {
+    border: 3px solid white;
+}
+
+#top-row {
+    overflow: hidden;
+}
+
+.inline-block {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.align-top {
+    vertical-align: top;
+}
+.app-background-color {
+    background-color: #303030;
+}
+
+#timer span {
+    font-size: 3rem;
+}

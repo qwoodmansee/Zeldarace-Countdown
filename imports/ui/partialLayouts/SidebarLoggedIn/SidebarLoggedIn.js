@@ -13,6 +13,9 @@ Template.SidebarLoggedIn.helpers({
     },
 
     OwnerUsername() {
+        if (FlowRouter.getParam("timerOwner") != undefined && FlowRouter.getParam("timerOwner") != undefined != null) {
+            return FlowRouter.getParam("timerOwner");
+        }
         return FlowRouter.getParam('username');
     },
 

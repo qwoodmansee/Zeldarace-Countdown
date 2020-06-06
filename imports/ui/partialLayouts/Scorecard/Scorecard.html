@@ -4,10 +4,17 @@
             {{#each itemMenuGridRows}}
                 <div class="row">
                     {{#each items}}
-                        <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
-                            {{>scorecardIconTemplate}}
-                            <span class="weight-label unselectable">{{weight}}</span>
-                        </div>
+                        {{#if scoreCardItemObtained scoreCardIndex}}
+                            <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                {{>scorecardCollectedIconTemplate}}
+                                <span class="weight-label unselectable">{{weight}}</span>
+                            </div>
+                        {{else}}
+                            <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                {{>scorecardUncollectedIconTemplate}}
+                                <span class="weight-label unselectable">{{weight}}</span>
+                            </div>
+                        {{/if}}
                     {{/each}}
                 </div>
             {{/each}}
@@ -16,10 +23,17 @@
             {{#each EquipMenuGridRows}}
                 <div class="row">
                     {{#each items}}
-                        <div class="col s3 scorecard-item unselectable" data-weight="{{weight}}" >
-                            {{>scorecardIconTemplate}}
-                            <span class="weight-label unselectable">{{weight}}</span>
-                        </div>
+                        {{#if scoreCardItemObtained scoreCardIndex}}
+                            <div class="col s3 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                {{>scorecardCollectedIconTemplate}}
+                                <span class="weight-label unselectable">{{weight}}</span>
+                            </div>
+                        {{else}}
+                            <div class="col s3 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                {{>scorecardUncollectedIconTemplate}}
+                                <span class="weight-label unselectable">{{weight}}</span>
+                            </div>
+                        {{/if}}
                     {{/each}}
                 </div>
             {{/each}}
@@ -28,20 +42,34 @@
                 {{#each SongGridRows}}
                     <div class="row">
                         {{#each items}}
-                            <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
-                                {{>scorecardIconTemplate}}
-                                <span class="weight-label unselectable">{{weight}}</span>
-                            </div>
+                            {{#if scoreCardItemObtained scoreCardIndex}}
+                                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardCollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{else}}
+                                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardUncollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{/if}}
                         {{/each}}
                     </div>
                 {{/each}}
                 {{#each MedallionAndExtraGridRows}}
                     <div class="row">
                         {{#each items}}
-                            <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" >
-                                {{>scorecardIconTemplate}}
-                                <span class="weight-label unselectable">{{weight}}</span>
-                            </div>
+                            {{#if scoreCardItemObtained scoreCardIndex}}
+                                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardCollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{else}}
+                                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" data-index="{{scoreCardIndex}}">
+                                    {{>scorecardUncollectedIconTemplate}}
+                                    <span class="weight-label unselectable">{{weight}}</span>
+                                </div>
+                            {{/if}}
                         {{/each}}
                     </div>
                 {{/each}}
@@ -100,6 +128,7 @@
         </div>
         <div class="col s1">
             <div class="center-block">
+                <!--<button id="popout-scorecard-open" class="waves-effect waves-light btn white black-text" style="margin-top: 1em">Popout</button>-->
                 <h3>Score: {{CurrentScore}}</h3>
                 <br>
                 <button id="score-reset-button" class="waves-effect waves-light btn white black-text">Clear</button>
@@ -108,6 +137,121 @@
     </div>
 </template>
 
-<template name="scorecardIconTemplate">
+<template name="scorecardUncollectedIconTemplate">
     <img class="scorecard-icon unselectable tooltipped" src="/icons/{{name}}.png"  data-tooltip={{tooltip}}>
+</template>
+
+<template name="scorecardCollectedIconTemplate">
+        <img class="scorecard-icon unselectable tooltipped collected" src="/icons/{{name}}.png"  data-tooltip={{tooltip}}>
+</template>
+
+<template name="popoutScorecardTemplate">
+    <div class="row score-card-container">
+        <div class="col s3">
+            {{#each itemMenuGridRows}}
+            <div class="row">
+                {{#each items}}
+                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
+                    {{>scorecardIconTemplate}}
+                    <span class="weight-label unselectable">{{weight}}</span>
+                </div>
+                {{/each}}
+            </div>
+            {{/each}}
+        </div>
+        <div class="col s2">
+            {{#each EquipMenuGridRows}}
+            <div class="row">
+                {{#each items}}
+                <div class="col s3 scorecard-item unselectable" data-weight="{{weight}}" >
+                    {{>scorecardIconTemplate}}
+                    <span class="weight-label unselectable">{{weight}}</span>
+                </div>
+                {{/each}}
+            </div>
+            {{/each}}
+        </div>
+        <div class="col s3">
+            {{#each SongGridRows}}
+            <div class="row">
+                {{#each items}}
+                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}">
+                    {{>scorecardIconTemplate}}
+                    <span class="weight-label unselectable">{{weight}}</span>
+                </div>
+                {{/each}}
+            </div>
+            {{/each}}
+            {{#each MedallionAndExtraGridRows}}
+            <div class="row">
+                {{#each items}}
+                <div class="col s2 scorecard-item unselectable" data-weight="{{weight}}" >
+                    {{>scorecardIconTemplate}}
+                    <span class="weight-label unselectable">{{weight}}</span>
+                </div>
+                {{/each}}
+            </div>
+            {{/each}}
+        </div>
+        <div class="col s2">
+            <div class="row" style="margin-top: 4%">
+                <div>
+                    <img class="unselectable center" src="/icons/HeartContainer.png">
+                    <span class="unselectable" style="margin-left: -1em; font-size: .8em; margin-top: -.4em">1</span>
+                </div>
+
+                <div class="row">
+                    <div class="col s4 pointer unselectable"  id="subtract-heart">
+                        <span class="right unselectable">-</span>
+                    </div>
+                    <div class="col s4 unselectable">
+                        <span class="center unselectable">{{numHeartContainers}}</span>
+                    </div>
+                    <div class="col s4 pointer unselectable" id="add-heart">
+                        <span class="left unselectable">+</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: -9%">
+                <img class="unselectable center" src="/icons/GoldSkulltula.png">
+                <span class="unselectable" style="margin-left: -1em; font-size: .8em; margin-top: -.4em">1/3</span>
+
+                <div class="row">
+                    <div class="col s4 pointer unselectable" id="subtract-goldSkull">
+                        <span class="right unselectable" >-</span>
+                    </div>
+                    <div class="col s4 unselectable">
+                        <span class="center unselectable">{{numGoldSkulls}}</span>
+                    </div>
+                    <div class="col s4 pointer unselectable" id="add-goldSkull">
+                        <span class="left unselectable">+</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: -8%">
+                <img class="unselectable center" src="/icons/RupeeIcon.png">
+                <span class="unselectable" style="margin-left: -1em; font-size: .8em; margin-top: -.4em">1/100</span>
+
+                <div class="row">
+                    <div class="col s4 pointer unselectable" id="subtract-100rupee">
+                        <span class="right unselectable" >-</span>
+                    </div>
+                    <div class="col s4 unselectable">
+                        <span class="center unselectable">{{numRupees}}</span>
+                    </div>
+                    <div class="col s4 pointer unselectable" id="add-100rupee">
+                        <span class="left unselectable">+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s1">
+            <div class="center-block">
+                <button id="popout-scorecard-open" class="waves-effect waves-light btn white black-text" style="margin-top: 1em">Popout</button>
+                <h3>Score: {{CurrentScore}}</h3>
+                <br>
+                <button id="score-reset-button" class="waves-effect waves-light btn white black-text">Clear</button>
+            </div>
+        </div>
+    </div>
 </template>

@@ -12,6 +12,7 @@ import {ItemList} from '../../../helpers/ItemList.js';
 import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/GoalList/GoalList.js';
 import '../../partialLayouts/Scorecard/Scorecard.js';
+import '../../partialLayouts/MM_Scorecard/MM_Scorecard.js';
 import './TimerOwner.html';
 import './TimerOwner.css';
 
@@ -24,6 +25,7 @@ Template.TimerOwner.onCreated(function(){
     self.timerRunning = new ReactiveVar(false);
     self.timerStartTime = new ReactiveVar(null);
     self.timerLength = new ReactiveVar(null);
+    self.mmTimer = new ReactiveVar(null);
 
 
     self.createTimer = function(id, endtime){
@@ -97,7 +99,6 @@ Template.TimerOwner.onCreated(function(){
         }
     });
 
-
     self.autorun(function() {
         self.subscribe('singleTimer', FlowRouter.getParam('username'));
         //subscribe to pageViewers and make sure if you aren't added to it yet to add yourself
@@ -111,6 +112,13 @@ Template.TimerOwner.onCreated(function(){
                     self.timerExists.set(true);
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
+                    console.log(timer);
+                    if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
+                        console.log("set mmTimer to true");
+                        self.mmTimer.set(true);
+                    } else {
+                        self.mmTimer.set(false);
+                    }
                     if (self.timerRunning.get() === true) {
                         self.timerStartTime.set(timer['timeStarted']);
                         // create and start countdown
@@ -135,14 +143,24 @@ Template.TimerOwner.onCreated(function(){
                             }
                         }
 
+                        // initialize an array to hold the values of collected items, hearts, skulls, and rupees
+                        scorecardValues = new Array(65);
+                        for (var i=0; i < 66; i++) {
+                            scorecardValues[i] = 0
+                        }
+                        scorecardValues[63] = 3 // hearts start at 3
+
                         //basically perform a client side upsert - have to work around since this is untrusted code
                         if (!viewers) {
                             //if none existing, create a page viewer to go into the table
+
                             var newPageViewer = {
                                 username: Meteor.user().profile.name,
                                 ownerUsername: FlowRouter.getParam('username'),
                                 score: 0,
-                                currentlyRacing: false
+                                currentlyRacing: false,
+                                scorecardValues: scorecardValues,
+                                isReady: false
                             };
                             PageViewers.insert(newPageViewer);
 
@@ -150,7 +168,7 @@ Template.TimerOwner.onCreated(function(){
                         } else {
                             //already exists, just update
                             PageViewers.update(viewers._id, {
-                                $set: {'score': 0, currentlyRacing: false}
+                                $set: {'score': 0, 'currentlyRacing': false, 'scorecardValues': scorecardValues, 'isReady': false}
                             });
                         }
 
@@ -202,7 +220,9 @@ Template.TimerOwner.onCreated(function(){
                                 $('#countdown').hide();
                             }
                         }
-
+                        if (fields.hasOwnProperty('is_mm')) {
+                            self.mmTimer.set(fields['is_mm']);
+                        }
                         if (fields.hasOwnProperty('goals')) {
                             // new timer from non started timer
                             self.timerStartTime.set(null);
@@ -248,6 +268,10 @@ Template.TimerOwner.helpers({
         return Template.instance().timerRunning.get();
     },
 
+    mmTimer() {
+        return Template.instance().mmTimer.get();
+    },
+
     UnactiveTimeFormatted() {
         var timerLength = Template.instance().timerLength.get();
         if (timerLength && !Template.instance().timerStartTime.get()) {
@@ -291,6 +315,14 @@ Template.TimerOwner.helpers({
         if (viewer) {
             return viewer.currentlyRacing;
         }
+    },
+
+    isReady() {
+        //get pageviewers table
+        var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+        if (viewer) {
+            return viewer.isReady;
+        }
     }
 });
 
@@ -298,6 +330,14 @@ Template.TimerOwner.events({
    'click #timer-start-button': function() {
        var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
        Timers.update(originalTimer._id, {$set: {'timeStarted': new Date(), 'running': true}});
+       //notify discord of start
+       var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
+                    + " to check it out";
+       var formData = new FormData();
+       formData.append("content", message);
+       var request = new XMLHttpRequest();
+       //request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
+       //request.send(formData);
    },
 
    'click #timer-reset-button': function() {
@@ -327,6 +367,40 @@ Template.TimerOwner.events({
                });
            }
        }
-   }
-});
+   },
 
+    'click .remove-user': function(e) {
+        // Instead of using $(this), you can do:
+        var $this = $(e.target);
+        var userToRemove = $this[0].id.substring(0, $this[0].id.length - 14);
+        var viewers = PageViewers.findOne({username: userToRemove, ownerUsername: FlowRouter.getParam('username')});
+
+        if (viewers) {
+            PageViewers.update(viewers._id, {
+                $set: {'currentlyRacing': false}
+            });
+        }
+    },
+
+    'click #stream-layout-open': function() {
+        if (confirm("This will clear your current scorecard, are you sure?")) {
+            FlowRouter.go('/:username/streamLayout', {username: FlowRouter.getParam('username')});
+        }
+    },
+
+    'click #toggle-ready-button': function() {
+        var viewers = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+
+        if (viewers) {
+            if (viewers.isReady) {
+                PageViewers.update(viewers._id, {
+                    $set: {'isReady': false}
+                });
+            } else {
+                PageViewers.update(viewers._id, {
+                    $set: {'isReady': true}
+                });
+            }
+        }
+    }
+});

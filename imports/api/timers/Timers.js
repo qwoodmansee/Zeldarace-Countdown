@@ -57,6 +57,10 @@ TimerSchema = new SimpleSchema({
         type: Object,
         label: "Selections for the random objects on the menu",
         blackbox: true
+    },
+    is_mm: {
+        type: Boolean,
+        label: "True if this timer will have Majora's Mask setup"
     }
 });
 

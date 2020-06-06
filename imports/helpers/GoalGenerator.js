@@ -190,17 +190,39 @@ export const GoalGenerator = function() {
                 //choose middle of the road goals for prechosen
                 var requiredSet = 0;
 
-                if (parseInt(numPreChosenRequired) > 0) {
+                if (parseInt(numPreChosenRequired) > 0 && parseInt(numPreChosenRequired) != parseInt(numGoals)) {
                     //sort the goals by their required time
                     chosenGoals.sort(function(a,b) {
                         return parseInt(a.time) - parseInt(b.time);
                     });
 
-                    while (requiredSet < parseInt(numPreChosenRequired)) {
-                        var goalNum = Math.floor(numGoals / 2 - requiredSet);
-                        chosenGoals[goalNum].required = true;
-                        requiredSet += 1;
+                    // this is a hacky way to work inside out of an array, using 2 counters
+                    var chosenTracker = {};
+                    var x = Math.ceil(chosenGoals.length/2);
+                    var y = x - 1;
+                    var numMarked = 0;
+
+                    while (y >= 0)
+                    {
+                        if (numMarked < parseInt(numPreChosenRequired)) {
+                            chosenTracker[chosenGoals[y--].name] = 1;
+                            numMarked++;
+                        } else {
+                            break;
+                        }
+                        if (numMarked < parseInt(numPreChosenRequired) && x < chosenGoals.length) {
+                            chosenTracker[chosenGoals[x++].name] = 1;
+                            numMarked++;
+                        } else {
+                            break;
+                        }
                     }
+
+                    chosenGoals.forEach(function(goal) {
+                        if (chosenTracker[goal.name] === 1) {
+                            goal.required = true
+                        }
+                    });
 
                     //shuffle the array for that random look everybody likes
                     for (var i = chosenGoals.length - 1; i > 0; i--) {
@@ -209,6 +231,10 @@ export const GoalGenerator = function() {
                         chosenGoals[i] = chosenGoals[j];
                         chosenGoals[j] = temp;
                     }
+                } else if (parseInt(numPreChosenRequired) === parseInt(numGoals)) {
+                    chosenGoals.forEach(function(goal) {
+                       goal.required = true;
+                    });
                 }
 
 

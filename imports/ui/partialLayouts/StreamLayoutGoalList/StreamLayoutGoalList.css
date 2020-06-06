@@ -1,0 +1,23 @@
+.stream-layout-goal-card {
+    font-size: .85em;
+    cursor: pointer;
+    background-color: #3f51b5;
+    width: 12em;
+    margin: .25em;
+    padding: .85em;
+}
+
+.goals-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.required {
+    background-color: #ec407a;
+}
+
+.locked {
+    background-color: #e91e63;
+}
+
+.complete {
+}

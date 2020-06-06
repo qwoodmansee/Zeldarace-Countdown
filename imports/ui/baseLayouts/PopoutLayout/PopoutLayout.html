@@ -1,0 +1,11 @@
+<template name="PopoutLayout">
+    <div class="popout-background-container grey-darken-1">
+        {{>FAQModal}}
+        <div class="popout-layout-navbar">
+            {{> Template.dynamic template=navbar}}
+        </div>
+        <div class="content popout-layout-content">
+            {{> Template.dynamic template=main}}
+        </div>
+    </div>
+</template>

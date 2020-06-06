@@ -1,0 +1,28 @@
+.score-card-container .scorecard-item {
+    position: relative;
+    cursor: pointer;
+}
+
+.score-card-container .scorecard-item .collected {
+    opacity: 1;
+}
+
+.score-card-container .scorecard-icon {
+    opacity: .25;
+}
+
+.thin-scorecard-item-spacing {
+
+}
+
+.weight-label {
+    position: absolute;
+    font-size: 1em;
+    top: .9em;
+    left: 2.2em;
+    opacity: 1;
+}
+
+.resizable-scorecard {
+    width: 100%;
+}

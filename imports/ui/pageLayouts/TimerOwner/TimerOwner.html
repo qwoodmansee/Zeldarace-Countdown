@@ -4,7 +4,7 @@
     {{> GenerateTimerModal}}
 
     <div class="grey-darken-1">
-        <div class="row">
+        <div class="row thin-margins">
             <h1 class="center" id="countdown" hidden>
                 <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span>
             </h1>
@@ -15,14 +15,20 @@
             {{/if}}
         </div>
 
-        <ul class="collapsible grey darken-3 center" data-collapsible="expandable">
+        <ul class="collapsible grey darken-3 center thin-margins" data-collapsible="expandable">
             <li>
                 <div class="collapsible-header thin-header grey darken-3">Goals</div>
                 <div class="collapsible-body">{{>GoalList}}</div>
             </li>
             <li>
                 <div class="collapsible-header thin-header grey darken-3">Scorecard</div>
-                <div class="collapsible-body">{{>Scorecard}}</div>
+                <div class="collapsible-body">
+                    {{#if mmTimer}}
+                        {{>MM_Scorecard}}
+                    {{else}}
+                        {{>Scorecard}}
+                    {{/if}}
+                </div>
             </li>
         </ul>
 
@@ -47,9 +53,13 @@
                     <div class="row">
                         {{#if CurrentlyRacing}}
                             <button class="waves-effect waves-light btn-large white black-text" id="leave-race-button">Leave Race</button>
+                            <button class="waves-effect waves-light btn-large white black-text" id="toggle-ready-button">Toggle Ready</button>
                         {{else}}
                             <button class="waves-effect waves-light btn-large white black-text" id="join-race-button">Join Race</button>
                         {{/if}}
+                    </div>
+                    <div class="row">
+                        <button class="waves-effect waves-light btn-large white black-text" id="stream-layout-open">Stream Layout</button>
                     </div>
                 </div>
             </div>
@@ -60,6 +70,8 @@
                             <tr>
                                 <th data-field="racers">Username</th>
                                 <th data-field="scores">Score</th>
+                                <th data-field="isReady">Ready</th>
+                                <th>Remove</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,6 +80,12 @@
                                     <tr>
                                         <td>{{viewer.username}}</td>
                                         <td>{{viewer.score}}</td>
+                                        {{#if viewer.isReady}}
+                                            <td><i class="mdi mdi-check mdi-light mdi-24px center pointer"></i></td>
+                                        {{else}}
+                                            <td></td>
+                                        {{/if}}
+                                        <td><i id="{{viewer.username}}-remove-button" class="remove-user mdi mdi-account-remove mdi-24px center pointer"></i></td>
                                     </tr>
                                 {{/if}}
                             {{/each}}
@@ -77,5 +95,4 @@
             </div>
         </div>
     </div>
-
 </template>

@@ -6,6 +6,7 @@ import {PageViewers} from '../../../api/pageViewers/PageViewers.js';
 
 import '../../partialLayouts/GoalList/GoalList.js';
 import '../../partialLayouts/Scorecard/Scorecard.js';
+import '../../partialLayouts/MM_Scorecard/MM_Scorecard.js';
 import './TimerNonOwner.html';
 import './TimerNonOwner.css';
 
@@ -18,6 +19,7 @@ Template.TimerNonOwner.onCreated(function(){
     self.timerRunning = new ReactiveVar(false);
     self.timerStartTime = new ReactiveVar(null);
     self.timerLength = new ReactiveVar(null);
+    self.mmTimer = new ReactiveVar(null);
 
     self.createTimer = function(id, endtime){
         var endTime = endtime;
@@ -63,6 +65,7 @@ Template.TimerNonOwner.onCreated(function(){
         return timeObj;
     };
 
+
     self.autorun(function() {
 
         // gets a single timer with the username from the URL
@@ -78,6 +81,11 @@ Template.TimerNonOwner.onCreated(function(){
                     self.timerExists.set(true);
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
+                    if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
+                        self.mmTimer.set(true);
+                    } else {
+                        self.mmTimer.set(false);
+                    }
                     if (self.timerRunning.get() === true) {
                         self.timerStartTime.set(timer['timeStarted']);
 
@@ -111,14 +119,23 @@ Template.TimerNonOwner.onCreated(function(){
                                     }
                                 }
 
+                                // initialize an array to hold the values of collected items, hearts, skulls, and rupees
+                                scorecardValues = new Array(65);
+                                for (var i=0; i < 66; i++) {
+                                    scorecardValues[i] = 0
+                                }
+                                scorecardValues[63] = 3 // hearts start at 3
+
                                 //basically perform a client side upsert - have to work around since this is untrusted code
                                 if (!viewers) {
                                     //if none existing, create a page viewer to go into the table
                                     var newPageViewer = {
                                         username: Meteor.user().profile.name,
                                         ownerUsername: FlowRouter.getParam('username'),
+                                        isReady: false,
                                         score: 0,
-                                        currentlyRacing: false
+                                        currentlyRacing: false,
+                                        scorecardValues: scorecardValues
                                     };
                                     PageViewers.insert(newPageViewer);
 
@@ -126,7 +143,7 @@ Template.TimerNonOwner.onCreated(function(){
                                 } else {
                                     //already exists, just update
                                     PageViewers.update(viewers._id, {
-                                        $set: {'score': 0, 'currentlyRacing': false}
+                                        $set: {'score': 0, 'currentlyRacing': false, 'scorecardValues': scorecardValues}
                                     });
                                 }
 
@@ -140,6 +157,10 @@ Template.TimerNonOwner.onCreated(function(){
                         var query = Timers.find();
                         var handle = query.observeChanges({
                            changed: function(id, fields) {
+
+                               if (fields.hasOwnProperty('is_mm')) {
+                                   self.mmTimer.set(fields['is_mm']);
+                               }
 
                                if (fields['running'] === true) {
                                    // timer started
@@ -221,7 +242,6 @@ Template.TimerNonOwner.onCreated(function(){
 
 Template.TimerNonOwner.onRendered(function() {
     $('.collapsible').collapsible({});
-
 });
 
 
@@ -263,6 +283,10 @@ Template.TimerNonOwner.helpers({
 
     TimerExists() {
         return Template.instance().timerExists.get();
+    },
+
+    mmTimer() {
+        return Template.instance().mmTimer.get();
     },
 
     // returns all the viewers for the current page from highest to lowest score
@@ -316,5 +340,30 @@ Template.TimerNonOwner.events({
                 });
             }
         }
+    },
+
+    'click #toggle-ready-button': function() {
+        if (Meteor.userId()) {
+            //get pageviewers table
+            var viewer = PageViewers.findOne({username: Meteor.user().profile.name, ownerUsername: FlowRouter.getParam('username')});
+            if (viewer) {
+                if (viewer.isReady) {
+                    PageViewers.update(viewer._id, {
+                        $set: {'isReady': false}
+                    });
+                } else {
+                    PageViewers.update(viewer._id, {
+                        $set: {'isReady': true}
+                    });
+                }
+            }
+        }
+    },
+
+    'click #stream-layout-open': function() {
+        if (confirm("This will clear your current scorecard, are you sure?")) {
+            FlowRouter.go('/:username/streamLayout', {username: FlowRouter.getParam('username')});
+        }
     }
+
 });

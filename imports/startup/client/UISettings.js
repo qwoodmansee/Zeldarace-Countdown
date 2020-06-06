@@ -5,3 +5,4 @@
 
 //allow custom template for nav bar button
 Template.myAtNavButton.replaces("atNavButton");
+
