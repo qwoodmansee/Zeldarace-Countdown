@@ -332,7 +332,6 @@ Template.StreamLayoutScorecard.onRendered(function() {
 Template.StreamLayoutScorecard.events({
     'click .scorecard-item' : function(event) {
         var object =  $(event.currentTarget).children('img');
-        console.log($(event.currentTarget)[0].dataset.index);
         if (object.hasClass('collected')) {
             object.removeClass('collected');
             Session.set('score', Session.get('score') - parseInt( $(event.currentTarget)[0].dataset.weight))

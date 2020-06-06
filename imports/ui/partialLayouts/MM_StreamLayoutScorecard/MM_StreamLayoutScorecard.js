@@ -291,7 +291,6 @@ Template.MM_StreamLayoutScorecard.onRendered(function() {
 Template.MM_StreamLayoutScorecard.events({
     'click .scorecard-item' : function(event) {
         var object =  $(event.currentTarget).children('img');
-        console.log($(event.currentTarget)[0].dataset.index);
         if (object.hasClass('collected')) {
             object.removeClass('collected');
             Session.set('score', Session.get('score') - parseInt( $(event.currentTarget)[0].dataset.weight))
@@ -313,19 +312,15 @@ Template.MM_StreamLayoutScorecard.events({
        event.preventDefault();
        var temp = Template.instance().goldSkulls.get();
        Template.instance().goldSkulls.set(temp - 1);
-       if ((temp) % 3 === 0) {
-           temp = Session.get('score');
-           Session.set('score', temp - 1);
-       }
+       temp = Session.get('score');
+       Session.set('score', temp - 1);
    },
 
    'click #gold-skull-text' : function(){
-       var temp = Template.instance().goldSkulls.get();
-       Template.instance().goldSkulls.set(temp + 1);
-       if ((temp + 1) % 3 === 0) {
-           temp = Session.get('score');
-           Session.set('score', temp + 1);
-       }
+        var temp = Template.instance().goldSkulls.get();
+        Template.instance().goldSkulls.set(temp + 1);
+        temp = Session.get('score');
+        Session.set('score', temp + 1);
    },
 
     'contextmenu #rupee-text' : function(event){

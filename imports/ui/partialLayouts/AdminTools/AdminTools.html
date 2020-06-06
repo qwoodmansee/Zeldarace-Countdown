@@ -1,0 +1,21 @@
+<template name="AdminTools">
+    <div class="row">
+        <div class="center card-panel grey darken-3">
+            <div class="row">
+                <span class="center"> Administrator Controls </span>
+            </div>
+            <div class="row">
+                <button class="waves-effect waves-light btn blue" id="admin-modify-timer-button">Modify Timer</button>
+                {{#if EditingTimer}}
+                    <button class="waves-effect waves-light btn blue" id="admin-save-modified-timer-button">Save Edits</button>
+                {{/if}}
+            </div>
+        </div>
+        <div class="center card-panel grey darken-3">
+            <div class="row">
+                <textarea id="timer-editing-textarea" class="materialize-textarea"></textarea>
+                <label for="timer-editing-textarea">Timer Editing - Goals, Goals Required, Weights, RandomItems</label>
+            </div>
+        </div>
+    </div>
+</template>

@@ -36,7 +36,15 @@
                 {{/if}}
             </div>
             <div class="thin-margins full-width">
-                <a class="waves-effect waves-light btn white black-text modal-trigger full-width" href="#screenshotModal">Screenshot</a>
+                {{#if TimerRunning}}
+                {{else}}
+                    <button class="waves-effect waves-light btn white black-text full-width tooltipped"
+                            id="notify-discord-button"
+                            data-tooltip="Posts a discord announcement of race. Do not spam please.">Notify</button>
+                {{/if}}
+            </div>
+            <div class="thin-margins full-width">
+                <button class="waves-effect waves-light btn white black-text modal-trigger full-width" href="#screenshotModal">Screenshot</button>
             </div>
         </div>
 
@@ -57,7 +65,6 @@
         </div>
 
         <div id="timer" class="card resizable-card grey darken-3 draggable one-fifth-width fixed-position">
-            {{#if Template.subscriptionsReady}}
                 <div class="center align-top" id="countdown" hidden>
                     <span class="hours"></span><span>:</span><span class="minutes"></span><span>:</span><span class="seconds"></span>
                 </div>
@@ -66,7 +73,6 @@
                     <span>{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</span>
                 </div>
                 {{/unless}}
-            {{/if}}
         </div>
 
         <div id="racer-list-card" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width thin-padding fixed-position" >
@@ -83,14 +89,14 @@
                 {{#each viewer in PageViewers}}
                     {{#if viewer.currentlyRacing}}
                         <tr>
-                            <td>{{viewer.username}}</td>
-                            <td>{{viewer.score}}</td>
+                            <td class="thin-vert-padding">{{viewer.username}}</td>
+                            <td class="thin-vert-padding">{{viewer.score}}</td>
                             {{#if viewer.isReady}}
-                                <td><i class="mdi mdi-check mdi-light mdi-24px center pointer"></i></td>
+                                <td class="thin-vert-padding"><i class="mdi mdi-check mdi-light mdi-24px center pointer"></i></td>
                             {{else}}
-                                <td></td>
+                                <td class="thin-vert-padding"></td>
                             {{/if}}
-                            <td><i id="{{viewer.username}}-remove-button" class="remove-user mdi mdi-account-remove mdi-24px center pointer"></i></td>
+                            <td class="thin-vert-padding"><i id="{{viewer.username}}-remove-button" class="remove-user mdi mdi-account-remove mdi-24px center pointer"></i></td>
                         </tr>
                     {{/if}}
                 {{/each}}

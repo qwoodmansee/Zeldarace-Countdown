@@ -7,6 +7,7 @@ import {PageViewers} from '../../../api/pageViewers/PageViewers.js';
 import '../../partialLayouts/GoalList/GoalList.js';
 import '../../partialLayouts/Scorecard/Scorecard.js';
 import '../../partialLayouts/MM_Scorecard/MM_Scorecard.js';
+import '../../partialLayouts/AdminTools/AdminTools.js';
 import './TimerNonOwner.html';
 import './TimerNonOwner.css';
 
@@ -207,6 +208,7 @@ Template.TimerNonOwner.onCreated(function(){
                                    self.timerStartTime.set(null);
                                    Session.set('goals', fields['goals']);
 
+
                                    //if this is false the timer is the same length as before
                                    if (fields.hasOwnProperty('length')) {
                                        self.timerLength.set(fields['length']);
@@ -242,6 +244,8 @@ Template.TimerNonOwner.onCreated(function(){
 
 Template.TimerNonOwner.onRendered(function() {
     $('.collapsible').collapsible({});
+    //must move the modal to body so it can sit on top of everything else
+    $('.modal-trigger').leanModal();
 });
 
 
@@ -312,6 +316,10 @@ Template.TimerNonOwner.helpers({
 
     LoggedIn() {
         return Meteor.userId();
+    },
+
+    UserIsAdministrator() {
+        return Meteor.user().profile.name === "qwoodmansee" || Meteor.user().profile.name === "qwoodmanseedev";
     }
 });
 

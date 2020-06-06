@@ -26,7 +26,7 @@
                         <button class="waves-effect waves-light btn-large white black-text full-width" id="join-race-button">Join Race</button>
                     {{/if}}
                     <div class="thin-margins full-width">
-                        <a class="waves-effect waves-light btn white black-text modal-trigger full-width" href="#screenshotModal">Screenshot</a>
+                        <button class="waves-effect waves-light btn white black-text modal-trigger full-width" href="#screenshotModal">Screenshot</button>
                     </div>
                 {{else}}
                     <span class="white-text">Log in to officially join race!</span>
@@ -51,22 +51,20 @@
         </div>
 
         <div id="timer" class="card resizable-card grey darken-3 draggable one-fifth-width fixed-position">
-            {{#if Template.subscriptionsReady}}
-                <h1 class="center align-top" id="countdown" hidden>
-                    <span class="hours"></span><span>:</span><span class="minutes"></span><span>:</span><span class="seconds"></span>
-                </h1>
-                {{#unless TimerRunning}}
-                    <div class="center align-top">
-                        <span>{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</span>
-                    </div>
-                {{/unless}}
-            {{/if}}
+            <div class="center align-top" id="countdown" hidden>
+                <span class="hours"></span><span>:</span><span class="minutes"></span><span>:</span><span class="seconds"></span>
+            </div>
+            {{#unless TimerRunning}}
+                <div class="center align-top">
+                    <span>{{UnactiveTimeFormatted.hours}}:{{UnactiveTimeFormatted.minutes}}:{{UnactiveTimeFormatted.seconds}}</span>
+                </div>
+            {{/unless}}
         </div>
 
         <div id="racer-list-card" class="center card-panel grey darken-3 draggable resizable-card one-fifth-width thin-padding fixed-position" >
             <table>
                 <thead>
-                <tr>
+                <tr class="thin-padding">
                     <th data-field="racers">Username</th>
                     <th data-field="scores">Score</th>
                     {{#if TimerNotRunning}}
@@ -78,13 +76,13 @@
                 {{#each viewer in PageViewers}}
                     {{#if viewer.currentlyRacing}}
                         <tr>
-                            <td>{{viewer.username}}</td>
-                            <td>{{viewer.score}}</td>
+                            <td class="thin-padding">{{viewer.username}}</td>
+                            <td class="thin-padding">{{viewer.score}}</td>
                             {{#if TimerNotRunning}}
                                 {{#if viewer.isReady}}
-                                    <td><i class="mdi mdi-check mdi-light mdi-24px center pointer"></i></td>
+                                    <td class="thin-padding"><i class="mdi mdi-check mdi-light mdi-24px center pointer"></i></td>
                                 {{else}}
-                                    <td></td>
+                                    <td class="thin-padding"></td>
                                 {{/if}}
                             {{/if}}
                         </tr>

@@ -93,6 +93,9 @@
                 </div>
             </div>
         </div>
+        {{#if UserIsAdministrator}}
+            {{>AdminTools}}
+        {{/if}}
     </div>
 
 </template>

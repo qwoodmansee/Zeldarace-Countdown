@@ -268,7 +268,8 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                     goals: [],
                     goalsRequired: 0,
                     weights: {active:false},
-                    randomItems: itemsChosen
+                    randomItems: itemsChosen,
+                    is_mm: false
                 };
                 Timers.insert(newTimer);
             }
@@ -290,7 +291,6 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
                     if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
-                        console.log("set mmTimer to true");
                         self.mmTimer.set(true);
                     } else {
                         self.mmTimer.set(false);
@@ -371,6 +371,8 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
 
 
                         } else if (fields['running'] === false) {
+                            clearInterval(timeinterval);
+                            $('#countdown').hide();
 
                             if (fields.hasOwnProperty('goals')) {
                                 // new timer from existing running timer
@@ -381,21 +383,15 @@ Template.StreamLayoutOwnerPage.onCreated(function(){
                                 if (fields.hasOwnProperty('length')) {
                                     self.timerLength.set(fields['length']);
                                 }
-                                clearInterval(timeinterval);
-                                $('#countdown').hide();
 
                             } else if (fields.hasOwnProperty('running')) {
                                 // timer was reset
                                 // new timer from non started timer
                                 self.timerStartTime.set(null);
                                 self.timerRunning.set(false);
-                                clearInterval(timeinterval);
-                                $('#countdown').hide();
                             } else {
                                 // timer ended (hit 00:00:00) - this actually might not happen
                                 self.timerRunning.set(false);
-                                clearInterval(timeinterval);
-                                $('#countdown').hide();
                             }
                         }
 
@@ -519,14 +515,37 @@ Template.StreamLayoutOwnerPage.events({
     'click #timer-start-button': function() {
         var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
         Timers.update(originalTimer._id, {$set: {'timeStarted': new Date(), 'running': true}});
+        let username = Meteor.user().profile.name.toLowerCase();
+        if (username !== "tdavpat" && username !== "senn__" && username !== "mikekatz45"
+            && username !== "prettybigjoe" && username !== "superguerrer3" && username !== "whatthehellshappened"
+            && username !== "qwoodmanseedev") {
+            //notify discord of start if not special circumstances
+            var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
+                + " to check it out";
+            var formData = new FormData();
+            formData.append("content", message);
+            var request = new XMLHttpRequest();
+            request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
+            request.send(formData);
+        }
+    },
+
+    'click #notify-discord-button': function() {
+        var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
+        var version = "OoT";
+        if (originalTimer.hasOwnProperty('is_mm') && originalTimer['is_mm']) {
+            version = "MM"
+        }
         //notify discord of start
-        var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
-            + " to check it out";
+        var message = FlowRouter.getParam("username") + " is looking for " + version + " racers! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
+            + " to join the race!";
         var formData = new FormData();
         formData.append("content", message);
         var request = new XMLHttpRequest();
-        request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
+        request.open("POST", "https://discordapp.com/api/webhooks/371023746183593986/lYTA5l2lT2Fy2QD5VHaC3dJn62eS6JEk-PIG1DDIGUshGjYejNA7ohFsKUSqZTSh-BE1");
         request.send(formData);
+        $('#notify-discord-button').tooltip('hide');
+        $('#notify-discord-button').remove();
     },
 
     'click #timer-reset-button': function() {
@@ -620,7 +639,6 @@ Template.StreamLayoutOwnerPage.events({
         var newPreset = Template.instance().createPreset();
         // find the presets that are associated with this user
         var presetsRetVal = Presets.findOne({createdBy: Meteor.user().profile.name});
-        console.log(presetsRetVal);
 
         // if a preset has never been made for this user
         if (presetsRetVal) {
@@ -636,8 +654,6 @@ Template.StreamLayoutOwnerPage.events({
                 createdBy: Meteor.user().profile.name,
                 presets: temp
             };
-            console.log("inserting new preset row");
-            console.log(presetObject);
             Presets.insert(presetObject);
         }
     },

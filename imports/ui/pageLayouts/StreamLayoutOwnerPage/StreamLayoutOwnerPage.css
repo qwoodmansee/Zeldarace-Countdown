@@ -1,3 +1,6 @@
+.medium-text-size {
+    font-size: .75em;
+}
 .full-width {
     width:100%;
 }
@@ -48,6 +51,10 @@
 
 .thin-padding {
     padding: .4em;
+}
+.thin-vert-padding {
+    padding-top: .4em;
+    padding-bottom: .4em;
 }
 .dark-background {
     background-color: grey;

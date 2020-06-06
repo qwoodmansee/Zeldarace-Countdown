@@ -13,6 +13,7 @@ import '../../partialLayouts/GenerateTimerModal/GenerateTimerModal.js';
 import '../../partialLayouts/GoalList/GoalList.js';
 import '../../partialLayouts/Scorecard/Scorecard.js';
 import '../../partialLayouts/MM_Scorecard/MM_Scorecard.js';
+import '../../partialLayouts/AdminTools/AdminTools.js';
 import './TimerOwner.html';
 import './TimerOwner.css';
 
@@ -91,7 +92,8 @@ Template.TimerOwner.onCreated(function(){
                     goals: [],
                     goalsRequired: 0,
                     weights: {active:false},
-                    randomItems: itemsChosen
+                    randomItems: itemsChosen,
+                    is_mm: false
                 };
                 Timers.insert(newTimer);
             }
@@ -112,9 +114,7 @@ Template.TimerOwner.onCreated(function(){
                     self.timerExists.set(true);
                     self.timerRunning.set(timer['running']);
                     self.timerLength.set(timer['length']);
-                    console.log(timer);
                     if (timer.hasOwnProperty('is_mm') && timer['is_mm'] === true) {
-                        console.log("set mmTimer to true");
                         self.mmTimer.set(true);
                     } else {
                         self.mmTimer.set(false);
@@ -182,6 +182,9 @@ Template.TimerOwner.onCreated(function(){
                 var query = Timers.find();
                 var handle = query.observeChanges({
                     changed: function(id, fields) {
+                        if (fields.hasOwnProperty('is_mm')) {
+                            self.mmTimer.set(fields['is_mm']);
+                        }
 
                         if (fields['running'] === true) {
                             // timer started
@@ -220,9 +223,7 @@ Template.TimerOwner.onCreated(function(){
                                 $('#countdown').hide();
                             }
                         }
-                        if (fields.hasOwnProperty('is_mm')) {
-                            self.mmTimer.set(fields['is_mm']);
-                        }
+
                         if (fields.hasOwnProperty('goals')) {
                             // new timer from non started timer
                             self.timerStartTime.set(null);
@@ -323,6 +324,10 @@ Template.TimerOwner.helpers({
         if (viewer) {
             return viewer.isReady;
         }
+    },
+
+    UserIsAdministrator() {
+        return Meteor.user().profile.name === "qwoodmansee" || Meteor.user().profile.name === "qwoodmanseedev";
     }
 });
 
@@ -330,14 +335,19 @@ Template.TimerOwner.events({
    'click #timer-start-button': function() {
        var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
        Timers.update(originalTimer._id, {$set: {'timeStarted': new Date(), 'running': true}});
-       //notify discord of start
-       var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
-                    + " to check it out";
-       var formData = new FormData();
-       formData.append("content", message);
-       var request = new XMLHttpRequest();
-       //request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
-       //request.send(formData);
+       var username = Meteor.user().profile.name.toLowerCase();
+       if (username !== "tdavpat" && username !== "senn__" && username !== "mikekatz45"
+           && username !== "prettybigjoe" && username !== "superguerrer3" && username !== "whatthehellshappened"
+           && username !== "qwoodmanseedev") {
+           //notify discord of start if not special circumstances
+           var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
+               + " to check it out";
+           var formData = new FormData();
+           formData.append("content", message);
+           var request = new XMLHttpRequest();
+           request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
+           request.send(formData);
+       }
    },
 
    'click #timer-reset-button': function() {

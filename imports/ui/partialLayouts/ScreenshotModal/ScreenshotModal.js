@@ -29,7 +29,7 @@ Template.body.events({
                             // create a message that will be used to mark some info about the race
                             var message = Meteor.user().profile.name +
                                 "'s scorecard, hosted by " + FlowRouter.getParam('username');
-                            var originalTimer = Timers.findOne({ownerId: Meteor.userId()});
+                            var originalTimer = Timers.findOne({owner: FlowRouter.getParam('username')});
                             if (originalTimer) {
                                message = originalTimer.length + " minutes, " + message;
                             }
