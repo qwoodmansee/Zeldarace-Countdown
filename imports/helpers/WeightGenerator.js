@@ -1,11 +1,11 @@
-import { ItemList } from './ItemList.js'
+import {ItemList} from './ItemList.js'
 
-export const WeightGenerator = () => {
+export const WeightGenerator = function() {
     var self = this;
     self.itemListGenerator = new ItemList();
     self.allItems = self.itemListGenerator.allItems;
 
-    self.generateEqualWeights = () => {
+    self.generateEqualWeights = function() {
         var weights = {};
         for (var i=0; i < self.allItems.length; i++) {
             weights[self.allItems[i][0]] = 1;
@@ -13,7 +13,7 @@ export const WeightGenerator = () => {
         return weights;
     };
 
-    self.generateRandomWeights = (allowNegative) => {
+    self.generateRandomWeights = function(allowNegative) {
         var temp;
         var weights = {};
         for (var i=0; i < self.allItems.length; i++) {
@@ -27,7 +27,7 @@ export const WeightGenerator = () => {
         return weights;
     };
 
-    self.generateSmartWeights = (allowNegative, RBA) => {
+    self.generateSmartWeights = function(allowNegative, RBA) {
         var weights = {};
         var mean;
         var stdev;
@@ -49,7 +49,7 @@ export const WeightGenerator = () => {
         return weights
     };
 
-    self.generateRandomNumber = (positiveMin, max, allowNegative) => {
+    self.generateRandomNumber = function(positiveMin, max, allowNegative) {
         var num = Math.floor(Math.random()*max) + positiveMin; // this will get a number between positive min and max;
 
         if (allowNegative) {
@@ -64,7 +64,7 @@ export const WeightGenerator = () => {
 
     //helper function which will allow a standard distribution to be created to find weights based on mean and std dev
     //src: http://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
-    self._gaussian = (mean, stdev) => {
+    self._gaussian = function(mean, stdev) {
         var y2;
         var use_last = false;
         return function() {
@@ -93,4 +93,6 @@ export const WeightGenerator = () => {
             return retval;
         }
     }
+
+
 };

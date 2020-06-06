@@ -4,8 +4,10 @@
  */
 import {Timers} from "../api/timers/Timers.js";
 
- export const ActualTimerFunctions = (parent, dbTimerObject) => {
+ export const ActualTimerFunctions = function(parent, dbTimerObject) {
     var self = this;
     self.parent = parent;
-    self.dbTimerObject = dbTimerObject;
+
+     self.dbTimerObject = dbTimerObject;
+
 };

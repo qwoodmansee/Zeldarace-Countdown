@@ -10,13 +10,13 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 export const PageViewers = new Mongo.Collection('PageViewers');
 
 PageViewers.allow({
-    insert: (userId, doc) => {
+    insert: function(userId, doc) {
         return !!userId;
     },
-    update: (userId, doc, fields, modifier) => {
+    update: function(userId, doc, fields, modifier) {
         return !!userId;
     },
-    remove: (username, doc) => {
+    remove: function(username, doc) {
         return doc.username === username;
     }
 });
@@ -41,3 +41,4 @@ PageViewersSchema = new SimpleSchema({
 });
 
 PageViewers.attachSchema(PageViewersSchema);
+

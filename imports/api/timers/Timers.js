@@ -9,10 +9,10 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 export const Timers = new Mongo.Collection('Timers');
 
 Timers.allow({
-   insert: (userId, doc) => {
+   insert: function(userId, doc) {
        return !!userId;
    },
-   update: (userId, doc, fields, modifier) => {
+   update: function(userId, doc, fields, modifier) {
        return doc.ownerId === userId;
    }
 });

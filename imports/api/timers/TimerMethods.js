@@ -3,7 +3,7 @@
  */
 
 Meteor.methods({
-    insertTimer: (timer) => {
+    insertTimer: function(timer) {
         check(timer, Timers.simpleSchema());
         try {
             var timerId = Timers.insert(timer);
