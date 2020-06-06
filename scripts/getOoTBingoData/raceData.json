@@ -9,51 +9,51 @@
     "Get to the end of Fire Trial": {
         "difficulty": "10", 
         "skill": "0.25", 
-        "#timey": "7.5", 
+        "#timey": "7.25", 
         "name": "Get to the end of Fire Trial", 
-        "time": "7.75"
+        "time": "7.5"
     }, 
     "6 Songs": {
         "difficulty": "7", 
         "skill": "", 
-        "#timey": "5.5", 
+        "#timey": "5.25", 
         "name": "6 Songs", 
-        "time": "5.5"
+        "time": "5.25"
     }, 
     "All 8 Zora's Domain area Skulltulas": {
-        "difficulty": "14", 
+        "difficulty": "13", 
         "skill": "0.5", 
-        "#timey": "10", 
+        "#timey": "9.25", 
         "name": "All 8 Zora's Domain area Skulltulas", 
-        "time": "10.5"
+        "time": "9.75"
     }, 
-    "All 4 Gerudo Valley area Skulltulas": {
-        "difficulty": "9", 
-        "skill": "0.25", 
-        "#timey": "6.75", 
-        "name": "All 4 Gerudo Valley area Skulltulas", 
-        "time": "7"
+    "8 Hearts (no duping)": {
+        "difficulty": "17", 
+        "skill": "0.75", 
+        "#timey": "12", 
+        "name": "8 Hearts (no duping)", 
+        "time": "12.75"
     }, 
     "3 Boss Keys": {
-        "difficulty": "14", 
+        "difficulty": "11", 
         "skill": "0.25", 
-        "#timey": "10", 
+        "#timey": "8", 
         "name": "3 Boss Keys", 
-        "time": "10.25"
+        "time": "8.25"
     }, 
     "Defeat Twinrova": {
-        "difficulty": "25", 
+        "difficulty": "23", 
         "skill": "1", 
-        "#timey": "18", 
+        "#timey": "16.25", 
         "name": "Defeat Twinrova", 
-        "time": "19"
+        "time": "17.25"
     }, 
     "Fairy Slingshot": {
         "difficulty": "5", 
         "skill": "", 
-        "#timey": "4", 
+        "#timey": "3.75", 
         "name": "Fairy Slingshot", 
-        "time": "4"
+        "time": "3.75"
     }, 
     "6 Hearts": {
         "difficulty": "8", 
@@ -70,18 +70,18 @@
         "time": "4.5"
     }, 
     "Nayru's Love": {
-        "difficulty": "21", 
-        "skill": "0.25", 
-        "#timey": "15.25", 
+        "difficulty": "20", 
+        "skill": "0.5", 
+        "#timey": "14.5", 
         "name": "Nayru's Love", 
-        "time": "15.5"
+        "time": "15"
     }, 
     "3 Swords & 3 Tunics": {
         "difficulty": "6", 
         "skill": "", 
-        "#timey": "4.25", 
+        "#timey": "4.75", 
         "name": "3 Swords & 3 Tunics", 
-        "time": "4.25"
+        "time": "4.75"
     }, 
     "Map & Compass in Ice Cavern": {
         "difficulty": "6", 
@@ -91,18 +91,18 @@
         "time": "4.75"
     }, 
     "1 Unused Small Key in each Adult Dungeon": {
-        "difficulty": "22", 
+        "difficulty": "21", 
         "skill": "0.75", 
-        "#timey": "15.5", 
+        "#timey": "15.25", 
         "name": "1 Unused Small Key in each Adult Dungeon", 
-        "time": "16.25"
+        "time": "16"
     }, 
     "Obtain all 5 Small Keys in Forest Temple": {
-        "difficulty": "17", 
+        "difficulty": "13", 
         "skill": "0.25", 
-        "#timey": "12.5", 
+        "#timey": "9.5", 
         "name": "Obtain all 5 Small Keys in Forest Temple", 
-        "time": "12.75"
+        "time": "9.75"
     }, 
     "Both HPs in Death Mountain Crater": {
         "difficulty": "3", 
@@ -114,16 +114,16 @@
     "Map & Compass in Deku Tree": {
         "difficulty": "5", 
         "skill": "0.25", 
-        "#timey": "3.75", 
+        "#timey": "3.5", 
         "name": "Map & Compass in Deku Tree", 
-        "time": "4"
+        "time": "3.75"
     }, 
     "Gerudo's Card": {
         "difficulty": "12", 
         "skill": "", 
-        "#timey": "9", 
+        "#timey": "9.25", 
         "name": "Gerudo's Card", 
-        "time": "9"
+        "time": "9.25"
     }, 
     "Defeat Amy (Green Poe)": {
         "difficulty": "12", 
@@ -132,19 +132,26 @@
         "name": "Defeat Amy (Green Poe)", 
         "time": "9.25"
     }, 
-    "Map & Compass in Shadow Temple": {
-        "difficulty": "7", 
-        "skill": "", 
-        "#timey": "5", 
-        "name": "Map & Compass in Shadow Temple", 
-        "time": "5"
+    "All 4 Gerudo Valley area Skulltulas": {
+        "difficulty": "9", 
+        "skill": "0.25", 
+        "#timey": "6.75", 
+        "name": "All 4 Gerudo Valley area Skulltulas", 
+        "time": "7"
     }, 
-    "3 Songs": {
+    "Map & Compass in Shadow Temple": {
         "difficulty": "6", 
         "skill": "", 
-        "#timey": "4.25", 
+        "#timey": "4.75", 
+        "name": "Map & Compass in Shadow Temple", 
+        "time": "4.75"
+    }, 
+    "3 Songs": {
+        "difficulty": "5", 
+        "skill": "", 
+        "#timey": "4", 
         "name": "3 Songs", 
-        "time": "4.25"
+        "time": "4"
     }, 
     "Beat Dodongo's Cavern": {
         "difficulty": "8", 
@@ -156,9 +163,9 @@
     "Goron Tunic": {
         "difficulty": "2", 
         "skill": "", 
-        "#timey": "1.75", 
+        "#timey": "1.5", 
         "name": "Goron Tunic", 
-        "time": "1.75"
+        "time": "1.5"
     }, 
     "All 3 Skulltulas in Bottom of the Well": {
         "difficulty": "5", 
@@ -175,18 +182,18 @@
         "time": "3.5"
     }, 
     "Blue Gauntlets": {
-        "difficulty": "17", 
+        "difficulty": "15", 
         "skill": "0.5", 
-        "#timey": "12.5", 
+        "#timey": "11", 
         "name": "Blue Gauntlets", 
-        "time": "13"
+        "time": "11.5"
     }, 
     "Defeat 4 Different Iron Knuckles": {
-        "difficulty": "23", 
-        "skill": "0.5", 
-        "#timey": "16.5", 
+        "difficulty": "21", 
+        "skill": "0.75", 
+        "#timey": "15.25", 
         "name": "Defeat 4 Different Iron Knuckles", 
-        "time": "17"
+        "time": "16"
     }, 
     "Minuet of Forest": {
         "difficulty": "2", 
@@ -198,9 +205,9 @@
     "Spirit Temple Boss Key": {
         "difficulty": "19", 
         "skill": "", 
-        "#timey": "14.5", 
+        "#timey": "14", 
         "name": "Spirit Temple Boss Key", 
-        "time": "14.5"
+        "time": "14"
     }, 
     "Lon Lon Ranch HP": {
         "difficulty": "3", 
@@ -210,11 +217,11 @@
         "time": "2.25"
     }, 
     "Beat the Deku Tree": {
-        "difficulty": "7", 
+        "difficulty": "6", 
         "skill": "0.25", 
-        "#timey": "5.25", 
+        "#timey": "4.5", 
         "name": "Beat the Deku Tree", 
-        "time": "5.5"
+        "time": "4.75"
     }, 
     "Water Medallion": {
         "difficulty": "9", 
@@ -224,74 +231,74 @@
         "time": "6.5"
     }, 
     "Map & Compass in Forest Temple": {
-        "difficulty": "15", 
-        "skill": "0.25", 
-        "#timey": "11", 
-        "name": "Map & Compass in Forest Temple", 
-        "time": "11.25"
-    }, 
-    "Megaton Hammer": {
         "difficulty": "14", 
         "skill": "0.25", 
         "#timey": "10", 
-        "name": "Megaton Hammer", 
+        "name": "Map & Compass in Forest Temple", 
         "time": "10.25"
     }, 
+    "Megaton Hammer": {
+        "difficulty": "13", 
+        "skill": "0.25", 
+        "#timey": "9.75", 
+        "name": "Megaton Hammer", 
+        "time": "10"
+    }, 
     "3 Shields & 3 Boots": {
-        "difficulty": "23", 
+        "difficulty": "21", 
         "skill": "0.75", 
-        "#timey": "16.25", 
+        "#timey": "15", 
         "name": "3 Shields & 3 Boots", 
-        "time": "17"
+        "time": "15.75"
     }, 
     "6 Maps": {
-        "difficulty": "16", 
+        "difficulty": "14", 
         "skill": "0.5", 
-        "#timey": "11.5", 
+        "#timey": "10", 
         "name": "6 Maps", 
-        "time": "12"
+        "time": "10.5"
     }, 
     "Defeat Bongo-Bongo": {
-        "difficulty": "12", 
-        "skill": "0.75", 
-        "#timey": "8", 
+        "difficulty": "8", 
+        "skill": "0.5", 
+        "#timey": "5.5", 
         "name": "Defeat Bongo-Bongo", 
-        "time": "8.75"
+        "time": "6"
     }, 
     "Blue Potion": {
         "difficulty": "6", 
         "skill": "", 
-        "#timey": "4.5", 
+        "#timey": "4.25", 
         "name": "Blue Potion", 
-        "time": "4.5"
+        "time": "4.25"
     }, 
     "Defeat Phantom Ganon": {
         "difficulty": "6", 
         "skill": "", 
-        "#timey": "4.5", 
+        "#timey": "4.75", 
         "name": "Defeat Phantom Ganon", 
-        "time": "4.5"
+        "time": "4.75"
     }, 
     "3 Unused Keys in Gerudo Training Grounds": {
-        "difficulty": "6", 
+        "difficulty": "8", 
         "skill": "0.25", 
-        "#timey": "4.25", 
+        "#timey": "5.75", 
         "name": "3 Unused Keys in Gerudo Training Grounds", 
-        "time": "4.5"
+        "time": "6"
     }, 
     "Silver Gauntlets": {
-        "difficulty": "15", 
+        "difficulty": "13", 
         "skill": "0.5", 
-        "#timey": "10.5", 
+        "#timey": "9.5", 
         "name": "Silver Gauntlets", 
-        "time": "11"
+        "time": "10"
     }, 
     "4 Unused Keys in Forest Temple": {
-        "difficulty": "9", 
+        "difficulty": "8", 
         "skill": "", 
-        "#timey": "6.5", 
+        "#timey": "6.25", 
         "name": "4 Unused Keys in Forest Temple", 
-        "time": "6.5"
+        "time": "6.25"
     }, 
     "All 4 Lost Woods area Skulltulas": {
         "difficulty": "7", 
@@ -308,18 +315,18 @@
         "time": "0.5"
     }, 
     "10 Songs": {
-        "difficulty": "25", 
+        "difficulty": "24", 
         "skill": "0.25", 
-        "#timey": "18.5", 
+        "#timey": "17.5", 
         "name": "10 Songs", 
-        "time": "18.75"
+        "time": "17.75"
     }, 
     "All 4 Skulltulas in Jabu-Jabu": {
-        "difficulty": "10", 
-        "skill": "0.5", 
-        "#timey": "7", 
+        "difficulty": "6", 
+        "skill": "0.25", 
+        "#timey": "4.25", 
         "name": "All 4 Skulltulas in Jabu-Jabu", 
-        "time": "7.5"
+        "time": "4.5"
     }, 
     "Din's Fire": {
         "difficulty": "19", 
@@ -336,25 +343,25 @@
         "time": "14.25"
     }, 
     "All 5 Skulltulas in Shadow Temple": {
-        "difficulty": "22", 
-        "skill": "0.25", 
-        "#timey": "16", 
+        "difficulty": "21", 
+        "skill": "0.5", 
+        "#timey": "15", 
         "name": "All 5 Skulltulas in Shadow Temple", 
-        "time": "16.25"
+        "time": "15.5"
     }, 
     "5 Compasses": {
-        "difficulty": "15", 
+        "difficulty": "12", 
         "skill": "0.25", 
-        "#timey": "11", 
+        "#timey": "9", 
         "name": "5 Compasses", 
-        "time": "11.25"
+        "time": "9.25"
     }, 
     "Ice Arrows": {
-        "difficulty": "5", 
+        "difficulty": "7", 
         "skill": "0.25", 
-        "#timey": "3.75", 
+        "#timey": "4.75", 
         "name": "Ice Arrows", 
-        "time": "4"
+        "time": "5"
     }, 
     "5 Hearts": {
         "difficulty": "3", 
@@ -364,18 +371,18 @@
         "time": "2.5"
     }, 
     "Map & Compass in Spirit Temple": {
-        "difficulty": "24", 
+        "difficulty": "25", 
         "skill": "1", 
-        "#timey": "16.75", 
+        "#timey": "17.5", 
         "name": "Map & Compass in Spirit Temple", 
-        "time": "17.75"
+        "time": "18.5"
     }, 
     "500 Rupees": {
-        "difficulty": "11", 
+        "difficulty": "7", 
         "skill": "0.25", 
-        "#timey": "8", 
+        "#timey": "5", 
         "name": "500 Rupees", 
-        "time": "8.25"
+        "time": "5.25"
     }, 
     "Epona's Song": {
         "difficulty": "9", 
@@ -387,9 +394,9 @@
     "9 Songs": {
         "difficulty": "15", 
         "skill": "", 
-        "#timey": "11.5", 
+        "#timey": "11.25", 
         "name": "9 Songs", 
-        "time": "11.5"
+        "time": "11.25"
     }, 
     "Blue Fire": {
         "difficulty": "5", 
@@ -413,39 +420,39 @@
         "time": "0.5"
     }, 
     "Keaton Mask": {
-        "difficulty": "14", 
+        "difficulty": "13", 
         "skill": "", 
-        "#timey": "10.25", 
+        "#timey": "9.75", 
         "name": "Keaton Mask", 
-        "time": "10.25"
+        "time": "9.75"
     }, 
     "5 Zora area HPs": {
-        "difficulty": "12", 
+        "difficulty": "14", 
         "skill": "0.5", 
-        "#timey": "8.5", 
+        "#timey": "10", 
         "name": "5 Zora area HPs", 
-        "time": "9"
+        "time": "10.5"
     }, 
     "Shadow Temple Boss Key": {
         "difficulty": "12", 
         "skill": "0.25", 
-        "#timey": "9", 
+        "#timey": "8.75", 
         "name": "Shadow Temple Boss Key", 
-        "time": "9.25"
+        "time": "9"
     }, 
     "3 Shields": {
-        "difficulty": "16", 
+        "difficulty": "14", 
         "skill": "0.5", 
-        "#timey": "11.25", 
+        "#timey": "10", 
         "name": "3 Shields", 
-        "time": "11.75"
+        "time": "10.5"
     }, 
     "4 Skulltulas in Shadow Temple": {
         "difficulty": "13", 
-        "skill": "0.25", 
-        "#timey": "9.5", 
+        "skill": "0.5", 
+        "#timey": "9", 
         "name": "4 Skulltulas in Shadow Temple", 
-        "time": "9.75"
+        "time": "9.5"
     }, 
     "All 5 Skulltulas in Forest Temple": {
         "difficulty": "9", 
@@ -455,11 +462,11 @@
         "time": "6.75"
     }, 
     "Defeat Big Octo": {
-        "difficulty": "10", 
-        "skill": "0.5", 
-        "#timey": "7.25", 
+        "difficulty": "8", 
+        "skill": "0.25", 
+        "#timey": "6", 
         "name": "Defeat Big Octo", 
-        "time": "7.75"
+        "time": "6.25"
     }, 
     "Longshot": {
         "difficulty": "9", 
@@ -469,11 +476,11 @@
         "time": "7"
     }, 
     "Saria's Song": {
-        "difficulty": "17", 
+        "difficulty": "16", 
         "skill": "", 
-        "#timey": "12.5", 
+        "#timey": "12", 
         "name": "Saria's Song", 
-        "time": "12.5"
+        "time": "12"
     }, 
     "Win Bombchu Bowling Prize": {
         "difficulty": "9", 
@@ -483,11 +490,11 @@
         "time": "6.75"
     }, 
     "Giant's Wallet": {
-        "difficulty": "8", 
+        "difficulty": "5", 
         "skill": "0.25", 
-        "#timey": "6", 
+        "#timey": "3.5", 
         "name": "Giant's Wallet", 
-        "time": "6.25"
+        "time": "3.75"
     }, 
     "All 3 Kokiri Forest area Skulltulas": {
         "difficulty": "6", 
@@ -497,18 +504,18 @@
         "time": "4.5"
     }, 
     "Mirror Shield": {
-        "difficulty": "15", 
+        "difficulty": "13", 
         "skill": "0.5", 
-        "#timey": "10.75", 
+        "#timey": "9.5", 
         "name": "Mirror Shield", 
-        "time": "11.25"
+        "time": "10"
     }, 
     "Goron Bracelet": {
-        "difficulty": "21", 
+        "difficulty": "20", 
         "skill": "", 
-        "#timey": "15.5", 
+        "#timey": "15", 
         "name": "Goron Bracelet", 
-        "time": "15.5"
+        "time": "15"
     }, 
     "Iron Boots": {
         "difficulty": "7", 
@@ -518,11 +525,11 @@
         "time": "5.5"
     }, 
     "All 4 Lon-Lon Ranch area Skulltulas": {
-        "difficulty": "10", 
-        "skill": "0.5", 
-        "#timey": "7.25", 
+        "difficulty": "8", 
+        "skill": "0.75", 
+        "#timey": "5", 
         "name": "All 4 Lon-Lon Ranch area Skulltulas", 
-        "time": "7.75"
+        "time": "5.75"
     }, 
     "4 Unused Keys in Gerudo Training Grounds": {
         "difficulty": "7", 
@@ -532,25 +539,18 @@
         "time": "5.25"
     }, 
     "Beat the Fire Temple": {
-        "difficulty": "18", 
+        "difficulty": "17", 
         "skill": "0.25", 
-        "#timey": "13", 
+        "#timey": "12.25", 
         "name": "Beat the Fire Temple", 
-        "time": "13.25"
+        "time": "12.5"
     }, 
     "5 Maps": {
-        "difficulty": "10", 
+        "difficulty": "9", 
         "skill": "0.25", 
-        "#timey": "7.5", 
+        "#timey": "6.75", 
         "name": "5 Maps", 
-        "time": "7.75"
-    }, 
-    "8 Hearts": {
-        "difficulty": "17", 
-        "skill": "0.75", 
-        "#timey": "12", 
-        "name": "8 Hearts", 
-        "time": "12.75"
+        "time": "7"
     }, 
     "2 Boss Keys": {
         "difficulty": "6", 
@@ -562,37 +562,37 @@
     "8 Different Unused Keys in Gerudo Training Grounds": {
         "difficulty": "14", 
         "skill": "0.5", 
-        "#timey": "9.75", 
+        "#timey": "10", 
         "name": "8 Different Unused Keys in Gerudo Training Grounds", 
-        "time": "10.25"
+        "time": "10.5"
     }, 
     "Get to the end of Light Trial": {
         "difficulty": "11", 
         "skill": "0.25", 
-        "#timey": "8", 
+        "#timey": "7.75", 
         "name": "Get to the end of Light Trial", 
-        "time": "8.25"
+        "time": "8"
     }, 
     "Defeat Nabooru-Knuckle": {
-        "difficulty": "17", 
+        "difficulty": "16", 
         "skill": "1", 
-        "#timey": "12", 
+        "#timey": "11.25", 
         "name": "Defeat Nabooru-Knuckle", 
-        "time": "13"
+        "time": "12.25"
     }, 
     "Fill all 4 Bottle Slots": {
-        "difficulty": "7", 
+        "difficulty": "6", 
         "skill": "", 
-        "#timey": "5", 
+        "#timey": "4.75", 
         "name": "Fill all 4 Bottle Slots", 
-        "time": "5"
+        "time": "4.75"
     }, 
     "All 3 Elemental Arrows": {
         "difficulty": "25", 
         "skill": "0.5", 
-        "#timey": "18.5", 
+        "#timey": "18.25", 
         "name": "All 3 Elemental Arrows", 
-        "time": "19"
+        "time": "18.75"
     }, 
     "Golden Gauntlets": {
         "difficulty": "8", 
@@ -602,18 +602,18 @@
         "time": "5.75"
     }, 
     "Milk": {
-        "difficulty": "8", 
+        "difficulty": "7", 
         "skill": "", 
-        "#timey": "6.25", 
+        "#timey": "5.5", 
         "name": "Milk", 
-        "time": "6.25"
+        "time": "5.5"
     }, 
     "Zora Tunic": {
         "difficulty": "2", 
         "skill": "", 
-        "#timey": "1.5", 
+        "#timey": "1.75", 
         "name": "Zora Tunic", 
-        "time": "1.5"
+        "time": "1.75"
     }, 
     "All 4 Skulltulas in Deku Tree": {
         "difficulty": "10", 
@@ -632,23 +632,23 @@
     "1 Skulltula from each Adult Dungeon": {
         "difficulty": "24", 
         "skill": "1", 
-        "#timey": "17", 
+        "#timey": "16.75", 
         "name": "1 Skulltula from each Adult Dungeon", 
-        "time": "18"
+        "time": "17.75"
     }, 
     "7 Maps": {
-        "difficulty": "21", 
+        "difficulty": "19", 
         "skill": "0.5", 
-        "#timey": "15.5", 
+        "#timey": "14", 
         "name": "7 Maps", 
-        "time": "16"
+        "time": "14.5"
     }, 
     "4 Maps": {
-        "difficulty": "6", 
+        "difficulty": "5", 
         "skill": "", 
-        "#timey": "4.25", 
+        "#timey": "3.5", 
         "name": "4 Maps", 
-        "time": "4.25"
+        "time": "3.5"
     }, 
     "Quiver (50)": {
         "difficulty": "19", 
@@ -657,47 +657,47 @@
         "name": "Quiver (50)", 
         "time": "14.25"
     }, 
+    "9 Hearts (no duping)": {
+        "difficulty": "23", 
+        "skill": "", 
+        "#timey": "16", 
+        "name": "9 Hearts (no duping)", 
+        "time": "17"
+    }, 
     "Map & Compass in Fire Temple": {
         "difficulty": "12", 
         "skill": "", 
-        "#timey": "9", 
+        "#timey": "8.75", 
         "name": "Map & Compass in Fire Temple", 
-        "time": "9"
-    }, 
-    "Spooky Mask": {
-        "difficulty": "18", 
-        "skill": "0.5", 
-        "#timey": "13", 
-        "name": "Spooky Mask", 
-        "time": "13.5"
+        "time": "8.75"
     }, 
     "All 8 Death Mountain area Skulltulas": {
-        "difficulty": "11", 
-        "skill": "", 
-        "#timey": "8.25", 
+        "difficulty": "10", 
+        "skill": "0.5", 
+        "#timey": "7", 
         "name": "All 8 Death Mountain area Skulltulas", 
-        "time": "8.25"
+        "time": "7.5"
     }, 
-    "9 Hearts": {
-        "difficulty": "23", 
-        "skill": "1", 
-        "#timey": "16", 
-        "name": "9 Hearts", 
-        "time": "17"
+    "Defeat Dark Link": {
+        "difficulty": "9", 
+        "skill": "0.25", 
+        "#timey": "6.75", 
+        "name": "Defeat Dark Link", 
+        "time": "7"
     }, 
     "Fire Medallion": {
-        "difficulty": "19", 
+        "difficulty": "18", 
         "skill": "0.25", 
-        "#timey": "14", 
+        "#timey": "13.25", 
         "name": "Fire Medallion", 
-        "time": "14.25"
+        "time": "13.5"
     }, 
     "Map & Compass in Water Temple": {
-        "difficulty": "9", 
+        "difficulty": "8", 
         "skill": "0.5", 
-        "#timey": "6.5", 
+        "#timey": "5.75", 
         "name": "Map & Compass in Water Temple", 
-        "time": "7"
+        "time": "6.25"
     }, 
     "Fire Arrows": {
         "difficulty": "11", 
@@ -707,11 +707,11 @@
         "time": "8.5"
     }, 
     "Stone of Agony": {
-        "difficulty": "11", 
-        "skill": "0.5", 
-        "#timey": "7.75", 
+        "difficulty": "7", 
+        "skill": "1", 
+        "#timey": "4.5", 
         "name": "Stone of Agony", 
-        "time": "8.25"
+        "time": "5.5"
     }, 
     "Giant's Knife": {
         "difficulty": "1", 
@@ -721,18 +721,18 @@
         "time": "1"
     }, 
     "Defeat Queen Gohma": {
-        "difficulty": "7", 
+        "difficulty": "6", 
         "skill": "", 
-        "#timey": "5.25", 
+        "#timey": "4.25", 
         "name": "Defeat Queen Gohma", 
-        "time": "5.25"
+        "time": "4.25"
     }, 
     "3 Shields & 3 Tunics": {
-        "difficulty": "20", 
+        "difficulty": "18", 
         "skill": "0.5", 
-        "#timey": "14.5", 
+        "#timey": "12.75", 
         "name": "3 Shields & 3 Tunics", 
-        "time": "15"
+        "time": "13.25"
     }, 
     "Bomb Bag (30)": {
         "difficulty": "1", 
@@ -742,18 +742,18 @@
         "time": "0"
     }, 
     "3 Swords, Tunics, Boots, and Shields": {
-        "difficulty": "25", 
+        "difficulty": "22", 
         "skill": "0.75", 
-        "#timey": "18.25", 
+        "#timey": "16", 
         "name": "3 Swords, Tunics, Boots, and Shields", 
-        "time": "19"
+        "time": "16.75"
     }, 
     "1 Skulltula from each Child Dungeon": {
-        "difficulty": "14", 
-        "skill": "0.5", 
-        "#timey": "9.75", 
+        "difficulty": "10", 
+        "skill": "0.25", 
+        "#timey": "7", 
         "name": "1 Skulltula from each Child Dungeon", 
-        "time": "10.25"
+        "time": "7.25"
     }, 
     "Map & Compass in Bottom of the Well": {
         "difficulty": "1", 
@@ -765,9 +765,9 @@
     "Two Fairy Spells": {
         "difficulty": "25", 
         "skill": "0.25", 
-        "#timey": "18.75", 
+        "#timey": "18.5", 
         "name": "Two Fairy Spells", 
-        "time": "19"
+        "time": "18.75"
     }, 
     "Ganon's Castle Boss Key": {
         "difficulty": "6", 
@@ -777,11 +777,11 @@
         "time": "4.25"
     }, 
     "Get to the end of Spirit Trial": {
-        "difficulty": "20", 
+        "difficulty": "19", 
         "skill": "0.75", 
-        "#timey": "14.25", 
+        "#timey": "13.25", 
         "name": "Get to the end of Spirit Trial", 
-        "time": "15"
+        "time": "14"
     }, 
     "3 Tunics": {
         "difficulty": "4", 
@@ -796,6 +796,13 @@
         "#timey": "4.5", 
         "name": "Defeat a White Wolfos", 
         "time": "4.75"
+    }, 
+    "Clear 4 Silver Rupee Rooms": {
+        "difficulty": "6", 
+        "skill": "0.25", 
+        "#timey": "4", 
+        "name": "Clear 4 Silver Rupee Rooms", 
+        "time": "4.25"
     }, 
     "3 Lake Hylia Skulltulas": {
         "difficulty": "7", 
@@ -819,11 +826,11 @@
         "time": "0.25"
     }, 
     "7 Compasses": {
-        "difficulty": "24", 
+        "difficulty": "23", 
         "skill": "1", 
-        "#timey": "17.25", 
+        "#timey": "16", 
         "name": "7 Compasses", 
-        "time": "18.25"
+        "time": "17"
     }, 
     "Bolero of Fire": {
         "difficulty": "2", 
@@ -834,10 +841,10 @@
     }, 
     "Requiem of Spirit": {
         "difficulty": "10", 
-        "skill": "0.25", 
+        "skill": "0.5", 
         "#timey": "7", 
         "name": "Requiem of Spirit", 
-        "time": "7.25"
+        "time": "7.5"
     }, 
     "All 3 Skulltulas in Ice Cavern": {
         "difficulty": "6", 
@@ -847,32 +854,32 @@
         "time": "4.25"
     }, 
     "7 Different Unused Keys in Gerudo Training Grounds": {
-        "difficulty": "12", 
+        "difficulty": "13", 
         "skill": "0.5", 
-        "#timey": "8.25", 
+        "#timey": "9.25", 
         "name": "7 Different Unused Keys in Gerudo Training Grounds", 
-        "time": "8.75"
+        "time": "9.75"
     }, 
     "Boomerang": {
-        "difficulty": "11", 
+        "difficulty": "9", 
         "skill": "0.25", 
-        "#timey": "8.25", 
+        "#timey": "6.25", 
         "name": "Boomerang", 
-        "time": "8.5"
+        "time": "6.5"
     }, 
     "7 Songs": {
-        "difficulty": "10", 
+        "difficulty": "9", 
         "skill": "", 
-        "#timey": "7.25", 
+        "#timey": "7", 
         "name": "7 Songs", 
-        "time": "7.25"
+        "time": "7"
     }, 
     "6 Unused Keys in Gerudo Training Grounds": {
-        "difficulty": "9", 
+        "difficulty": "12", 
         "skill": "0.5", 
-        "#timey": "6.5", 
+        "#timey": "8.75", 
         "name": "6 Unused Keys in Gerudo Training Grounds", 
-        "time": "7"
+        "time": "9.25"
     }, 
     "Defeat a Skull Kid": {
         "difficulty": "1", 
@@ -882,11 +889,11 @@
         "time": "0.75"
     }, 
     "Forest Temple Boss Key": {
-        "difficulty": "14", 
+        "difficulty": "13", 
         "skill": "0.25", 
-        "#timey": "10.5", 
+        "#timey": "9.5", 
         "name": "Forest Temple Boss Key", 
-        "time": "10.75"
+        "time": "9.75"
     }, 
     "Beat the Forest Temple": {
         "difficulty": "7", 
@@ -896,18 +903,18 @@
         "time": "5"
     }, 
     "All 5 Skulltulas in Spirit Temple": {
-        "difficulty": "20", 
+        "difficulty": "19", 
         "skill": "0.75", 
-        "#timey": "14", 
+        "#timey": "13.75", 
         "name": "All 5 Skulltulas in Spirit Temple", 
-        "time": "14.75"
+        "time": "14.5"
     }, 
     "Free all 9 Gorons in Fire Temple": {
-        "difficulty": "20", 
+        "difficulty": "18", 
         "skill": "0.25", 
-        "#timey": "14.5", 
+        "#timey": "13.25", 
         "name": "Free all 9 Gorons in Fire Temple", 
-        "time": "14.75"
+        "time": "13.5"
     }, 
     "Exactly 20 Deku Sticks": {
         "difficulty": "1", 
@@ -919,51 +926,51 @@
     "Beat the Spirit Temple": {
         "difficulty": "25", 
         "skill": "1", 
-        "#timey": "18", 
+        "#timey": "17.5", 
         "name": "Beat the Spirit Temple", 
-        "time": "19"
+        "time": "18.5"
     }, 
     "8 Songs": {
-        "difficulty": "11", 
-        "skill": "", 
-        "#timey": "8.5", 
+        "difficulty": "12", 
+        "skill": "1", 
+        "#timey": "8.25", 
         "name": "8 Songs", 
-        "time": "8.5"
+        "time": "9.25"
     }, 
     "Defeat Volvagia": {
-        "difficulty": "17", 
+        "difficulty": "16", 
         "skill": "0.25", 
-        "#timey": "12.25", 
+        "#timey": "11.75", 
         "name": "Defeat Volvagia", 
-        "time": "12.5"
+        "time": "12"
     }, 
     "3 Tunics & 3 Boots": {
-        "difficulty": "16", 
+        "difficulty": "13", 
         "skill": "0.25", 
-        "#timey": "11.5", 
+        "#timey": "9.75", 
         "name": "3 Tunics & 3 Boots", 
-        "time": "11.75"
+        "time": "10"
     }, 
     "5 Unused Keys in Gerudo Training Grounds": {
-        "difficulty": "8", 
+        "difficulty": "9", 
         "skill": "0.25", 
-        "#timey": "5.75", 
+        "#timey": "6.75", 
         "name": "5 Unused Keys in Gerudo Training Grounds", 
-        "time": "6"
+        "time": "7"
     }, 
     "Get to the end of Shadow Trial": {
-        "difficulty": "22", 
+        "difficulty": "20", 
         "skill": "0.75", 
-        "#timey": "15.5", 
+        "#timey": "14", 
         "name": "Get to the end of Shadow Trial", 
-        "time": "16.25"
+        "time": "14.75"
     }, 
     "Get Bombchu chest in Spirit Temple": {
-        "difficulty": "16", 
+        "difficulty": "13", 
         "skill": "0.5", 
-        "#timey": "11.5", 
+        "#timey": "9", 
         "name": "Get Bombchu chest in Spirit Temple", 
-        "time": "12"
+        "time": "9.5"
     }, 
     "All 8 Kakariko area Skulltulas": {
         "difficulty": "8", 
@@ -980,18 +987,18 @@
         "time": "5.5"
     }, 
     "Frog's HP": {
-        "difficulty": "17", 
+        "difficulty": "15", 
         "skill": "0.25", 
-        "#timey": "12.25", 
+        "#timey": "11.25", 
         "name": "Frog's HP", 
-        "time": "12.5"
+        "time": "11.5"
     }, 
     "Water Temple Boss Key": {
-        "difficulty": "6", 
+        "difficulty": "7", 
         "skill": "0.25", 
-        "#timey": "4.25", 
+        "#timey": "5.25", 
         "name": "Water Temple Boss Key", 
-        "time": "4.5"
+        "time": "5.5"
     }, 
     "Bullet Bag (40)": {
         "difficulty": "7", 
@@ -1003,58 +1010,58 @@
     "Farore's Wind": {
         "difficulty": "15", 
         "skill": "", 
-        "#timey": "11.5", 
+        "#timey": "11.25", 
         "name": "Farore's Wind", 
-        "time": "11.5"
+        "time": "11.25"
     }, 
     "Green Gauntlets": {
-        "difficulty": "24", 
+        "difficulty": "23", 
         "skill": "", 
-        "#timey": "17.75", 
+        "#timey": "17", 
         "name": "Green Gauntlets", 
-        "time": "17.75"
+        "time": "17"
     }, 
     "3 Swords & 3 Shields": {
         "difficulty": "17", 
         "skill": "0.5", 
-        "#timey": "12.25", 
+        "#timey": "12", 
         "name": "3 Swords & 3 Shields", 
-        "time": "12.75"
+        "time": "12.5"
     }, 
     "Beat the Water Temple": {
-        "difficulty": "8", 
+        "difficulty": "9", 
         "skill": "0.25", 
-        "#timey": "6", 
+        "#timey": "6.25", 
         "name": "Beat the Water Temple", 
-        "time": "6.25"
+        "time": "6.5"
     }, 
     "Both HPs in Lost Woods": {
-        "difficulty": "23", 
+        "difficulty": "22", 
         "skill": "", 
-        "#timey": "17", 
+        "#timey": "16.25", 
         "name": "Both HPs in Lost Woods", 
-        "time": "17"
+        "time": "16.25"
     }, 
     "Map & Compass in Jabu-Jabu": {
-        "difficulty": "13", 
-        "skill": "", 
-        "#timey": "9.75", 
+        "difficulty": "11", 
+        "skill": "0.25", 
+        "#timey": "7.75", 
         "name": "Map & Compass in Jabu-Jabu", 
-        "time": "9.75"
+        "time": "8"
     }, 
     "Double Defense": {
         "difficulty": "13", 
         "skill": "", 
-        "#timey": "10", 
+        "#timey": "9.75", 
         "name": "Double Defense", 
-        "time": "10"
+        "time": "9.75"
     }, 
     "Ruto's Letter": {
-        "difficulty": "6", 
+        "difficulty": "5", 
         "skill": "", 
-        "#timey": "4.5", 
+        "#timey": "4", 
         "name": "Ruto's Letter", 
-        "time": "4.5"
+        "time": "4"
     }, 
     "Both Gerudo Valley HPs": {
         "difficulty": "5", 
@@ -1064,18 +1071,18 @@
         "time": "3.5"
     }, 
     "Beat the Shadow Temple": {
-        "difficulty": "12", 
+        "difficulty": "9", 
         "skill": "0.75", 
-        "#timey": "8.5", 
+        "#timey": "6", 
         "name": "Beat the Shadow Temple", 
-        "time": "9.25"
+        "time": "6.75"
     }, 
     "4 Songs": {
-        "difficulty": "6", 
+        "difficulty": "5", 
         "skill": "", 
-        "#timey": "4.25", 
+        "#timey": "4", 
         "name": "4 Songs", 
-        "time": "4.25"
+        "time": "4"
     }, 
     "Obtain all 8 Small Keys in Fire Temple": {
         "difficulty": "13", 
@@ -1092,25 +1099,25 @@
         "time": "8.5"
     }, 
     "Fairy Bow": {
-        "difficulty": "12", 
+        "difficulty": "11", 
         "skill": "0.25", 
-        "#timey": "9", 
+        "#timey": "7.75", 
         "name": "Fairy Bow", 
-        "time": "9.25"
+        "time": "8"
     }, 
     "All 4 Wasteland/ Colossus area Skulltulas": {
-        "difficulty": "16", 
-        "skill": "0.25", 
-        "#timey": "11.75", 
+        "difficulty": "13", 
+        "skill": "0.5", 
+        "#timey": "9.5", 
         "name": "All 4 Wasteland/ Colossus area Skulltulas", 
-        "time": "12"
+        "time": "10"
     }, 
     "Both Hyrule Field area Skulltulas": {
         "difficulty": "10", 
         "skill": "1", 
-        "#timey": "6.5", 
+        "#timey": "6.25", 
         "name": "Both Hyrule Field area Skulltulas", 
-        "time": "7.5"
+        "time": "7.25"
     }, 
     "Exactly 30 Deku Sticks": {
         "difficulty": "2", 
@@ -1120,32 +1127,32 @@
         "time": "1.5"
     }, 
     "6 Compasses": {
-        "difficulty": "20", 
+        "difficulty": "17", 
         "skill": "0.5", 
-        "#timey": "14.25", 
+        "#timey": "12.5", 
         "name": "6 Compasses", 
-        "time": "14.75"
+        "time": "13"
     }, 
     "All 5 Skulltulas in Fire Temple": {
-        "difficulty": "15", 
+        "difficulty": "16", 
         "skill": "0.5", 
-        "#timey": "11", 
+        "#timey": "11.5", 
         "name": "All 5 Skulltulas in Fire Temple", 
-        "time": "11.5"
+        "time": "12"
     }, 
     "Defeat King Dodongo": {
-        "difficulty": "5", 
+        "difficulty": "6", 
         "skill": "", 
-        "#timey": "4", 
+        "#timey": "4.5", 
         "name": "Defeat King Dodongo", 
-        "time": "4"
+        "time": "4.5"
     }, 
     "Double Magic": {
-        "difficulty": "13", 
+        "difficulty": "12", 
         "skill": "", 
-        "#timey": "9.5", 
+        "#timey": "9.25", 
         "name": "Double Magic", 
-        "time": "9.5"
+        "time": "9.25"
     }, 
     "3 Swords & 3 Boots": {
         "difficulty": "13", 
@@ -1176,25 +1183,25 @@
         "time": "5.75"
     }, 
     "Beat Jabu-Jabu's Belly": {
-        "difficulty": "17", 
+        "difficulty": "12", 
         "skill": "0.25", 
-        "#timey": "12.25", 
+        "#timey": "8.75", 
         "name": "Beat Jabu-Jabu's Belly", 
-        "time": "12.5"
+        "time": "9"
     }, 
     "4 Compasses": {
-        "difficulty": "9", 
+        "difficulty": "8", 
         "skill": "", 
-        "#timey": "7", 
+        "#timey": "6", 
         "name": "4 Compasses", 
-        "time": "7"
+        "time": "6"
     }, 
     "15 Different Skulltulas": {
-        "difficulty": "9", 
+        "difficulty": "7", 
         "skill": "0.5", 
-        "#timey": "6", 
+        "#timey": "4.5", 
         "name": "15 Different Skulltulas", 
-        "time": "6.5"
+        "time": "5"
     }, 
     "3 Skulltulas in Water Temple": {
         "difficulty": "13", 
@@ -1206,16 +1213,16 @@
     "3 Boots": {
         "difficulty": "11", 
         "skill": "0.25", 
-        "#timey": "8.25", 
+        "#timey": "8", 
         "name": "3 Boots", 
-        "time": "8.5"
+        "time": "8.25"
     }, 
     "Fire Temple Boss Key": {
-        "difficulty": "3", 
+        "difficulty": "4", 
         "skill": "", 
-        "#timey": "2.5", 
+        "#timey": "3", 
         "name": "Fire Temple Boss Key", 
-        "time": "2.5"
+        "time": "3"
     }, 
     "Quiver (40)": {
         "difficulty": "2", 
@@ -1227,30 +1234,30 @@
     "All 5 Skulltulas in Water Temple": {
         "difficulty": "22", 
         "skill": "0.75", 
-        "#timey": "15.75", 
+        "#timey": "15.5", 
         "name": "All 5 Skulltulas in Water Temple", 
-        "time": "16.5"
+        "time": "16.25"
     }, 
     "Get to the end of Forest Trial": {
         "difficulty": "25", 
         "skill": "0.5", 
-        "#timey": "18", 
+        "#timey": "18.25", 
         "name": "Get to the end of Forest Trial", 
-        "time": "18.5"
+        "time": "18.75"
     }, 
     "Defeat both Flare Dancers": {
-        "difficulty": "14", 
+        "difficulty": "15", 
         "skill": "0.25", 
-        "#timey": "10.5", 
+        "#timey": "11.25", 
         "name": "Defeat both Flare Dancers", 
-        "time": "10.75"
+        "time": "11.5"
     }, 
     "All 4 Market area Skulltulas": {
-        "difficulty": "23", 
+        "difficulty": "21", 
         "skill": "0.5", 
-        "#timey": "16.5", 
+        "#timey": "15.5", 
         "name": "All 4 Market area Skulltulas", 
-        "time": "17"
+        "time": "16"
     }, 
     "Defeat Morpha": {
         "difficulty": "8", 
@@ -1260,11 +1267,11 @@
         "time": "5.75"
     }, 
     "Defeat Barinade": {
-        "difficulty": "15", 
+        "difficulty": "12", 
         "skill": "0.25", 
-        "#timey": "10.75", 
+        "#timey": "8.5", 
         "name": "Defeat Barinade", 
-        "time": "11"
+        "time": "8.75"
     }, 
     "37th Heart Piece (Child Fortress)": {
         "difficulty": "8", 
@@ -1294,13 +1301,6 @@
         "name": "7 Magic Beans", 
         "time": "6.25"
     }, 
-    "Defeat Dark Link": {
-        "difficulty": "9", 
-        "skill": "0.25", 
-        "#timey": "6.75", 
-        "name": "Defeat Dark Link", 
-        "time": "7"
-    }, 
     "5 Magic Beans": {
         "difficulty": "3", 
         "skill": "", 
@@ -1311,22 +1311,22 @@
     "Light Arrows": {
         "difficulty": "18", 
         "skill": "", 
-        "#timey": "13.5", 
+        "#timey": "13.25", 
         "name": "Light Arrows", 
-        "time": "13.5"
+        "time": "13.25"
     }, 
     "Obtain all 5 Small Keys in Shadow Temple": {
         "difficulty": "20", 
         "skill": "0.25", 
-        "#timey": "15", 
+        "#timey": "14.5", 
         "name": "Obtain all 5 Small Keys in Shadow Temple", 
-        "time": "15.25"
+        "time": "14.75"
     }, 
     "Get to the end of Water Trial": {
-        "difficulty": "20", 
+        "difficulty": "18", 
         "skill": "0.5", 
-        "#timey": "14.5", 
+        "#timey": "13", 
         "name": "Get to the end of Water Trial", 
-        "time": "15"
+        "time": "13.5"
     }
 }
