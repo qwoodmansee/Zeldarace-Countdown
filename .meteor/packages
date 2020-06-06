@@ -34,7 +34,7 @@ aldeed:template-extension
 gwendall:body-events
 check@1.3.1
 jchristman:popout
-yanduarte:accounts-twitch
 dynamic-import
 underscore
 service-configuration
+qw-custom-accounts-twitch

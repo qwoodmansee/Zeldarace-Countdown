@@ -13,7 +13,7 @@ Template.SidebarLoggedOut.helpers({
 
 Template.SidebarLoggedOut.events({
     'click #twitch-login-link' : function() {
-        Meteor.loginWithTwitch({requestPermissions: []}, function (err) {
+        Meteor.loginWithTwitch({requestPermissions: ['user_read']}, function (err) {
             if (err) console.log('login failed: ' + err)
         });
     }
