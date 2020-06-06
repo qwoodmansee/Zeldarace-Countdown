@@ -111,7 +111,6 @@ Template.body.events({
         var lengthInMinutes = target.length.value;
         var weightsChoice = $('#weights-select').val();
         var difficultyChoice = $('#difficulty-slider').val();
-        console.log("Difficulty:" +  difficultyChoice);
         var numGoals = target.totalGoals.value;
         var numRequiredGoals = target.requiredGoals.value;
         var numPrechosenGoals = target.preChosen.value;

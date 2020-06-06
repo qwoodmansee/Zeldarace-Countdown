@@ -48,7 +48,6 @@ FlowRouter.route('/', {
     action: function(params) {
         Tracker.autorun(function() {
             if (!Meteor.userId()) {
-                console.log("username check failed");
                 BlazeLayout.render('MainLayout', {main:'WelcomeLayout'})
             } else if (Meteor.user() != null) {
                 FlowRouter.go('/' + Meteor.user().profile.name);
