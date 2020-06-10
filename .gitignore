@@ -1,3 +1,4 @@
 node_modules/
 .idea/
 imports/startup/server/accounts.js
+**/.DS_Store
