@@ -14,6 +14,7 @@ import '../../partialLayouts/GoalList/GoalList.js';
 import '../../partialLayouts/Scorecard/Scorecard.js';
 import '../../partialLayouts/MM_Scorecard/MM_Scorecard.js';
 import '../../partialLayouts/AdminTools/AdminTools.js';
+import '../../partialLayouts/TwitchStreamViewer/TwitchStreamViewer.js';
 import './TimerOwner.html';
 import './TimerOwner.css';
 
