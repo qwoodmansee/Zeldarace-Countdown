@@ -1,0 +1,9 @@
+<template name="TwitchStreamViewer">
+  <div class="row twitch-stream-container">
+    {{#each viewer in PageViewers}}
+      {{#if viewer.currentlyRacing}}
+          <iframe class="col s3" src="https://player.twitch.tv/?channel={{viewer.username}}&parent=zeldarace.com" frameborder="0" allowfullscreen="true" scrolling="no" height="360" width="640"></iframe>
+      {{/if}}
+    {{/each}}
+  </div>
+</template>
