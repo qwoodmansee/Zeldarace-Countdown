@@ -9,6 +9,10 @@ import {PageViewers} from "../../../api/pageViewers/PageViewers.js"
 import './GoalList.html'
 import './GoalList.css'
 
+const PRECHOSEN_GOAL_POINT_VALUE = 20;
+const NORMAL_GOAL_POINT_VALUE = 15;
+const SUPER_BONUS_VALUE = 50;
+
 //check equality in html
 Template.registerHelper('equals', function (a, b) {
     return a === b;
@@ -172,49 +176,54 @@ Template.GoalList.events({
                    // if goal is becoming incomplete
                    if (goals[i].complete) {
                        numGoalsComplete -= 1;
-                       // take away 20 points
-                       temp -= 20;
+
+                       if (numGoalsComplete < numGoalsRequired) {
+                        temp -= PRECHOSEN_GOAL_POINT_VALUE;
+                        } else {
+                            temp -= PRECHOSEN_GOAL_POINT_VALUE - NORMAL_GOAL_POINT_VALUE;
+                        }
 
                        if ((numGoalsComplete == numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
-                           temp -= 50;
+                           temp -= SUPER_BONUS_VALUE;
                        }
                        goals[i].complete = false;
                    } else {
-                       numGoalsComplete += 1;
-                       // if the goal is becoming complete add 20 points
-                       temp += 20;
-                       // if the number of required goals was already met
+                        // goal is becoming complete
+                        numGoalsComplete += 1;
+
+                        if (numGoalsComplete <= numGoalsRequired) {
+                            temp += PRECHOSEN_GOAL_POINT_VALUE;
+                        } else {
+                            temp += PRECHOSEN_GOAL_POINT_VALUE - NORMAL_GOAL_POINT_VALUE;
+                        }
 
                        if ((numGoalsComplete == numGoalsTotal) && numGoalsTotal > numGoalsRequired * 2) {
-                           temp += 50;
+                           temp += SUPER_BONUS_VALUE;
                        }
                        goals[i].inProgress = false;
                        goals[i].complete = true;
                    }
-               } else {
-                   // if the goal is not required
-                   // else if the goal is becoming incomplete and the required number of goals (after removal) is not met
+               } else { // goal is not required
                    if (goals[i].complete) {
+                       // goal is becoming incomplete
                        numGoalsComplete -= 1;
-                       if (numGoalsComplete < numGoalsRequired - numPrechosen) {
-                           // take away 15 points
-                           temp -= 15;
-                       }
+                       if (numGoalsComplete < numGoalsRequired) {
+                            // take away points
+                            temp -= NORMAL_GOAL_POINT_VALUE;
+                        }
                        if ((numGoalsComplete == numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
-                           temp -= 50;
+                           temp -= SUPER_BONUS_VALUE;
                        }
                        goals[i].complete = false;
                    } else if (!goals[i].complete) {
+                        // goal is becoming complete
                         numGoalsComplete += 1;
-                        // if the goal is becoming complete
-                        if (numGoalsComplete - 1 < numGoalsRequired - numPrechosen) {
-                            // and we have not met the number of required goals
-                            // give 15 points
-                            temp += 15;
+                        if (numGoalsComplete - 1 < numGoalsRequired) {
+                            temp += NORMAL_GOAL_POINT_VALUE;
                         }
-                       if ((numGoalsComplete == numGoalsTotal) && numGoalsTotal > numGoalsRequired * 2) {
-                           temp += 50;
-                       }
+                        if ((numGoalsComplete == numGoalsTotal) && numGoalsTotal > numGoalsRequired * 2) {
+                            temp += SUPER_BONUS_VALUE;
+                        }
                        goals[i].inProgress = false;
                        goals[i].complete = true;
                    }
@@ -237,9 +246,9 @@ Template.GoalList.events({
                 if (goals[i].complete) {
                     var temp = Session.get('score');
                     if (goals[i].required) {
-                        temp -= 20;
+                        temp -= PRECHOSEN_GOAL_POINT_VALUE;
                     } else {
-                        temp -= 15;
+                        temp -= NORMAL_GOAL_POINT_VALUE;
                     }
                     Session.set('score', temp);
                     goals[i].complete = false;
@@ -340,21 +349,21 @@ Template.StreamCard.events({
                 if (goals[i].required) {
                     // if goal is becoming incomplete
                     if (goals[i].complete) {
-                        // take away 20 points
-                        temp -= 20;
+                        // take away points
+                        temp -= PRECHOSEN_GOAL_POINT_VALUE;
                         // if the number of required goals is still met
                         if (numGoalsComplete - 1 >= numGoalsRequired) {
-                            //give back 15 points because of another complete goal
-                            temp += 15;
+                            //give back points because of another complete goal
+                            temp += NORMAL_GOAL_POINT_VALUE;
                         }
                         goals[i].complete = false;
                     } else{
-                        // if the goal is becoming complete add 20 points
-                        temp += 20;
+                        // if the goal is becoming complete add points
+                        temp += PRECHOSEN_GOAL_POINT_VALUE;
                         // if the number of required goals was already met
                         if (numGoalsComplete >= numGoalsRequired) {
-                            // take away 15 points from one of the blue goals
-                            temp -= 15;
+                            // take away points from one of the blue goals
+                            temp -= NORMAL_GOAL_POINT_VALUE;
                         }
                         goals[i].inProgress = false;
                         goals[i].complete = true;
@@ -364,8 +373,8 @@ Template.StreamCard.events({
                     // else if the goal is becoming incomplete and the required number of goals (after removal) is not met
                     if (goals[i].complete) {
                         if (numGoalsComplete - 1 < numGoalsRequired) {
-                            // take away 15 points
-                            temp -= 15;
+                            // take away points
+                            temp -= NORMAL_GOAL_POINT_VALUE;
                         }
                         goals[i].complete = false;
                     } else if (!goals[i].complete) {
@@ -373,8 +382,8 @@ Template.StreamCard.events({
                         // if the goal is becoming complete
                         if (numGoalsComplete < numGoalsRequired) {
                             // and we have not met the number of required goals
-                            // give 15 points
-                            temp += 15;
+                            // give points
+                            temp += NORMAL_GOAL_POINT_VALUE;
                         }
                         goals[i].inProgress = false;
                         goals[i].complete = true;
@@ -383,9 +392,9 @@ Template.StreamCard.events({
 
                 //add bonus for completing all goals if applicable
                 if (numGoalsComplete == (numGoalsTotal - 1) && numGoalsTotal > numGoalsRequired * 2) {
-                    temp += 50;
+                    temp += SUPER_BONUS_VALUE;
                 } else if (numGoalsComplete == numGoalsTotal && numGoalsTotal > numGoalsRequired * 2) {
-                    temp -= 50;
+                    temp -= SUPER_BONUS_VALUE;
                 }
 
                 Session.set('score', temp);
@@ -405,9 +414,9 @@ Template.StreamCard.events({
                 if (goals[i].complete) {
                     var temp = Session.get('score');
                     if (goals[i].required) {
-                        temp -= 20;
+                        temp -= PRECHOSEN_GOAL_POINT_VALUE;
                     } else {
-                        temp -= 15;
+                        temp -= NORMAL_GOAL_POINT_VALUE;
                     }
                     Session.set('score', temp);
                     goals[i].complete = false;
