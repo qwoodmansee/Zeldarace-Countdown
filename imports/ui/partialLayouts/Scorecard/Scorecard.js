@@ -6,38 +6,15 @@ import {PageViewers} from '../../../api/pageViewers/PageViewers.js';
 import './Scorecard.html'
 import './Scorecard.css'
 
-const itemMenuItems = [
-    {name: "AdultsWallet"},
-    {name: "BossKey"},
-    {name: "BulletBag30"},
-    {name: "BulletBag40"},
-    {name: "BulletBag50"},
-    {name: "Compass"},
-    {name: "DekuSeeds"},
-    {name: "DungeonMap"},
-    {name: "EyeballFrog"},
-    {name: "Eyedrops"},
-    {name: "FishingPole"},
-    {name: "GiantsWallet"},
-    {name: "HeartContainer"},
-    {name: "HeartPiece"},
-    {name: "Quiver30"},
-    {name: "Quiver40"},
-    {name: "RupeeIcon"},
-    {name: "SilverScale"},
-    {name: "SmallKey"},
-];
-
-
 Template.Scorecard.onCreated(function() {
     var self = this;
 
-    self.generateRandomNumber = function(positiveMin, max, allowNegative) {
-        var num = Math.floor(Math.random()*max) + positiveMin; // this will get a number between positive min and max;
+    self.generateRandomNumber = function (positiveMin, max, allowNegative) {
+        var num = Math.floor(Math.random() * max) + positiveMin; // this will get a number between positive min and max;
 
         if (allowNegative) {
-            num *= Math.random()*2 > .4 ? 1 : -1; // this will add minus sign in 50% of cases
-            if (num < 1 && Math.random()*2 > 1.5) {
+            num *= Math.random() * 2 > .4 ? 1 : -1; // this will add minus sign in 50% of cases
+            if (num < 1 && Math.random() * 2 > 1.5) {
                 //add some zeros on occasion
                 num = 0;
             }
@@ -46,72 +23,88 @@ Template.Scorecard.onCreated(function() {
     };
 
     //observables
+    self.scorecardEditable = new ReactiveVar(false);
     self.heartContainers = new ReactiveVar(3);
     self.goldSkulls = new ReactiveVar(0);
     self.rupees = new ReactiveVar(0);
+    self.score = new ReactiveVar(0);
     self.scorecardValues = new ReactiveVar([]);
-
-    // if there was a scorecard owner passed in
-    if (Template.currentData().scorecardOwner != undefined && Template.currentData().scorecardOwner != null) {
-        self.scorecardOwner = Template.currentData().scorecardOwner
-        self.subscribe('singleTimer',  FlowRouter.getParam('timerOwner'));
-        self.subscribe('pageViewers', {
-            onReady: function () {
-                if (Meteor.userId()) {
-                    var viewers = PageViewers.findOne({
-                        username: self.scorecardOwner,
-                        ownerUsername: FlowRouter.getParam('timerOwner')
-                    });
-                    if (viewers != null) {
-                        self.scorecardValues.set(viewers.scorecardValues);
-                    }
-                }
-
+    self.scorecardOwner = new ReactiveVar('');
+    self.timerOwner = new ReactiveVar('');
+    self.autorun(function() {
+        let score = self.score.get();
+        let scorecardValues = self.scorecardValues.get();
+        if (Meteor.userId() && self.scorecardOwner.get() != undefined && self.scorecardOwner.get() !== null
+            && self.scorecardOwner.get() != '') {
+            var viewers = PageViewers.findOne({
+                username: self.timerOwner.get(),
+                ownerUsername: self.timerOwner.get()
+            });
+            if (viewers !== undefined && viewers !== null) {
+                PageViewers.update(viewers._id, {
+                    $set: {'score': score, 'scorecardValues': scorecardValues}
+                });
             }
-        });
-    } else if (FlowRouter.getParam("username") != undefined && FlowRouter.getParam("username") != null && FlowRouter.getParam("username") != "") {
-        // if we are on a race page
-        self.subscribe('singleTimer',  FlowRouter.getParam('username'));
-        self.subscribe('pageViewers', {
-            onReady: function () {
-                if (Meteor.userId()) {
-                    var viewers = PageViewers.findOne({
-                        username: Meteor.user().profile.name,
-                        ownerUsername: FlowRouter.getParam('username')
-                    });
-                    if (viewers != null) {
-                        self.scorecardValues.set(viewers.scorecardValues);
-                    }
-                }
+        }
+    });
+    // helpers which help determine what type of scorecard we want
+    self.onScorecardViewer = function(currentData) {
+        return currentData.scorecardViewerScorecard !== undefined && currentData.scorecardViewerScorecard !== null
+            && currentData.scorecardViewerScorecard === true;
+    };
 
-            }
-        });
-        Session.set('score', 0);
-    } else if (FlowRouter.getParam("scorecardOwner") != undefined && FlowRouter.getParam("scorecardOwner") != null
-                && FlowRouter.getParam("scorecardOwner") != "" && Meteor.user() != null
-                && Meteor.user().profile.name === FlowRouter.getParam("scorecardOwner")) {
-        self.subscribe('singleTimer',  FlowRouter.getParam('timerOwner'));
-        self.subscribe('pageViewers', {
-            onReady: function () {
-                if (Meteor.userId()) {
-                    var viewers = PageViewers.findOne({
-                        username: FlowRouter.getParam("scorecardOwner"),
-                        ownerUsername: FlowRouter.getParam('timerOwner')
-                    });
-                    if (viewers != null) {
-                        self.scorecardValues.set(viewers.scorecardValues);
-                    }
-                }
+    self.timerOwnerPassedIn = function(currentData) {
+        return currentData.timerOwner !== undefined && currentData.timerOwner !== null && currentData.timerOwner !== '';
+    };
 
-            }
-        });
+    self.scorecardOwnerPassedIn = function(currentData) {
+        return currentData.scorecardOwner !== undefined && currentData.scorecardOwner !== null && currentData.scorecardOwner !== '';
+    };
+
+    if (self.timerOwnerPassedIn(Template.currentData())) {
+        self.timerOwner.set(Template.currentData().timerOwner);
+    } else {
+        self.timerOwner.set(FlowRouter.getParam('username')); // after updates, this should never happen
     }
+
+    if (self.scorecardOwnerPassedIn(Template.currentData())) {
+        self.scorecardOwner.set(Template.currentData().scorecardOwner);
+    } else {
+        self.scorecardOwner.set(''); // this would be on a race page with no user logged in
+    }
+
+    if (self.onScorecardViewer(Template.currentData()) && self.scorecardOwnerPassedIn(Template.currentData())) {
+        // if we are on the scorecard viewer page and have a scorecard viewer
+        self.scorecardEditable.set(false);
+    } else {
+        self.scorecardEditable.set(true);
+    }
+
+    self.subscribe('singleTimer',  self.timerOwner.get());
+    self.subscribe('pageViewers', {
+        onReady: function () {
+            if (self.scorecardOwner.get() !== undefined && self.scorecardOwner.get() !== null && self.scorecardOwner.get() !== '' &&
+                self.timerOwner.get() !== undefined && self.timerOwner.get() !== null && self.timerOwner.get() !== '') {
+                let viewers = PageViewers.findOne({
+                    username: self.scorecardOwner.get(),
+                    ownerUsername: self.timerOwner.get()
+                });
+                if (viewers != null) {
+                    self.scorecardValues.set(viewers.scorecardValues);
+                }
+            }
+        }
+    });
 });
 
 Template.Scorecard.helpers({
 
+    ScorecardEditable() {
+        return Template.instance().scorecardEditable.get();
+    },
+
     CurrentScore() {
-        return Session.get('score');
+        return Template.instance().score.get();
     },
 
     // returns whether or not a scorecard item has been obtained based on it's index
@@ -328,71 +321,124 @@ Template.Scorecard.onRendered(function() {
 
 Template.Scorecard.events({
     'click .scorecard-item' : function(event) {
-        var object =  $(event.currentTarget).children('img');
-        if (object.hasClass('collected')) {
-            object.removeClass('collected');
-            Session.set('score', Session.get('score') - parseInt( $(event.currentTarget)[0].dataset.weight))
-        } else {
-            object.addClass('collected');
-            Session.set('score', Session.get('score') + parseInt( $(event.currentTarget)[0].dataset.weight))
+        if (Template.instance().scorecardEditable.get() === true) {
+            let scorecardIndex = parseInt(event.currentTarget.dataset.index);
+            if (Meteor.userId()) {
+                var viewers = PageViewers.findOne({
+                    username: Template.instance().scorecardOwner.get(),
+                    ownerUsername: Template.instance().scorecardOwner.get()
+                });
+                if (viewers !== undefined && viewers !== null) {
+                    let values = viewers.scorecardValues;
+                    let score = Template.instance().score.get();
+                    if (values[scorecardIndex] === 1) {
+                        values[scorecardIndex] = 0;
+                        score -= parseInt( $(event.currentTarget)[0].dataset.weight);
+                    } else {
+                        values[scorecardIndex] = 1;
+                        score += parseInt( $(event.currentTarget)[0].dataset.weight);
+                    }
+                    Template.instance().scorecardValues.set(values);
+                    Template.instance().score.set(score);
+                }
+            } else {
+                let values = Template.instance().scorecardValues.get();
+                let score = Template.instance().score.get();
+                if (values[scorecardIndex] === 1) {
+                    values[scorecardIndex] = 0;
+                    score -= parseInt( $(event.currentTarget)[0].dataset.weight);
+                } else {
+                    values[scorecardIndex] = 1;
+                    score += parseInt( $(event.currentTarget)[0].dataset.weight);
+                }
+                Template.instance().score.set(score);
+            }
+
+            var object =  $(event.currentTarget).children('img');
+            if (object.hasClass('collected')) {
+                object.removeClass('collected');
+                Session.set('score', Session.get('score') - parseInt( $(event.currentTarget)[0].dataset.weight))
+            } else {
+                object.addClass('collected');
+                Session.set('score', Session.get('score') + parseInt( $(event.currentTarget)[0].dataset.weight))
+            }
         }
     },
 
    'click #score-reset-button' : function() {
-       $('.scorecard-item').children('img').removeClass('collected');
-       Session.set('score', 0);
-       Template.instance().rupees.set(0);
-       Template.instance().heartContainers.set(3);
-       Template.instance().goldSkulls.set(0);
+       if (Template.instance().scorecardEditable.get()) {
+           $('.scorecard-item').children('img').removeClass('collected');
+           let clearedArray = Template.instance().scorecardValues.get().map(function() {
+              return 0;
+           });
+
+           Template.instance().score.set(0);
+           Template.instance().rupees.set(0);
+           Template.instance().heartContainers.set(3);
+           Template.instance().goldSkulls.set(0);
+       }
    },
 
    'click #subtract-heart' : function(){
-       var temp = Template.instance().heartContainers.get();
-       Template.instance().heartContainers.set(temp - 1);
-       temp = Session.get('score');
-       Session.set('score', temp - 1);
+       if (Template.instance().scorecardEditable.get()) {
+           var temp = Template.instance().heartContainers.get();
+           Template.instance().heartContainers.set(temp - 1);
+           temp = Template.instance().score.get();
+           Template.instance().score.set(temp - 1);
+       }
    },
 
    'click #add-heart' : function(){
-       var temp = Template.instance().heartContainers.get();
-       Template.instance().heartContainers.set(temp + 1);
-       temp = Session.get('score');
-       Session.set('score', temp + 1);
+       if (Template.instance().scorecardEditable.get()) {
+           var temp = Template.instance().heartContainers.get();
+           Template.instance().heartContainers.set(temp + 1);
+           temp = Template.instance().score.get();
+           Template.instance().score.set(temp + 1);
+       }
    },
 
    'click #subtract-goldSkull' : function(){
-       var temp = Template.instance().goldSkulls.get();
-       Template.instance().goldSkulls.set(temp - 1);
-       if ((temp) % 3 === 0) {
-           temp = Session.get('score');
-           Session.set('score', temp - 1);
+       if (Template.instance().scorecardEditable.get()) {
+           var temp = Template.instance().goldSkulls.get();
+           Template.instance().goldSkulls.set(temp - 1);
+           if ((temp) % 3 === 0) {
+               temp = Template.instance().score.get();
+               Template.instance().score.set(temp - 1);
+           }
        }
    },
 
    'click #add-goldSkull' : function(){
-       var temp = Template.instance().goldSkulls.get();
-       Template.instance().goldSkulls.set(temp + 1);
-       if ((temp + 1) % 3 === 0) {
-           temp = Session.get('score');
-           Session.set('score', temp + 1);
+       if (Template.instance().scorecardEditable.get()) {
+
+           var temp = Template.instance().goldSkulls.get();
+           Template.instance().goldSkulls.set(temp + 1);
+           if ((temp + 1) % 3 === 0) {
+               temp = Template.instance().score.get();
+               Template.instance().score.set(temp + 1);
+           }
        }
    },
 
     'click #subtract-100rupee' : function(){
-        var temp = Template.instance().rupees.get();
-        if (temp > 0){
-            Template.instance().rupees.set(temp - 100);
-            temp = Session.get('score');
-            Session.set('score', temp - 1);
+        if (Template.instance().scorecardEditable.get()) {
+            var temp = Template.instance().rupees.get();
+            if (temp > 0) {
+                Template.instance().rupees.set(temp - 100);
+                temp = Template.instance().score.get();
+                Template.instance().score.set(temp - 1);
+            }
         }
     },
 
     'click #add-100rupee' : function(){
-        var temp = Template.instance().rupees.get();
-        if (temp < 500) {
-            Template.instance().rupees.set(temp + 100);
-            temp = Session.get('score');
-            Session.set('score', temp + 1);
+        if (Template.instance().scorecardEditable.get()) {
+            var temp = Template.instance().rupees.get();
+            if (temp < 500) {
+                Template.instance().rupees.set(temp + 100);
+                temp = Template.instance().score.get();
+                Template.instance().score.set(temp + 1);
+            }
         }
     },
 

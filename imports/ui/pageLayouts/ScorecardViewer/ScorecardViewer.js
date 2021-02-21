@@ -65,6 +65,10 @@ Template.ScorecardViewer.helpers({
         return FlowRouter.getParam('scorecardOwner')
     },
 
+    TimerOwner() {
+        return FlowRouter.getParam('timerOwner')
+    },
+
     viewers() {
         return Template.instance().timerViewers.get();
     }
