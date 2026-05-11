@@ -1,7 +1,7 @@
 OoT Countdown Current Status
 
 ----------------------------------------------------------------------------------
-**Important Update:
+**Important Update:**
 
 This project is for legacy system understanding and history. Please come join us for the modernized version of Countdown at sageraces.com
 
