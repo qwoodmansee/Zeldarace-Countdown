@@ -523,10 +523,10 @@ Template.StreamLayoutOwnerPage.events({
             var message = FlowRouter.getParam("username") + "'s timer just started! Visit http://zeldarace.com/" + FlowRouter.getParam("username")
                 + " to check it out";
             var formData = new FormData();
-            formData.append("content", message);
-            var request = new XMLHttpRequest();
-            request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
-            request.send(formData);
+            //formData.append("content", message);
+            //var request = new XMLHttpRequest();
+            //request.open("POST", "https://discordapp.com/api/webhooks/316013498855325706/_Jkc8S4zzMBnXNQUr_RQCLmV0M7CMrXFF_BlhXStxm221-EfU_prHLbNiwtkp5BLhJRS");
+            //request.send(formData);
         }
     },
 

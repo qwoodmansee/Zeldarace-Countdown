@@ -329,7 +329,12 @@ Template.TimerOwner.helpers({
 
     UserIsAdministrator() {
         return Meteor.user().profile.name === "qwoodmansee" || Meteor.user().profile.name === "qwoodmanseedev";
-    }
+    },
+
+    TimerOwner() {
+        return FlowRouter.getParam('username');
+    },
+
 });
 
 Template.TimerOwner.events({
